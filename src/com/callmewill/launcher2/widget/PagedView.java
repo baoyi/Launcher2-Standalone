@@ -277,7 +277,7 @@ public abstract class PagedView extends ViewGroup implements ViewGroup.OnHierarc
      *
      * @return The index of the currently displayed page.
      */
-    public int getCurrentPage() {
+  public  int getCurrentPage() {
         return mCurrentPage;
     }
     int getNextPage() {
@@ -288,11 +288,11 @@ public abstract class PagedView extends ViewGroup implements ViewGroup.OnHierarc
         return getChildCount();
     }
 
-    View getPageAt(int index) {
+    public View getPageAt(int index) {
         return getChildAt(index);
     }
 
-    protected int indexToPage(int index) {
+    public int indexToPage(int index) {
         return index;
     }
 
@@ -1503,7 +1503,7 @@ public abstract class PagedView extends ViewGroup implements ViewGroup.OnHierarc
         snapToPage(whichPage, delta, duration);
     }
 
-    protected void snapToPage(int whichPage) {
+    public void snapToPage(int whichPage) {
         snapToPage(whichPage, PAGE_SNAP_ANIMATION_DURATION);
     }
 

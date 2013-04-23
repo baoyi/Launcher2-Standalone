@@ -603,11 +603,11 @@ public class CellLayout extends ViewGroup {
         mInterceptTouchListener = listener;
     }
 
-    int getCountX() {
+    public int getCountX() {
         return mCountX;
     }
 
-    int getCountY() {
+    public int getCountY() {
         return mCountY;
     }
 

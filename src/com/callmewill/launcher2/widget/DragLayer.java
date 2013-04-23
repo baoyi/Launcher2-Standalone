@@ -740,12 +740,12 @@ public class DragLayer extends FrameLayout implements ViewGroup.OnHierarchyChang
     private Drawable mLeftHoverDrawable;
     private Drawable mRightHoverDrawable;
 
-    void onEnterScrollArea(int direction) {
+    public void onEnterScrollArea(int direction) {
         mInScrollArea = true;
         invalidate();
     }
 
-    void onExitScrollArea() {
+    public void onExitScrollArea() {
         mInScrollArea = false;
         invalidate();
     }

@@ -124,7 +124,7 @@ public class ButtonDropTarget extends TextView implements DropTarget, DragContro
         outRect.bottom += mBottomDragPadding;
     }
 
-    Rect getIconRect(int itemWidth, int itemHeight, int drawableWidth, int drawableHeight) {
+    protected Rect getIconRect(int itemWidth, int itemHeight, int drawableWidth, int drawableHeight) {
         DragLayer dragLayer = mLauncher.getDragLayer();
 
         // Find the rect to animate to (the view is center aligned)

@@ -31,12 +31,12 @@ import android.util.Log;
 /**
  * Represents a launchable icon on the workspaces and in folders.
  */
-class ShortcutInfo extends ItemInfo {
+public class ShortcutInfo extends ItemInfo {
 
     /**
      * The intent used to start the application.
      */
-    Intent intent;
+    public Intent intent;
 
     /**
      * Indicates whether the icon comes from an application's resource (if false)
@@ -99,7 +99,7 @@ class ShortcutInfo extends ItemInfo {
 
     /** Returns the package name that the shortcut's intent will resolve to, or an empty string if
      *  none exists. */
-    String getPackageName() {
+    public String getPackageName() {
         return super.getPackageName(intent);
     }
 
