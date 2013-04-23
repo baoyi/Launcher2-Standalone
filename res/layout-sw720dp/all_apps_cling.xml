@@ -43,4 +43,4 @@
                 android:onClick="dismissAllAppsCling" />
         </LinearLayout>
     </FrameLayout>
-</com.callmewill.launcher2.Cling>
+</com.callmewill.launcher2.widget.Cling>

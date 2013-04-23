@@ -30,4 +30,4 @@
     <com.callmewill.launcher2.widget.BubbleTextView
         android:id="@+id/folder_icon_name"
         style="@style/WorkspaceIcon.Landscape.Folder"/>
-</com.callmewill.launcher2.FolderIcon>
+</com.callmewill.launcher2.widget.FolderIcon>

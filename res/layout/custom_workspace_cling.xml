@@ -29,4 +29,4 @@
         android:gravity="left"
         android:layout_gravity="bottom|left"
     />
-</com.callmewill.launcher2.Cling>
+</com.callmewill.launcher2.widget.Cling>

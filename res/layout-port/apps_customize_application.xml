@@ -16,7 +16,7 @@
 
 <com.callmewill.launcher2.widget.PagedViewIcon
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:launcher="http://schemas.android.com/apk/res/com.callmewill.launcher2"
+    xmlns:launcher="http://schemas.android.com/apk/res/com.callmewill.launcher2.widget"
 
     style="@style/WorkspaceIcon.Portrait.AppsCustomize"
 

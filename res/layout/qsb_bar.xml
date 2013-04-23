@@ -30,4 +30,4 @@
         <include
             layout="@layout/drop_target_bar" />
     </LinearLayout>
-</com.callmewill.launcher2.SearchDropTargetBar>
+</com.callmewill.launcher2.widget.SearchDropTargetBar>

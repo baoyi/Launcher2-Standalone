@@ -61,7 +61,7 @@
         <include android:id="@+id/cell3" layout="@layout/workspace_screen" />
         <include android:id="@+id/cell4" layout="@layout/workspace_screen" />
         <include android:id="@+id/cell5" layout="@layout/workspace_screen" />
-    </com.callmewill.launcher2.Workspace>
+    </com.callmewill.launcher2.widget.Workspace>
 
     <include layout="@layout/hotseat"
         android:id="@+id/hotseat"
@@ -99,4 +99,4 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="gone" />
-</com.callmewill.launcher2.DragLayer>
+</com.callmewill.launcher2.widget.DragLayer>

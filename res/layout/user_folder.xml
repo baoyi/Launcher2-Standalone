@@ -52,4 +52,4 @@
         android:gravity="center_horizontal"
         android:singleLine="true"
         android:imeOptions="flagNoExtractUi"/>
-</com.callmewill.launcher2.Folder>
+</com.callmewill.launcher2.widget.Folder>

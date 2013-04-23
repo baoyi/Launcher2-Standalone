@@ -33,4 +33,4 @@
         launcher:widthGap="@dimen/hotseat_width_gap"
         launcher:heightGap="@dimen/hotseat_height_gap"
         launcher:maxGap="@dimen/hotseat_width_gap" />
-</com.callmewill.launcher2.Hotseat>
+</com.callmewill.launcher2.widget.Hotseat>

@@ -43,7 +43,7 @@
             android:layout_height="match_parent"
             android:src="@drawable/ic_home_search_normal_holo"
             android:adjustViewBounds="true" />
-    </com.callmewill.launcher2.HolographicLinearLayout>
+    </com.callmewill.launcher2.widget.HolographicLinearLayout>
 
     <!-- Voice search icon -->
     <com.callmewill.launcher2.widget.HolographicLinearLayout
@@ -67,5 +67,5 @@
             android:layout_height="match_parent"
             android:src="@drawable/ic_home_voice_search_holo"
             android:adjustViewBounds="true" />
-    </com.callmewill.launcher2.HolographicLinearLayout>
+    </com.callmewill.launcher2.widget.HolographicLinearLayout>
 </RelativeLayout>
