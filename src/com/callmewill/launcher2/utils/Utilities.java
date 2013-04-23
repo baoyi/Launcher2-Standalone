@@ -40,7 +40,7 @@ import com.callmewill.launcher2.R.dimen;
 /**
  * Various utilities shared amongst the Launcher's classes.
  */
-final class Utilities {
+public final class Utilities {
     @SuppressWarnings("unused")
     private static final String TAG = "Launcher.Utilities";
 
@@ -92,7 +92,7 @@ final class Utilities {
     /**
      * Returns a bitmap suitable for the all apps view.
      */
-    static Bitmap createIconBitmap(Drawable icon, Context context) {
+    public  static Bitmap createIconBitmap(Drawable icon, Context context) {
         synchronized (sCanvas) { // we share the statics :-(
             if (sIconWidth == -1) {
                 initStatics(context);
@@ -200,7 +200,7 @@ final class Utilities {
      * @return A thumbnail for the specified bitmap or the bitmap itself if the
      *         thumbnail could not be created.
      */
-    static Bitmap resampleIconBitmap(Bitmap bitmap, Context context) {
+   public  static Bitmap resampleIconBitmap(Bitmap bitmap, Context context) {
         synchronized (sCanvas) { // we share the statics :-(
             if (sIconWidth == -1) {
                 initStatics(context);

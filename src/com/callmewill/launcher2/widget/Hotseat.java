@@ -89,7 +89,7 @@ public class Hotseat extends FrameLayout {
     }
 
     /* Get the orientation invariant order of the item in the hotseat for persistence. */
-    int getOrderInHotseat(int x, int y) {
+    public int getOrderInHotseat(int x, int y) {
         return hasVerticalHotseat() ? (mContent.getCountY() - y - 1) : x;
     }
     /* Get the orientation specific coordinates given an invariant order in the hotseat. */

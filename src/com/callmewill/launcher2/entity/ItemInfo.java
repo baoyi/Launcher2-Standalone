@@ -24,6 +24,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.util.Log;
 
+import com.callmewill.launcher2.provider.LauncherSettings;
 import com.callmewill.launcher2.receiver.LauncherModel;
 
 /**
@@ -97,7 +98,7 @@ public class ItemInfo {
     /**
      * Title of the item
      */
-    CharSequence title;
+    public   CharSequence title;
 
     /**
      * The position of the item in a drag-and-drop operation.
@@ -155,7 +156,7 @@ public class ItemInfo {
         values.put(LauncherSettings.Favorites.CELLY, cellY);
     }
 
-    static byte[] flattenBitmap(Bitmap bitmap) {
+   public  static byte[] flattenBitmap(Bitmap bitmap) {
         // Try go guesstimate how much space the icon will take when serialized
         // to avoid unnecessary allocations/copies during the write.
         int size = bitmap.getWidth() * bitmap.getHeight() * 4;

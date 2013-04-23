@@ -2847,7 +2847,7 @@ public class CellLayout extends ViewGroup {
         return findVacantCell(vacant, spanX, spanY, mCountX, mCountY, mOccupied);
     }
 
-    static boolean findVacantCell(int[] vacant, int spanX, int spanY,
+    public static boolean findVacantCell(int[] vacant, int spanX, int spanY,
             int xCount, int yCount, boolean[][] occupied) {
 
         for (int y = 0; y < yCount; y++) {
@@ -3010,12 +3010,14 @@ out:            for (int i = x; i < x + spanX - 1 && x < xCount; i++) {
 
         // X coordinate of the view in the layout.
         @ViewDebug.ExportedProperty
+		public
         int x;
         // Y coordinate of the view in the layout.
         @ViewDebug.ExportedProperty
+		public
         int y;
 
-        boolean dropped;
+        public boolean dropped;
 
         public LayoutParams(Context c, AttributeSet attrs) {
             super(c, attrs);

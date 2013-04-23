@@ -77,14 +77,14 @@ public interface DropTarget {
             launcher.getDragController().addDragListener(this);
         }
 
-        void onDragEnter() {
+        public void onDragEnter() {
             dragParity++;
             if (dragParity != 1) {
                 Log.e(TAG, "onDragEnter: Drag contract violated: " + dragParity);
             }
         }
 
-        void onDragExit() {
+        public void onDragExit() {
             dragParity--;
             if (dragParity != 0) {
                 Log.e(TAG, "onDragExit: Drag contract violated: " + dragParity);

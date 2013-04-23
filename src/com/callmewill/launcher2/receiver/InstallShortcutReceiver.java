@@ -31,6 +31,7 @@ import com.callmewill.launcher2.R.string;
 import com.callmewill.launcher2.entity.ItemInfo;
 import com.callmewill.launcher2.entity.ShortcutInfo;
 import com.callmewill.launcher2.provider.LauncherSettings;
+import com.callmewill.launcher2.provider.LauncherSettings.Favorites;
 import com.callmewill.launcher2.widget.CellLayout;
 
 import java.util.ArrayList;

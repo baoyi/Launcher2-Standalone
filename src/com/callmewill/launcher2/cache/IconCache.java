@@ -16,6 +16,8 @@
 
 package com.callmewill.launcher2.cache;
 
+import java.util.HashMap;
+
 import android.app.ActivityManager;
 import android.content.ComponentName;
 import android.content.Context;
@@ -27,8 +29,6 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
-
-import java.util.HashMap;
 
 import com.callmewill.launcher2.LauncherApplication;
 import com.callmewill.launcher2.entity.ApplicationInfo;

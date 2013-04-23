@@ -29,7 +29,7 @@ public class LauncherSettings {
          * Descriptive name of the gesture that can be displayed to the user.
          * <P>Type: TEXT</P>
          */
-        static final String TITLE = "title";
+		public   static final String TITLE = "title";
 
         /**
          * The Intent URL of the gesture, describing what it points to. This
@@ -37,68 +37,68 @@ public class LauncherSettings {
          * an Intent that can be launched.
          * <P>Type: TEXT</P>
          */
-        static final String INTENT = "intent";
+		public   static final String INTENT = "intent";
 
         /**
          * The type of the gesture
          *
          * <P>Type: INTEGER</P>
          */
-        static final String ITEM_TYPE = "itemType";
+		public   static final String ITEM_TYPE = "itemType";
 
         /**
          * The gesture is an application
          */
-        static final int ITEM_TYPE_APPLICATION = 0;
+		public   static final int ITEM_TYPE_APPLICATION = 0;
 
         /**
          * The gesture is an application created shortcut
          */
-        static final int ITEM_TYPE_SHORTCUT = 1;
+		public   static final int ITEM_TYPE_SHORTCUT = 1;
 
         /**
          * The icon type.
          * <P>Type: INTEGER</P>
          */
-        static final String ICON_TYPE = "iconType";
+		public static final String ICON_TYPE = "iconType";
 
         /**
          * The icon is a resource identified by a package name and an integer id.
          */
-        static final int ICON_TYPE_RESOURCE = 0;
+		public  static final int ICON_TYPE_RESOURCE = 0;
 
         /**
          * The icon is a bitmap.
          */
-        static final int ICON_TYPE_BITMAP = 1;
+		public   static final int ICON_TYPE_BITMAP = 1;
 
         /**
          * The icon package name, if icon type is ICON_TYPE_RESOURCE.
          * <P>Type: TEXT</P>
          */
-        static final String ICON_PACKAGE = "iconPackage";
+		public  static final String ICON_PACKAGE = "iconPackage";
 
         /**
          * The icon resource id, if icon type is ICON_TYPE_RESOURCE.
          * <P>Type: TEXT</P>
          */
-        static final String ICON_RESOURCE = "iconResource";
+		public  static final String ICON_RESOURCE = "iconResource";
 
         /**
          * The custom icon bitmap, if icon type is ICON_TYPE_BITMAP.
          * <P>Type: BLOB</P>
          */
-        static final String ICON = "icon";
+		public static final String ICON = "icon";
     }
 
     /**
      * Favorites.
      */
-    static final class Favorites implements BaseLauncherColumns {
+	public  static final class Favorites implements BaseLauncherColumns {
         /**
          * The content:// style URL for this table
          */
-        static final Uri CONTENT_URI = Uri.parse("content://" +
+		public       static final Uri CONTENT_URI = Uri.parse("content://" +
                 LauncherProvider.AUTHORITY + "/" + LauncherProvider.TABLE_FAVORITES +
                 "?" + LauncherProvider.PARAMETER_NOTIFY + "=true");
 
@@ -106,7 +106,7 @@ public class LauncherSettings {
          * The content:// style URL for this table. When this Uri is used, no notification is
          * sent if the content changes.
          */
-        static final Uri CONTENT_URI_NO_NOTIFICATION = Uri.parse("content://" +
+		public    static final Uri CONTENT_URI_NO_NOTIFICATION = Uri.parse("content://" +
                 LauncherProvider.AUTHORITY + "/" + LauncherProvider.TABLE_FAVORITES +
                 "?" + LauncherProvider.PARAMETER_NOTIFY + "=false");
 
@@ -118,7 +118,7 @@ public class LauncherSettings {
          *
          * @return The unique content URL for the specified row.
          */
-        static Uri getContentUri(long id, boolean notify) {
+		public   static Uri getContentUri(long id, boolean notify) {
             return Uri.parse("content://" + LauncherProvider.AUTHORITY +
                     "/" + LauncherProvider.TABLE_FAVORITES + "/" + id + "?" +
                     LauncherProvider.PARAMETER_NOTIFY + "=" + notify);
@@ -128,50 +128,50 @@ public class LauncherSettings {
          * The container holding the favorite
          * <P>Type: INTEGER</P>
          */
-        static final String CONTAINER = "container";
+		public  static final String CONTAINER = "container";
 
         /**
          * The icon is a resource identified by a package name and an integer id.
          */
-        static final int CONTAINER_DESKTOP = -100;
-        static final int CONTAINER_HOTSEAT = -101;
+		public   static final int CONTAINER_DESKTOP = -100;
+		public   static final int CONTAINER_HOTSEAT = -101;
 
         /**
          * The screen holding the favorite (if container is CONTAINER_DESKTOP)
          * <P>Type: INTEGER</P>
          */
-        static final String SCREEN = "screen";
+		public  static final String SCREEN = "screen";
 
         /**
          * The X coordinate of the cell holding the favorite
          * (if container is CONTAINER_HOTSEAT or CONTAINER_HOTSEAT)
          * <P>Type: INTEGER</P>
          */
-        static final String CELLX = "cellX";
+		public static final String CELLX = "cellX";
 
         /**
          * The Y coordinate of the cell holding the favorite
          * (if container is CONTAINER_DESKTOP)
          * <P>Type: INTEGER</P>
          */
-        static final String CELLY = "cellY";
+		public  static final String CELLY = "cellY";
 
         /**
          * The X span of the cell holding the favorite
          * <P>Type: INTEGER</P>
          */
-        static final String SPANX = "spanX";
+		public   static final String SPANX = "spanX";
 
         /**
          * The Y span of the cell holding the favorite
          * <P>Type: INTEGER</P>
          */
-        static final String SPANY = "spanY";
+		public   static final String SPANY = "spanY";
 
         /**
          * The favorite is a user created folder
          */
-        static final int ITEM_TYPE_FOLDER = 2;
+		public   static final int ITEM_TYPE_FOLDER = 2;
 
         /**
         * The favorite is a live folder
@@ -180,34 +180,34 @@ public class LauncherSettings {
         * exist within the launcher database will be ignored when loading.  That said, these
         * entries in the database may still exist, and are not automatically stripped.
         */
-        static final int ITEM_TYPE_LIVE_FOLDER = 3;
+		public  static final int ITEM_TYPE_LIVE_FOLDER = 3;
 
         /**
          * The favorite is a widget
          */
-        static final int ITEM_TYPE_APPWIDGET = 4;
+		public   static final int ITEM_TYPE_APPWIDGET = 4;
 
         /**
          * The favorite is a clock
          */
-        static final int ITEM_TYPE_WIDGET_CLOCK = 1000;
+		public static final int ITEM_TYPE_WIDGET_CLOCK = 1000;
 
         /**
          * The favorite is a search widget
          */
-        static final int ITEM_TYPE_WIDGET_SEARCH = 1001;
+		public  static final int ITEM_TYPE_WIDGET_SEARCH = 1001;
 
         /**
          * The favorite is a photo frame
          */
-        static final int ITEM_TYPE_WIDGET_PHOTO_FRAME = 1002;
+		public    static final int ITEM_TYPE_WIDGET_PHOTO_FRAME = 1002;
 
         /**
          * The appWidgetId of the widget
          *
          * <P>Type: INTEGER</P>
          */
-        static final String APPWIDGET_ID = "appWidgetId";
+		public   static final String APPWIDGET_ID = "appWidgetId";
         
         /**
          * Indicates whether this favorite is an application-created shortcut or not.
@@ -216,14 +216,14 @@ public class LauncherSettings {
          * <P>Type: INTEGER</P>
          */
         @Deprecated
-        static final String IS_SHORTCUT = "isShortcut";
+        public   static final String IS_SHORTCUT = "isShortcut";
 
         /**
          * The URI associated with the favorite. It is used, for instance, by
          * live folders to find the content provider.
          * <P>Type: TEXT</P>
          */
-        static final String URI = "uri";
+        public   static final String URI = "uri";
 
         /**
          * The display mode if the item is a live folder.
@@ -232,6 +232,6 @@ public class LauncherSettings {
          * @see android.provider.LiveFolders#DISPLAY_MODE_GRID
          * @see android.provider.LiveFolders#DISPLAY_MODE_LIST
          */
-        static final String DISPLAY_MODE = "displayMode";
+        public   static final String DISPLAY_MODE = "displayMode";
     }
 }
