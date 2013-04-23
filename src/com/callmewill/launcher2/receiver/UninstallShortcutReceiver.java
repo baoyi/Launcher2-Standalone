@@ -71,7 +71,7 @@ public class UninstallShortcutReceiver extends BroadcastReceiver {
         }
     }
 
-    static void enableUninstallQueue() {
+    public static void enableUninstallQueue() {
         mUseUninstallQueue = true;
     }
 

@@ -756,7 +756,7 @@ public class LauncherModel extends BroadcastReceiver {
 	 * layout dimensions when performing local/canonical coordinate
 	 * transformations.
 	 */
-	static void updateWorkspaceLayoutCells(int shortAxisCellCount,
+	public static void updateWorkspaceLayoutCells(int shortAxisCellCount,
 			int longAxisCellCount) {
 		mCellCountX = shortAxisCellCount;
 		mCellCountY = longAxisCellCount;
@@ -1046,7 +1046,7 @@ public class LauncherModel extends BroadcastReceiver {
 		}
 	}
 
-	void bindRemainingSynchronousPages() {
+	public void bindRemainingSynchronousPages() {
 		// Post the remaining side pages to be loaded
 		if (!mDeferredBindRunnables.isEmpty()) {
 			for (final Runnable r : mDeferredBindRunnables) {
