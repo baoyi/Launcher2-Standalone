@@ -603,7 +603,7 @@ public final class Launcher extends Activity
         }
     }
 
-    static void setScreen(int screen) {
+    public static void setScreen(int screen) {
         synchronized (sLock) {
             sScreen = screen;
         }
