@@ -13,12 +13,12 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-<com.callmewill.launcher2.Hotseat
+<com.callmewill.launcher2.widget.Hotseat
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:launcher="http://schemas.android.com/apk/res/com.callmewill.launcher2"
     launcher:cellCountX="1"
     launcher:cellCountY="@integer/hotseat_cell_count">
-    <com.callmewill.launcher2.CellLayout
+    <com.callmewill.launcher2.widget.CellLayout
         android:id="@+id/layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

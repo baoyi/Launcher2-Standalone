@@ -16,6 +16,8 @@
 
 package com.callmewill.launcher2;
 
+import com.callmewill.launcher2.utils.LauncherAnimUtils;
+
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ValueAnimator;

@@ -94,6 +94,34 @@ import android.widget.Toast;
 
 import com.callmewill.launcher2.R;
 import com.callmewill.launcher2.DropTarget.DragObject;
+import com.callmewill.launcher2.cache.IconCache;
+import com.callmewill.launcher2.entity.ApplicationInfo;
+import com.callmewill.launcher2.entity.FolderInfo;
+import com.callmewill.launcher2.entity.ItemInfo;
+import com.callmewill.launcher2.entity.LauncherAppWidgetInfo;
+import com.callmewill.launcher2.entity.PendingAddWidgetInfo;
+import com.callmewill.launcher2.entity.ShortcutInfo;
+import com.callmewill.launcher2.provider.LauncherProvider;
+import com.callmewill.launcher2.provider.LauncherSettings;
+import com.callmewill.launcher2.receiver.InstallShortcutReceiver;
+import com.callmewill.launcher2.receiver.LauncherModel;
+import com.callmewill.launcher2.utils.LauncherAnimUtils;
+import com.callmewill.launcher2.widget.AppsCustomizePagedView;
+import com.callmewill.launcher2.widget.AppsCustomizeTabHost;
+import com.callmewill.launcher2.widget.BubbleTextView;
+import com.callmewill.launcher2.widget.CellLayout;
+import com.callmewill.launcher2.widget.Cling;
+import com.callmewill.launcher2.widget.DragLayer;
+import com.callmewill.launcher2.widget.DragView;
+import com.callmewill.launcher2.widget.Folder;
+import com.callmewill.launcher2.widget.FolderIcon;
+import com.callmewill.launcher2.widget.HolographicImageView;
+import com.callmewill.launcher2.widget.HolographicLinearLayout;
+import com.callmewill.launcher2.widget.Hotseat;
+import com.callmewill.launcher2.widget.LauncherAppWidgetHost;
+import com.callmewill.launcher2.widget.SearchDropTargetBar;
+import com.callmewill.launcher2.widget.SmoothPagedView;
+import com.callmewill.launcher2.widget.Workspace;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -2544,7 +2572,7 @@ public final class Launcher extends Activity
                         hideDockDivider();
                     }
                     if (!animationCancelled) {
-                        updateWallpaperVisibility(false);
+                        updateWallpaperVisibility(true);
                     }
 
                     // Hide the search bar

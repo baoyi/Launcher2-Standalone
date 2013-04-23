@@ -27,6 +27,10 @@ import android.database.ContentObserver;
 import android.os.Handler;
 
 import com.callmewill.launcher2.R;
+import com.callmewill.launcher2.cache.IconCache;
+import com.callmewill.launcher2.provider.LauncherProvider;
+import com.callmewill.launcher2.provider.LauncherSettings;
+import com.callmewill.launcher2.receiver.LauncherModel;
 
 import java.lang.ref.WeakReference;
 

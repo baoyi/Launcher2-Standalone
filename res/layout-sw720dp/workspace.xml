@@ -16,7 +16,7 @@
 
 <!-- The workspace contains 5 screens of cells -->
 
-<com.callmewill.launcher2.Workspace
+<com.callmewill.launcher2.widget.Workspace
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:launcher="http://schemas.android.com/apk/res/com.callmewill.launcher2"
     android:paddingLeft="@dimen/workspace_left_padding"

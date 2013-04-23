@@ -34,6 +34,8 @@ import android.view.ViewConfiguration;
 import android.view.inputmethod.InputMethodManager;
 
 import com.callmewill.launcher2.R;
+import com.callmewill.launcher2.entity.ShortcutInfo;
+import com.callmewill.launcher2.widget.DragView;
 
 import java.util.ArrayList;
 

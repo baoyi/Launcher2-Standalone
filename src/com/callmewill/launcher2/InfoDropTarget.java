@@ -27,6 +27,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.callmewill.launcher2.R;
+import com.callmewill.launcher2.entity.ApplicationInfo;
+import com.callmewill.launcher2.entity.PendingAddItemInfo;
+import com.callmewill.launcher2.entity.ShortcutInfo;
+import com.callmewill.launcher2.widget.AppsCustomizePagedView;
+import com.callmewill.launcher2.widget.ButtonDropTarget;
 
 public class InfoDropTarget extends ButtonDropTarget {
 

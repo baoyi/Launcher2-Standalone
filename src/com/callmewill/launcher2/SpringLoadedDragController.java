@@ -16,6 +16,9 @@
 
 package com.callmewill.launcher2;
 
+import com.callmewill.launcher2.widget.CellLayout;
+import com.callmewill.launcher2.widget.Workspace;
+
 public class SpringLoadedDragController implements OnAlarmListener {
     // how long the user must hover over a mini-screen before it unshrinks
     final long ENTER_SPRING_LOAD_HOVER_TIME = 500;

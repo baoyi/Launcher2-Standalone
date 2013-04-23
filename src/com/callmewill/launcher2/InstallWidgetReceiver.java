@@ -34,6 +34,9 @@ import android.widget.ListAdapter;
 import android.widget.TextView;
 
 import com.callmewill.launcher2.R;
+import com.callmewill.launcher2.entity.PendingAddWidgetInfo;
+import com.callmewill.launcher2.provider.LauncherSettings;
+import com.callmewill.launcher2.widget.CellLayout;
 
 
 /**

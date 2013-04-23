@@ -19,6 +19,9 @@ package com.callmewill.launcher2;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.callmewill.launcher2.cache.IconCache;
+import com.callmewill.launcher2.entity.ApplicationInfo;
+
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;

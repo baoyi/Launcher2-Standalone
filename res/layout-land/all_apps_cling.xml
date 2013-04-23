@@ -13,7 +13,7 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-<com.callmewill.launcher2.Cling
+<com.callmewill.launcher2.widget.Cling
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:launcher="http://schemas.android.com/apk/res/com.callmewill.launcher2"
     launcher:drawIdentifier="all_apps_landscape">

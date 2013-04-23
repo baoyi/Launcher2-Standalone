@@ -16,6 +16,8 @@
 
 package com.callmewill.launcher2;
 
+import com.callmewill.launcher2.drawable.FastBitmapDrawable;
+
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;

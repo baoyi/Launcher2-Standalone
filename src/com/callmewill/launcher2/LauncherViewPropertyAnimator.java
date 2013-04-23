@@ -25,6 +25,8 @@ import android.view.View;
 import java.util.ArrayList;
 import java.util.EnumSet;
 
+import com.callmewill.launcher2.utils.LauncherAnimUtils;
+
 public class LauncherViewPropertyAnimator extends Animator implements AnimatorListener {
     enum Properties {
             TRANSLATION_X,

@@ -22,6 +22,9 @@ import android.view.ViewGroup.OnHierarchyChangeListener;
 
 import java.util.HashMap;
 
+import com.callmewill.launcher2.widget.AppsCustomizeTabHost;
+import com.callmewill.launcher2.widget.Cling;
+
 public class HideFromAccessibilityHelper implements OnHierarchyChangeListener {
     private HashMap<View, Integer> mPreviousValues;
     boolean mHide;

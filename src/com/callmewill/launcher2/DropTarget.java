@@ -16,6 +16,8 @@
 
 package com.callmewill.launcher2;
 
+import com.callmewill.launcher2.widget.DragView;
+
 import android.content.Context;
 import android.graphics.PointF;
 import android.graphics.Rect;
