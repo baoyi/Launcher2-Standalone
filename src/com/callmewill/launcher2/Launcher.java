@@ -167,10 +167,10 @@ public final class Launcher extends Activity
 
     private static final int REQUEST_BIND_APPWIDGET = 11;
 
-    static final String EXTRA_SHORTCUT_DUPLICATE = "duplicate";
+    public static final String EXTRA_SHORTCUT_DUPLICATE = "duplicate";
 
-    static final int SCREEN_COUNT = 5;
-    static final int DEFAULT_SCREEN = 2;
+    public static final int SCREEN_COUNT = 5;
+    public static final int DEFAULT_SCREEN = 2;
 
     private static final String PREFERENCES = "launcher.preferences";
     static final String FORCE_ENABLE_ROTATION_PROPERTY = "debug.force_enable_rotation";
@@ -309,7 +309,7 @@ public final class Launcher extends Activity
 
     private final ArrayList<Integer> mSynchronouslyBoundPages = new ArrayList<Integer>();
 
-    static final ArrayList<String> sDumpLogs = new ArrayList<String>();
+    public static final ArrayList<String> sDumpLogs = new ArrayList<String>();
 
     // We only want to get the SharedPreferences once since it does an FS stat each time we get
     // it from the context.
@@ -591,7 +591,7 @@ public final class Launcher extends Activity
         return mDragLayer;
     }
 
-    boolean isDraggingEnabled() {
+    public boolean isDraggingEnabled() {
         // We prevent dragging when we are loading the workspace as it is possible to pick up a view
         // that is subsequently removed from the workspace in startBinding().
         return !mModel.isLoadingWorkspace();
@@ -1016,7 +1016,7 @@ public final class Launcher extends Activity
      *
      * @return A View inflated from layoutResId.
      */
-    View createShortcut(int layoutResId, ViewGroup parent, ShortcutInfo info) {
+    public View createShortcut(int layoutResId, ViewGroup parent, ShortcutInfo info) {
         BubbleTextView favorite = (BubbleTextView) mInflater.inflate(layoutResId, parent, false);
         favorite.applyFromShortcutInfo(info, mIconCache);
         favorite.setOnClickListener(this);
@@ -1123,11 +1123,11 @@ public final class Launcher extends Activity
         return CellLayout.rectToCell(context.getResources(), requiredWidth, requiredHeight, null);
     }
 
-    static int[] getSpanForWidget(Context context, AppWidgetProviderInfo info) {
+    public static int[] getSpanForWidget(Context context, AppWidgetProviderInfo info) {
         return getSpanForWidget(context, info.provider, info.minWidth, info.minHeight);
     }
 
-    static int[] getMinSpanForWidget(Context context, AppWidgetProviderInfo info) {
+    public static int[] getMinSpanForWidget(Context context, AppWidgetProviderInfo info) {
         return getSpanForWidget(context, info.provider, info.minResizeWidth, info.minResizeHeight);
     }
 
@@ -1382,7 +1382,7 @@ public final class Launcher extends Activity
         launcherInfo.hostView = null;
     }
 
-    void showOutOfSpaceMessage(boolean isHotseatLayout) {
+    public void showOutOfSpaceMessage(boolean isHotseatLayout) {
         int strId = (isHotseatLayout ? R.string.hotseat_out_of_space : R.string.out_of_space);
         Toast.makeText(this, getString(strId), Toast.LENGTH_SHORT).show();
     }
@@ -1857,7 +1857,7 @@ public final class Launcher extends Activity
         return newFolder;
     }
 
-    void removeFolder(FolderInfo folder) {
+    public void removeFolder(FolderInfo folder) {
         sFolders.remove(folder.id);
     }
 
@@ -2052,7 +2052,7 @@ public final class Launcher extends Activity
         }
     }
 
-    void startApplicationDetailsActivity(ComponentName componentName) {
+    public void startApplicationDetailsActivity(ComponentName componentName) {
         String packageName = componentName.getPackageName();
         Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
                 Uri.fromParts("package", packageName, null));
@@ -2060,7 +2060,7 @@ public final class Launcher extends Activity
         startActivitySafely(null, intent, "startApplicationDetailsActivity");
     }
 
-    void startApplicationUninstallActivity(ApplicationInfo appInfo) {
+    public void startApplicationUninstallActivity(ApplicationInfo appInfo) {
         if ((appInfo.flags & ApplicationInfo.DOWNLOADED_FLAG) == 0) {
             // System applications cannot be installed. For now, show a toast explaining that.
             // We may give them the option of disabling apps this way.
@@ -2104,7 +2104,7 @@ public final class Launcher extends Activity
         return false;
     }
 
-    boolean startActivitySafely(View v, Intent intent, Object tag) {
+    public boolean startActivitySafely(View v, Intent intent, Object tag) {
         boolean success = false;
         try {
             success = startActivity(v, intent, tag);
@@ -2355,17 +2355,17 @@ public final class Launcher extends Activity
         return mHotseat != null && layout != null &&
                 (layout instanceof CellLayout) && (layout == mHotseat.getLayout());
     }
-    Hotseat getHotseat() {
+    public Hotseat getHotseat() {
         return mHotseat;
     }
-    SearchDropTargetBar getSearchBar() {
+    public SearchDropTargetBar getSearchBar() {
         return mSearchDropTargetBar;
     }
 
     /**
      * Returns the CellLayout of the specified container at the specified screen.
      */
-    CellLayout getCellLayout(long container, int screen) {
+    public CellLayout getCellLayout(long container, int screen) {
         if (container == LauncherSettings.Favorites.CONTAINER_HOTSEAT) {
             if (mHotseat != null) {
                 return mHotseat.getLayout();
@@ -2377,7 +2377,7 @@ public final class Launcher extends Activity
         }
     }
 
-    Workspace getWorkspace() {
+    public Workspace getWorkspace() {
         return mWorkspace;
     }
 
@@ -2411,7 +2411,7 @@ public final class Launcher extends Activity
         }
     }
 
-    void updateWallpaperVisibility(boolean visible) {
+    public void updateWallpaperVisibility(boolean visible) {
         int wpflags = visible ? WindowManager.LayoutParams.FLAG_SHOW_WALLPAPER : 0;
         int curflags = getWindow().getAttributes().flags
                 & WindowManager.LayoutParams.FLAG_SHOW_WALLPAPER;
@@ -2857,7 +2857,7 @@ public final class Launcher extends Activity
                 .sendAccessibilityEvent(AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED);
     }
 
-    void enterSpringLoadedDragMode() {
+    public void enterSpringLoadedDragMode() {
         if (isAllAppsVisible()) {
             hideAppsCustomizeHelper(State.APPS_CUSTOMIZE_SPRING_LOADED, true, true, null);
             hideDockDivider();
@@ -2887,7 +2887,7 @@ public final class Launcher extends Activity
                 EXIT_SPRINGLOADED_MODE_SHORT_TIMEOUT));
     }
 
-    void exitSpringLoadedDragMode() {
+    public void exitSpringLoadedDragMode() {
         if (mState == State.APPS_CUSTOMIZE_SPRING_LOADED) {
             final boolean animated = true;
             final boolean springLoaded = true;

@@ -113,11 +113,11 @@ public class LauncherApplication extends Application {
 		return mModel;
 	}
 
-	IconCache getIconCache() {
+	public IconCache getIconCache() {
 		return mIconCache;
 	}
 
-	LauncherModel getModel() {
+	public LauncherModel getModel() {
 		return mModel;
 	}
 
@@ -125,7 +125,7 @@ public class LauncherApplication extends Application {
 		mLauncherProvider = new WeakReference<LauncherProvider>(provider);
 	}
 
-	LauncherProvider getLauncherProvider() {
+	public LauncherProvider getLauncherProvider() {
 		return mLauncherProvider.get();
 	}
 

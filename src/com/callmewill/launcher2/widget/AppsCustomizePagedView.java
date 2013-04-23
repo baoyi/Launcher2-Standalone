@@ -1635,12 +1635,12 @@ public class AppsCustomizePagedView extends PagedViewWithDraggableItems implemen
 
     // We want our pages to be z-ordered such that the further a page is to the left, the higher
     // it is in the z-order. This is important to insure touch events are handled correctly.
-    View getPageAt(int index) {
+    public View getPageAt(int index) {
         return getChildAt(indexToPage(index));
     }
 
     @Override
-    protected int indexToPage(int index) {
+	public int indexToPage(int index) {
         return getChildCount() - index - 1;
     }
 

@@ -307,7 +307,7 @@ public class LauncherModel extends BroadcastReceiver {
 	 * Adds an item to the DB if it was not created previously, or move it to a
 	 * new <container, screen, cellX, cellY>
 	 */
-	static void addOrMoveItemInDatabase(Context context, ItemInfo item,
+	public static void addOrMoveItemInDatabase(Context context, ItemInfo item,
 			long container, int screen, int cellX, int cellY) {
 		if (item.container == ItemInfo.NO_ID) {
 			// From all apps
@@ -440,7 +440,7 @@ public class LauncherModel extends BroadcastReceiver {
 	/**
 	 * Move an item in the DB to a new <container, screen, cellX, cellY>
 	 */
-	static void moveItemInDatabase(Context context, final ItemInfo item,
+	public static void moveItemInDatabase(Context context, final ItemInfo item,
 			final long container, final int screen, final int cellX,
 			final int cellY) {
 		String transaction = "DbDebug    Modify item (" + item.title
@@ -519,7 +519,7 @@ public class LauncherModel extends BroadcastReceiver {
 	/**
 	 * Update an item to the database in a specified container.
 	 */
-	static void updateItemInDatabase(Context context, final ItemInfo item) {
+	public static void updateItemInDatabase(Context context, final ItemInfo item) {
 		final ContentValues values = new ContentValues();
 		item.onAddToDatabase(values);
 		item.updateValuesWithCoordinates(values, item.cellX, item.cellY);

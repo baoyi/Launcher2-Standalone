@@ -42,7 +42,7 @@ public class HolographicViewHelper {
     /**
      * Generate the pressed/focused states if necessary.
      */
-    void generatePressedFocusedStates(ImageView v) {
+    public void generatePressedFocusedStates(ImageView v) {
         if (!mStatesUpdated && v != null) {
             mStatesUpdated = true;
             Bitmap original = createOriginalImage(v, mTempCanvas);
@@ -61,7 +61,7 @@ public class HolographicViewHelper {
     /**
      * Invalidates the pressed/focused states.
      */
-    void invalidatePressedFocusedStates(ImageView v) {
+    public void invalidatePressedFocusedStates(ImageView v) {
         mStatesUpdated = false;
         if (v != null) {
             v.invalidate();
