@@ -37,12 +37,13 @@ import com.callmewill.launcher2.utils.Utilities;
 
 /**
  * Cache of application icons.  Icons can be made from any thread.
+ * 缓存应用程序的图标，图标可以从任意线程中获取
  */
 public class IconCache {
     @SuppressWarnings("unused")
     private static final String TAG = "Launcher.IconCache";
 
-    private static final int INITIAL_ICON_CACHE_CAPACITY = 50;
+    private static final int INITIAL_ICON_CACHE_CAPACITY = 50;//缓存图标初始容量
 
     private static class CacheEntry {
         public Bitmap icon;
@@ -62,17 +63,27 @@ public class IconCache {
 
         mContext = context;
         mPackageManager = context.getPackageManager();
-        mIconDpi = activityManager.getLauncherLargeIconDensity();
+        mIconDpi = activityManager.getLauncherLargeIconDensity();//获得首选的图标大小的密度
 
         // need to set mIconDpi before getting default icon
-        mDefaultIcon = makeDefaultIcon();
+        mDefaultIcon = makeDefaultIcon();//设置默认图片
     }
-
+    
+    /**
+     * 获得所有activity默认图标
+     * @return
+     */
     public Drawable getFullResDefaultActivityIcon() {
         return getFullResIcon(Resources.getSystem(),
                 android.R.mipmap.sym_def_app_icon);
     }
 
+    /**
+     * 根据资源id获得图标
+     * @param resources
+     * @param iconId
+     * @return
+     */
     public Drawable getFullResIcon(Resources resources, int iconId) {
         Drawable d;
         try {
@@ -84,6 +95,12 @@ public class IconCache {
         return (d != null) ? d : getFullResDefaultActivityIcon();
     }
 
+    /**
+     * 根据包名和合适的密度获得图片
+     * @param packageName
+     * @param iconId
+     * @return
+     */
     public Drawable getFullResIcon(String packageName, int iconId) {
         Resources resources;
         try {
@@ -99,10 +116,20 @@ public class IconCache {
         return getFullResDefaultActivityIcon();
     }
 
+    /**
+     * 根据ResolveInfo获得图标
+     * @param info
+     * @return
+     */
     public Drawable getFullResIcon(ResolveInfo info) {
         return getFullResIcon(info.activityInfo);
     }
 
+    /**
+     * 根据ActivityInfo获得图片
+     * @param info
+     * @return
+     */
     public Drawable getFullResIcon(ActivityInfo info) {
 
         Resources resources;
@@ -121,6 +148,10 @@ public class IconCache {
         return getFullResDefaultActivityIcon();
     }
 
+    /**
+     * 创建默认icon
+     * @return
+     */
     private Bitmap makeDefaultIcon() {
         Drawable d = getFullResDefaultActivityIcon();
         Bitmap b = Bitmap.createBitmap(Math.max(d.getIntrinsicWidth(), 1),
@@ -135,6 +166,7 @@ public class IconCache {
 
     /**
      * Remove any records for the supplied ComponentName.
+     * 根据ComponetName删除任意图片缓存
      */
     public void remove(ComponentName componentName) {
         synchronized (mCache) {
@@ -144,6 +176,7 @@ public class IconCache {
 
     /**
      * Empty out the cache.
+     * 清楚图片缓存
      */
     public void flush() {
         synchronized (mCache) {
@@ -153,17 +186,25 @@ public class IconCache {
 
     /**
      * Fill in "application" with the icon and label for "info."
+     * 从info和集合中获取application的label和icon
      */
     public void getTitleAndIcon(ApplicationInfo application, ResolveInfo info,
             HashMap<Object, CharSequence> labelCache) {
         synchronized (mCache) {
+        	//创建一个图标缓存
             CacheEntry entry = cacheLocked(application.componentName, info, labelCache);
-
+            //赋值程序标题
             application.title = entry.title;
+            //赋值程序图标
             application.iconBitmap = entry.icon;
         }
     }
 
+    /**
+     * 从intent中获得程序图标 如果无法获得component则返回默认图标
+     * @param intent
+     * @return
+     */
     public Bitmap getIcon(Intent intent) {
         synchronized (mCache) {
             final ResolveInfo resolveInfo = mPackageManager.resolveActivity(intent, 0);
@@ -178,6 +219,13 @@ public class IconCache {
         }
     }
 
+    /**
+     * 通过Component,resolveinfo，标签缓存获得图片
+     * @param component
+     * @param resolveInfo
+     * @param labelCache
+     * @return
+     */
     public Bitmap getIcon(ComponentName component, ResolveInfo resolveInfo,
             HashMap<Object, CharSequence> labelCache) {
         synchronized (mCache) {
@@ -194,33 +242,51 @@ public class IconCache {
         return mDefaultIcon == icon;
     }
 
+    /**
+     * 创建一个图标缓存
+     * @param componentName
+     * @param info
+     * @param labelCache
+     * @return
+     */
     private CacheEntry cacheLocked(ComponentName componentName, ResolveInfo info,
             HashMap<Object, CharSequence> labelCache) {
+    	//通过componentName在集合中获取图标缓存
         CacheEntry entry = mCache.get(componentName);
+        //如果缓存为空，则创建缓存
         if (entry == null) {
             entry = new CacheEntry();
 
             mCache.put(componentName, entry);
-
+            //获得ComponentName 用它作为Key
             ComponentName key = LauncherModel.getComponentNameFromResolveInfo(info);
+            //如果标签缓存不为空，并且集合中有这个键。则从集合中获得应用的标题
             if (labelCache != null && labelCache.containsKey(key)) {
                 entry.title = labelCache.get(key).toString();
             } else {
+            	//否则 通过通过ResolveInfo获得程序名，作为标题
                 entry.title = info.loadLabel(mPackageManager).toString();
+                //如果标签集合不为空则将新的标签放入集合
                 if (labelCache != null) {
                     labelCache.put(key, entry.title);
                 }
             }
+            //如果标题为空
             if (entry.title == null) {
+            	//则从info中获得标题
                 entry.title = info.activityInfo.name;
             }
-
+            //为entry获得图标
             entry.icon = Utilities.createIconBitmap(
                     getFullResIcon(info), mContext);
         }
         return entry;
     }
 
+    /**
+     * 从所有缓存图标
+     * @return
+     */
     public HashMap<ComponentName,Bitmap> getAllIcons() {
         synchronized (mCache) {
             HashMap<ComponentName,Bitmap> set = new HashMap<ComponentName,Bitmap>();
