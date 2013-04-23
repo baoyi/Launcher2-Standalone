@@ -314,11 +314,14 @@ public abstract class PagedView extends ViewGroup implements
 	 * Updates the scroll of the current page immediately to its final scroll
 	 * position. We use this in CustomizePagedView to allow tabs to share the
 	 * same PagedView while resetting the scroll of the previous tab page.
+	 * 第一次布局完毕之后，就根据当前页偏移量（当前页距离Workspace最左边的距离）滚动到默认的页面去，第一次布局时  
+     * 认的当前页是3，则它的便宜量就是两个CellLayout的宽度。 
 	 */
 	public void updateCurrentPageScroll() {
 		int offset = getChildOffset(mCurrentPage);
 		int relOffset = getRelativeChildOffset(mCurrentPage);
 		int newX = offset - relOffset;
+		//滚动到指定位置
 		scrollTo(newX, 0);
 		mScroller.setFinalX(newX);
 		mScroller.forceFinished(true);
@@ -676,8 +679,10 @@ public abstract class PagedView extends ViewGroup implements
 
 		if (DEBUG)
 			Log.d(TAG, "PagedView.onLayout()");
+		//竖值方向的Padding 
 		final int verticalPadding = getPaddingTop() + getPaddingBottom();
 		final int childCount = getChildCount();
+		//偏移量=0
 		int childLeft = getRelativeChildOffset(0);
 
 		for (int i = 0; i < childCount; i++) {
@@ -693,13 +698,15 @@ public abstract class PagedView extends ViewGroup implements
 				if (DEBUG)
 					Log.d(TAG, "\tlayout-child" + i + ": " + childLeft + ", "
 							+ childTop);
+				//把5个CellLayout布局到相应的位置，layout的4个参数分别是 左、上、右、下。
 				child.layout(childLeft, childTop,
 						childLeft + child.getMeasuredWidth(), childTop
 								+ childHeight);
 				childLeft += childWidth + mPageSpacing;
 			}
 		}
-
+		//第一次布局完毕之后，就根据当前页偏移量（当前页距离Workspace最左边的距离）滚动到默认的页面去，第一次布局时  
+	     //默认的当前页是3，则它的便宜量就是两个CellLayout的宽度。 
 		if (mFirstLayout && mCurrentPage >= 0 && mCurrentPage < getChildCount()) {
 			setHorizontalScrollBarEnabled(false);
 			updateCurrentPageScroll();
@@ -782,6 +789,11 @@ public abstract class PagedView extends ViewGroup implements
 		}
 	}
 
+	/**
+	 * 计算偏移量
+	 * @param index
+	 * @return
+	 */
 	protected int getRelativeChildOffset(int index) {
 		if (mChildRelativeOffsets != null && mChildRelativeOffsets[index] != -1) {
 			return mChildRelativeOffsets[index];
@@ -1006,6 +1018,9 @@ public abstract class PagedView extends ViewGroup implements
 		return (x > (getMeasuredWidth() - getRelativeChildOffset(mCurrentPage) + mPageSpacing));
 	}
 
+	/**
+	 * 事件拦截
+	 */
 	@Override
 	public boolean onInterceptTouchEvent(MotionEvent ev) {
 		/*

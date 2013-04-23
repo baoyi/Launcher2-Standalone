@@ -47,33 +47,63 @@ public class LauncherApplication extends Application {
 	public void onCreate() {
 		super.onCreate();
 
+		// 在创建icon cache之前，我们需要判断屏幕的大小和屏幕的像素密度，以便创建合适大小的icon
 		// set sIsScreenXLarge and sScreenDensity *before* creating icon cache
+		// 判断屏幕大小
 		sIsScreenLarge = getResources().getBoolean(R.bool.is_large_screen);
+		// 获得屏幕分辨率
 		sScreenDensity = getResources().getDisplayMetrics().density;
 
-		mIconCache = new IconCache(this);
+		mIconCache = new IconCache(this);// 来设置了应用程序的图标的cache
+		/*
+		 * LauncherModel主要用于加载桌面的图标、插件和文件夹，
+		 * 同时LaucherModel是一个广播接收器，在程序包发生改变、区域、或者配置文件发生改变时，
+		 * 都会发送广播给LaucherModel，LaucherModel会根据不同的广播来做相应加载操作， 此部分会在后面做详细介绍。
+		 */
 		mModel = new LauncherModel(this, mIconCache);
 
-		// Register intent receivers
-		IntentFilter filter = new IntentFilter(Intent.ACTION_PACKAGE_ADDED);
-		filter.addAction(Intent.ACTION_PACKAGE_REMOVED);
-		filter.addAction(Intent.ACTION_PACKAGE_CHANGED);
-		filter.addDataScheme("package");
+		// Register intent receivers 注册广播
+		IntentFilter filter = new IntentFilter(Intent.ACTION_PACKAGE_ADDED);// 应用添加
+		filter.addAction(Intent.ACTION_PACKAGE_REMOVED);// 应用删除
+		filter.addAction(Intent.ACTION_PACKAGE_CHANGED);// 应用被改变
+		filter.addDataScheme("package");// 隐式事件
 		registerReceiver(mModel, filter);
 		filter = new IntentFilter();
-		filter.addAction(Intent.ACTION_EXTERNAL_APPLICATIONS_AVAILABLE);
-		filter.addAction(Intent.ACTION_EXTERNAL_APPLICATIONS_UNAVAILABLE);
-		filter.addAction(Intent.ACTION_LOCALE_CHANGED);
-		filter.addAction(Intent.ACTION_CONFIGURATION_CHANGED);
+		filter.addAction(Intent.ACTION_EXTERNAL_APPLICATIONS_AVAILABLE);// 提示应用安装在手机内部
+		filter.addAction(Intent.ACTION_EXTERNAL_APPLICATIONS_UNAVAILABLE);// 安装在SDCard
+		filter.addAction(Intent.ACTION_LOCALE_CHANGED);// 当系统语言发生改变时
+		filter.addAction(Intent.ACTION_CONFIGURATION_CHANGED);// 当系统语言发生改变时
 		registerReceiver(mModel, filter);
 		filter = new IntentFilter();
-		filter.addAction(SearchManager.INTENT_GLOBAL_SEARCH_ACTIVITY_CHANGED);
+		filter.addAction(SearchManager.INTENT_GLOBAL_SEARCH_ACTIVITY_CHANGED);// 搜索管理相关的变换
 		registerReceiver(mModel, filter);
 		filter = new IntentFilter();
-		filter.addAction(SearchManager.INTENT_ACTION_SEARCHABLES_CHANGED);
+		filter.addAction(SearchManager.INTENT_ACTION_SEARCHABLES_CHANGED);// 自身定义的消息
 		registerReceiver(mModel, filter);
 
 		// Register for changes to the favorites
+		// 注册ContentObserver，监听LauncherSettings.Favorites.CONTENT_URI数据的变化
+		/*
+		 * 技术点 如何检测数据库的变化？
+		 * 
+		 * ContentObserver正可用于这项工作，它对你所感兴趣的URI（数据库地址）进行检测，在重写的onChange函数中进行处理（
+		 * 最多用于更新UI）。
+		 * 
+		 * 当对数据库进行增删查等操作后，可以根据我们自己设定的flag来判断是否需要通知Observer来对我们做出的修改发生响应（
+		 * 这里的响应不是指数据库的具体操作响应
+		 * ，而很可能是UI上的表现），如果需要则调用getContext().getContentResolver
+		 * ().notifyChange(uri, null);
+		 * 
+		 * 这里的ContentResolver为应用程序提供了访问数据库模型的实例。
+		 * 
+		 * 注册Observer的操作看代码：
+		 * 
+		 * ContentResolver resolver = getContentResolver();
+		 * //获取“当前”数据库实例，Provider中 定义了它的操作如insert, delete, update...
+		 * resolver.registerContentObserver
+		 * (LauncherSettings.Favorites.CONTENT_URI,true, mObserver);
+		 */
+
 		ContentResolver resolver = getContentResolver();
 		resolver.registerContentObserver(
 				LauncherSettings.Favorites.CONTENT_URI, true,

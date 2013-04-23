@@ -766,7 +766,7 @@ public class Workspace extends SmoothPagedView
 
     protected void onPageBeginMoving() {
         super.onPageBeginMoving();
-
+        //是否开启硬件加速
         if (isHardwareAccelerated()) {
             updateChildrenLayersEnabled(false);
         } else {
@@ -1791,6 +1791,7 @@ public class Workspace extends SmoothPagedView
     }
 
     /**
+     * 将View滑到画布
      * Draw the View v into the given Canvas.
      *
      * @param v the view to draw
@@ -1813,7 +1814,7 @@ public class Workspace extends SmoothPagedView
             if (v instanceof FolderIcon) {
                 // For FolderIcons the text can bleed into the icon area, and so we need to
                 // hide the text completely (which can't be achieved by clipping).
-                if (((FolderIcon) v).getTextVisible()) {
+                if (((FolderIcon) v).getTextVisible()) {//如果是文件夹图标
                     ((FolderIcon) v).setTextVisible(false);
                     textVisible = true;
                 }
@@ -1864,6 +1865,7 @@ public class Workspace extends SmoothPagedView
     /**
      * Returns a new bitmap to be used as the object outline, e.g. to visualize the drop location.
      * Responsibility for the bitmap is transferred to the caller.
+     * 为调用者创建一个新的轮廓位图。如可视化的放置位置
      */
     private Bitmap createDragOutline(View v, Canvas canvas, int padding) {
         final int outlineColor = getResources().getColor(android.R.color.holo_blue_light);
