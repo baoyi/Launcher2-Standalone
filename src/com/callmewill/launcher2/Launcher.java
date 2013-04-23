@@ -177,7 +177,7 @@ public final class Launcher extends Activity
     static final String DUMP_STATE_PROPERTY = "debug.dumpstate";
 
     // The Intent extra that defines whether to ignore the launch animation
-    static final String INTENT_EXTRA_IGNORE_LAUNCH_ANIMATION =
+  public  static final String INTENT_EXTRA_IGNORE_LAUNCH_ANIMATION =
             "com.android.launcher.intent.extra.shortcut.INGORE_LAUNCH_ANIMATION";
 
     // Type: int
@@ -215,7 +215,7 @@ public final class Launcher extends Activity
     private AnimatorSet mStateAnimation;
     private AnimatorSet mDividerAnimator;
 
-    static final int APPWIDGET_HOST_ID = 1024;
+   public static final int APPWIDGET_HOST_ID = 1024;
     private static final int EXIT_SPRINGLOADED_MODE_SHORT_TIMEOUT = 300;
     private static final int EXIT_SPRINGLOADED_MODE_LONG_TIMEOUT = 600;
     private static final int SHOW_CLING_DURATION = 550;

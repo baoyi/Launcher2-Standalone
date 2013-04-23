@@ -33,6 +33,7 @@ import android.graphics.drawable.Drawable;
 import com.callmewill.launcher2.LauncherApplication;
 import com.callmewill.launcher2.entity.ApplicationInfo;
 import com.callmewill.launcher2.receiver.LauncherModel;
+import com.callmewill.launcher2.utils.Utilities;
 
 /**
  * Cache of application icons.  Icons can be made from any thread.

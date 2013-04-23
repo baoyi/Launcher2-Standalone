@@ -211,7 +211,7 @@ public class LauncherModel extends BroadcastReceiver {
 		public void onPageBoundSynchronously(int page);
 	}
 
-	LauncherModel(LauncherApplication app, IconCache iconCache) {
+	public LauncherModel(LauncherApplication app, IconCache iconCache) {
 		mAppsCanBeOnExternalStorage = !Environment.isExternalStorageEmulated();
 		mApp = app;
 		mBgAllAppsList = new AllAppsList(iconCache);
@@ -2797,7 +2797,7 @@ public class LauncherModel extends BroadcastReceiver {
 		};
 	}
 
-	static ComponentName getComponentNameFromResolveInfo(ResolveInfo info) {
+	public static ComponentName getComponentNameFromResolveInfo(ResolveInfo info) {
 		if (info.activityInfo != null) {
 			return new ComponentName(info.activityInfo.packageName,
 					info.activityInfo.name);
