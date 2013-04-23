@@ -85,7 +85,7 @@ public class Folder extends LinearLayout implements DragSource, View.OnClickList
 
     protected DragController mDragController;
     protected Launcher mLauncher;
-    protected FolderInfo mInfo;
+    public FolderInfo mInfo;
 
     static final int STATE_NONE = -1;
     static final int STATE_SMALL = 0;
@@ -334,7 +334,7 @@ public class Folder extends LinearLayout implements DragSource, View.OnClickList
     /**
      * @return the FolderInfo object associated with this folder
      */
-    FolderInfo getInfo() {
+    public FolderInfo getInfo() {
         return mInfo;
     }
 
@@ -876,10 +876,10 @@ public class Folder extends LinearLayout implements DragSource, View.OnClickList
         lp.y = top;
     }
 
-    float getPivotXForIconAnimation() {
+    public float getPivotXForIconAnimation() {
         return mFolderIconPivotX;
     }
-    float getPivotYForIconAnimation() {
+    public float getPivotYForIconAnimation() {
         return mFolderIconPivotY;
     }
 
@@ -1008,7 +1008,7 @@ public class Folder extends LinearLayout implements DragSource, View.OnClickList
         mDestroyed = true;
     }
 
-    boolean isDestroyed() {
+    public boolean isDestroyed() {
         return mDestroyed;
     }
 

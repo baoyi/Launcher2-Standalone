@@ -42,9 +42,9 @@ import com.callmewill.launcher2.R.styleable;
 
 public class Cling extends FrameLayout {
 
-    static final String WORKSPACE_CLING_DISMISSED_KEY = "cling.workspace.dismissed";
-    static final String ALLAPPS_CLING_DISMISSED_KEY = "cling.allapps.dismissed";
-    static final String FOLDER_CLING_DISMISSED_KEY = "cling.folder.dismissed";
+	public  static final String WORKSPACE_CLING_DISMISSED_KEY = "cling.workspace.dismissed";
+    public    static final String ALLAPPS_CLING_DISMISSED_KEY = "cling.allapps.dismissed";
+    public  static final String FOLDER_CLING_DISMISSED_KEY = "cling.folder.dismissed";
 
     private static String WORKSPACE_PORTRAIT = "workspace_portrait";
     private static String WORKSPACE_LANDSCAPE = "workspace_landscape";
@@ -91,7 +91,7 @@ public class Cling extends FrameLayout {
         setClickable(true);
     }
 
-    void init(Launcher l, int[] positionData) {
+    public void init(Launcher l, int[] positionData) {
         if (!mIsInitialized) {
             mLauncher = l;
             mPositionData = positionData;
@@ -114,7 +114,7 @@ public class Cling extends FrameLayout {
         }
     }
 
-    void cleanup() {
+    public void cleanup() {
         mBackground = null;
         mPunchThroughGraphic = null;
         mHandTouchGraphic = null;

@@ -1295,7 +1295,7 @@ public class CellLayout extends ViewGroup {
      * @return The X, Y cell of a vacant area that can contain this object,
      *         nearest the requested location.
      */
-    int[] findNearestVacantArea(int pixelX, int pixelY, int spanX, int spanY,
+    public  int[] findNearestVacantArea(int pixelX, int pixelY, int spanX, int spanY,
             int[] result) {
         return findNearestVacantArea(pixelX, pixelY, spanX, spanY, null, result);
     }
@@ -1315,7 +1315,7 @@ public class CellLayout extends ViewGroup {
      * @return The X, Y cell of a vacant area that can contain this object,
      *         nearest the requested location.
      */
-    int[] findNearestVacantArea(int pixelX, int pixelY, int minSpanX, int minSpanY, int spanX,
+    public int[] findNearestVacantArea(int pixelX, int pixelY, int minSpanX, int minSpanY, int spanX,
             int spanY, int[] result, int[] resultSpan) {
         return findNearestVacantArea(pixelX, pixelY, minSpanX, minSpanY, spanX, spanY, null,
                 result, resultSpan);
@@ -2599,7 +2599,7 @@ public class CellLayout extends ViewGroup {
      *
      * @return True if a vacant cell of the specified dimension was found, false otherwise.
      */
-    boolean findCellForSpan(int[] cellXY, int spanX, int spanY) {
+    public  boolean findCellForSpan(int[] cellXY, int spanX, int spanY) {
         return findCellForSpanThatIntersectsIgnoring(cellXY, spanX, spanY, -1, -1, null, mOccupied);
     }
 
@@ -3106,8 +3106,8 @@ out:            for (int i = x; i < x + spanX - 1 && x < xCount; i++) {
     // 2. When long clicking on an empty cell in a CellLayout, we save information about the
     //    cellX and cellY coordinates and which page was clicked. We then set this as a tag on
     //    the CellLayout that was long clicked
-    static final class CellInfo {
-        View cell;
+    public static final class CellInfo {
+        public View cell;
         int cellX = -1;
         int cellY = -1;
         int spanX;

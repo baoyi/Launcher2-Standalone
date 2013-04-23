@@ -250,7 +250,7 @@ public class BubbleTextView extends TextView {
         return result;
     }
 
-    void setStayPressed(boolean stayPressed) {
+  public  void setStayPressed(boolean stayPressed) {
         mStayPressed = stayPressed;
         if (!stayPressed) {
             mPressedOrFocusedBackground = null;

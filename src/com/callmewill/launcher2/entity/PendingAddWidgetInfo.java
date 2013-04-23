@@ -10,8 +10,8 @@ import com.callmewill.launcher2.provider.LauncherSettings;
 public class PendingAddWidgetInfo extends PendingAddItemInfo {
     public int minWidth;
     public int minHeight;
-    int minResizeWidth;
-    int minResizeHeight;
+    public  int minResizeWidth;
+    public int minResizeHeight;
     public int previewImage;
     public int icon;
     public AppWidgetProviderInfo info;

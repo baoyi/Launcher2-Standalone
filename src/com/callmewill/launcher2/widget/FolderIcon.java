@@ -135,7 +135,7 @@ public class FolderIcon extends LinearLayout implements FolderListener {
         return !workspace.isSmall();
     }
 
-    static FolderIcon fromXml(int resId, Launcher launcher, ViewGroup group,
+    public static FolderIcon fromXml(int resId, Launcher launcher, ViewGroup group,
             FolderInfo folderInfo, IconCache iconCache) {
         @SuppressWarnings("all") // suppress dead code warning
         final boolean error = INITIAL_ITEM_ANIMATION_DURATION >= DROP_IN_ANIMATION_DURATION;
@@ -296,11 +296,11 @@ public class FolderIcon extends LinearLayout implements FolderListener {
         }
     }
 
-    Folder getFolder() {
+    public Folder getFolder() {
         return mFolder;
     }
 
-    FolderInfo getFolderInfo() {
+    public FolderInfo getFolderInfo() {
         return mInfo;
     }
 

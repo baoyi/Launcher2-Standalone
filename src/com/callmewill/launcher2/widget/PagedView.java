@@ -280,7 +280,7 @@ public abstract class PagedView extends ViewGroup implements ViewGroup.OnHierarc
   public  int getCurrentPage() {
         return mCurrentPage;
     }
-    int getNextPage() {
+  public  int getNextPage() {
         return (mNextPage != INVALID_PAGE) ? mNextPage : mCurrentPage;
     }
 
@@ -301,7 +301,7 @@ public abstract class PagedView extends ViewGroup implements ViewGroup.OnHierarc
      * in CustomizePagedView to allow tabs to share the same PagedView while resetting the scroll of
      * the previous tab page.
      */
-    protected void updateCurrentPageScroll() {
+    public void updateCurrentPageScroll() {
         int offset = getChildOffset(mCurrentPage);
         int relOffset = getRelativeChildOffset(mCurrentPage);
         int newX = offset - relOffset;
@@ -315,7 +315,7 @@ public abstract class PagedView extends ViewGroup implements ViewGroup.OnHierarc
      * ends, {@link #resumeScrolling()} should be called, along with
      * {@link #updateCurrentPageScroll()} to correctly set the final state and re-enable scrolling.
      */
-    void pauseScrolling() {
+    public void pauseScrolling() {
         mScroller.forceFinished(true);
         cancelScrollingIndicatorAnimations();
         mScrollingPaused = true;
@@ -325,13 +325,13 @@ public abstract class PagedView extends ViewGroup implements ViewGroup.OnHierarc
      * Enables scrolling again.
      * @see #pauseScrolling()
      */
-    void resumeScrolling() {
+    public void resumeScrolling() {
         mScrollingPaused = false;
     }
     /**
      * Sets the current page.
      */
-    void setCurrentPage(int currentPage) {
+    public void setCurrentPage(int currentPage) {
         if (!mScroller.isFinished()) {
             mScroller.abortAnimation();
         }
@@ -1623,7 +1623,7 @@ public abstract class PagedView extends ViewGroup implements ViewGroup.OnHierarc
         };
     }
 
-    protected void loadAssociatedPages(int page) {
+    public void loadAssociatedPages(int page) {
         loadAssociatedPages(page, false);
     }
     protected void loadAssociatedPages(int page, boolean immediateAndOnly) {
@@ -1750,7 +1750,7 @@ public abstract class PagedView extends ViewGroup implements ViewGroup.OnHierarc
             hideScrollingIndicator(false);
         }
     };
-    protected void flashScrollingIndicator(boolean animated) {
+    public void flashScrollingIndicator(boolean animated) {
         removeCallbacks(hideScrollingIndicatorRunnable);
         showScrollingIndicator(!animated);
         postDelayed(hideScrollingIndicatorRunnable, sScrollIndicatorFlashDuration);
@@ -1785,7 +1785,7 @@ public abstract class PagedView extends ViewGroup implements ViewGroup.OnHierarc
         }
     }
 
-    protected void hideScrollingIndicator(boolean immediately) {
+    public void hideScrollingIndicator(boolean immediately) {
         if (getChildCount() <= 1) return;
         if (!isScrollingIndicatorEnabled()) return;
 

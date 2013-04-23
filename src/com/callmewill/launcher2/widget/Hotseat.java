@@ -80,7 +80,7 @@ public class Hotseat extends FrameLayout {
         setOnKeyListener(new HotseatIconKeyEventListener());
     }
 
-    CellLayout getLayout() {
+    public CellLayout getLayout() {
         return mContent;
     }
   
@@ -115,7 +115,7 @@ public class Hotseat extends FrameLayout {
         resetLayout();
     }
 
-    void resetLayout() {
+    public void resetLayout() {
         mContent.removeAllViewsInLayout();
 
         // Add the Apps button

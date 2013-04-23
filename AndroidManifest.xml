@@ -15,40 +15,38 @@
 ** WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 ** See the License for the specific language governing permissions and
 ** limitations under the License.
-*/
+*/
 -->
-<manifest
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.callmewill.launcher2">
-
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.callmewill.launcher2" >
 
     <permission
         android:name="com.android.launcher.permission.PRELOAD_WORKSPACE"
         android:permissionGroup="android.permission-group.SYSTEM_TOOLS" />
     <permission
         android:name="com.android.launcher.permission.INSTALL_SHORTCUT"
-        android:permissionGroup="android.permission-group.SYSTEM_TOOLS"
-        android:protectionLevel="dangerous"
+        android:description="@string/permdesc_install_shortcut"
         android:label="@string/permlab_install_shortcut"
-        android:description="@string/permdesc_install_shortcut" />
+        android:permissionGroup="android.permission-group.SYSTEM_TOOLS"
+        android:protectionLevel="dangerous" />
     <permission
         android:name="com.android.launcher.permission.UNINSTALL_SHORTCUT"
-        android:permissionGroup="android.permission-group.SYSTEM_TOOLS"
-        android:protectionLevel="dangerous"
+        android:description="@string/permdesc_uninstall_shortcut"
         android:label="@string/permlab_uninstall_shortcut"
-        android:description="@string/permdesc_uninstall_shortcut"/>
+        android:permissionGroup="android.permission-group.SYSTEM_TOOLS"
+        android:protectionLevel="dangerous" />
     <permission
         android:name="com.callmewill.launcher2.permission.READ_SETTINGS"
-        android:permissionGroup="android.permission-group.SYSTEM_TOOLS"
-        android:protectionLevel="normal"
+        android:description="@string/permdesc_read_settings"
         android:label="@string/permlab_read_settings"
-        android:description="@string/permdesc_read_settings"/>
+        android:permissionGroup="android.permission-group.SYSTEM_TOOLS"
+        android:protectionLevel="normal" />
     <permission
         android:name="com.callmewill.launcher2.permission.WRITE_SETTINGS"
-        android:permissionGroup="android.permission-group.SYSTEM_TOOLS"
-        android:protectionLevel="normal"
+        android:description="@string/permdesc_write_settings"
         android:label="@string/permlab_write_settings"
-        android:description="@string/permdesc_write_settings"/>
+        android:permissionGroup="android.permission-group.SYSTEM_TOOLS"
+        android:protectionLevel="normal" />
 
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.SET_WALLPAPER" />
@@ -59,50 +57,52 @@
     <uses-permission android:name="com.callmewill.launcher2.permission.READ_SETTINGS" />
     <uses-permission android:name="com.callmewill.launcher2.permission.WRITE_SETTINGS" />
 
-    <uses-sdk 
-        android:minSdkVersion="16"/>
-    
+    <uses-sdk android:minSdkVersion="16" />
+
     <application
         android:name="com.callmewill.launcher2.LauncherApplication"
-        android:label="@string/application_name"
-        android:icon="@drawable/ic_launcher_home"
         android:hardwareAccelerated="true"
-        android:largeHeap="@bool/config_largeHeap">
+        android:icon="@drawable/ic_launcher_home"
+        android:label="@string/application_name"
+        android:largeHeap="@bool/config_largeHeap" >
         <activity
             android:name="com.callmewill.launcher2.Launcher"
-            android:launchMode="singleTask"
             android:clearTaskOnLaunch="true"
+            android:launchMode="singleTask"
+            android:screenOrientation="nosensor"
             android:stateNotNeeded="true"
             android:theme="@style/Theme"
-            android:windowSoftInputMode="adjustPan"
-            android:screenOrientation="nosensor">
+            android:windowSoftInputMode="adjustPan" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.HOME" />
                 <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.MONKEY"/>
+                <category android:name="android.intent.category.MONKEY" />
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name="com.callmewill.launcher2.WallpaperChooser"
-            android:theme="@style/Theme.WallpaperPicker"
-            android:label="@string/pick_wallpaper"
-            android:icon="@drawable/ic_launcher_wallpaper"
             android:finishOnCloseSystemDialogs="true"
-            android:process=":wallpaper_chooser">
+            android:icon="@drawable/ic_launcher_wallpaper"
+            android:label="@string/pick_wallpaper"
+            android:process=":wallpaper_chooser"
+            android:theme="@style/Theme.WallpaperPicker" >
             <intent-filter>
                 <action android:name="android.intent.action.SET_WALLPAPER" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
-            <meta-data android:name="android.wallpaper.preview"
+
+            <meta-data
+                android:name="android.wallpaper.preview"
                 android:resource="@xml/wallpaper_picker_preview" />
         </activity>
 
         <!-- Intent received used to prepopulate the default workspace. -->
         <receiver
             android:name="com.callmewill.launcher2.receiver.PreloadReceiver"
-            android:permission="com.android.launcher.permission.PRELOAD_WORKSPACE">
+            android:permission="com.android.launcher.permission.PRELOAD_WORKSPACE" >
             <intent-filter>
                 <action android:name="com.android.launcher.action.PRELOAD_WORKSPACE" />
             </intent-filter>
@@ -111,7 +111,7 @@
         <!-- Intent received used to install shortcuts from other applications -->
         <receiver
             android:name="com.callmewill.launcher2.receiver.InstallShortcutReceiver"
-            android:permission="com.android.launcher.permission.INSTALL_SHORTCUT">
+            android:permission="com.android.launcher.permission.INSTALL_SHORTCUT" >
             <intent-filter>
                 <action android:name="com.android.launcher.action.INSTALL_SHORTCUT" />
             </intent-filter>
@@ -120,7 +120,7 @@
         <!-- Intent received used to uninstall shortcuts from other applications -->
         <receiver
             android:name="com.callmewill.launcher2.receiver.UninstallShortcutReceiver"
-            android:permission="com.android.launcher.permission.UNINSTALL_SHORTCUT">
+            android:permission="com.android.launcher.permission.UNINSTALL_SHORTCUT" >
             <intent-filter>
                 <action android:name="com.android.launcher.action.UNINSTALL_SHORTCUT" />
             </intent-filter>
@@ -129,21 +129,23 @@
         <!-- New user initialization; set up initial wallpaper -->
         <receiver
             android:name="com.callmewill.launcher2.receiver.UserInitializeReceiver"
-            android:exported="false">
+            android:exported="false" >
             <intent-filter>
                 <action android:name="android.intent.action.USER_INITIALIZE" />
             </intent-filter>
         </receiver>
-        
+
         <!-- The settings provider contains Home's data, like the workspace favorites -->
         <provider
             android:name="com.callmewill.launcher2.provider.LauncherProvider"
             android:authorities="com.callmewill.launcher2.settings"
             android:exported="true"
-            android:writePermission="com.callmewill.launcher2.permission.WRITE_SETTINGS"
-            android:readPermission="com.callmewill.launcher2.permission.READ_SETTINGS" />
+            android:readPermission="com.callmewill.launcher2.permission.READ_SETTINGS"
+            android:writePermission="com.callmewill.launcher2.permission.WRITE_SETTINGS" />
 
-        <meta-data android:name="android.nfc.disable_beam_default"
-                       android:value="true" />
+        <meta-data
+            android:name="android.nfc.disable_beam_default"
+            android:value="true" />
     </application>
+
 </manifest>

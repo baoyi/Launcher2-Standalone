@@ -431,7 +431,7 @@ public class AppsCustomizePagedView extends PagedViewWithDraggableItems implemen
     }
 
     /** Get the index of the item to restore to if we need to restore the current page. */
-    int getSaveInstanceStateIndex() {
+    public  int getSaveInstanceStateIndex() {
         if (mSaveInstanceStateItemIndex == -1) {
             mSaveInstanceStateItemIndex = getMiddleComponentIndexOnCurrentPage();
         }
@@ -453,7 +453,7 @@ public class AppsCustomizePagedView extends PagedViewWithDraggableItems implemen
     }
 
     /** Restores the page for an item at the specified index */
-    void restorePageForIndex(int index) {
+    public void restorePageForIndex(int index) {
         if (index < 0) return;
         mSaveInstanceStateItemIndex = index;
     }

@@ -82,7 +82,7 @@ public class AppsCustomizeTabHost extends TabHost implements LauncherTransitiona
      * reflects the new content (but doesn't do the animation and logic associated with changing
      * tabs manually).
      */
-    void setContentTypeImmediate(AppsCustomizePagedView.ContentType type) {
+    public   void setContentTypeImmediate(AppsCustomizePagedView.ContentType type) {
         setOnTabChangedListener(null);
         onTabChangedStart();
         onTabChangedEnd(type);
@@ -340,7 +340,7 @@ public class AppsCustomizeTabHost extends TabHost implements LauncherTransitiona
         return super.getDescendantFocusability();
     }
 
-    void reset() {
+    public  void reset() {
         if (mInTransition) {
             // Defer to after the transition to reset
             mResetAfterTransition = true;
@@ -477,7 +477,7 @@ public class AppsCustomizeTabHost extends TabHost implements LauncherTransitiona
         mAppsCustomizePane.clearAllWidgetPages();
     }
 
-    boolean isTransitioning() {
+    public boolean isTransitioning() {
         return mInTransition;
     }
 }

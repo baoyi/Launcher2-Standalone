@@ -602,7 +602,7 @@ public class LauncherModel extends BroadcastReceiver {
 	 * Find a folder in the db, creating the FolderInfo if necessary, and adding
 	 * it to folderList.
 	 */
-	FolderInfo getFolderById(Context context,
+	public FolderInfo getFolderById(Context context,
 			HashMap<Long, FolderInfo> folderList, long id) {
 		final ContentResolver cr = context.getContentResolver();
 		Cursor c = cr
@@ -657,7 +657,7 @@ public class LauncherModel extends BroadcastReceiver {
 	 * screen, cellX and cellY fields of the item. Also assigns an ID to the
 	 * item.
 	 */
-	static void addItemToDatabase(Context context, final ItemInfo item,
+	public	static void addItemToDatabase(Context context, final ItemInfo item,
 			final long container, final int screen, final int cellX,
 			final int cellY, final boolean notify) {
 		item.container = container;
@@ -2645,7 +2645,7 @@ public class LauncherModel extends BroadcastReceiver {
 		return supportedConfigurationActivities;
 	}
 
-	ShortcutInfo infoFromShortcutIntent(Context context, Intent data,
+	public ShortcutInfo infoFromShortcutIntent(Context context, Intent data,
 			Bitmap fallbackIcon) {
 		Intent intent = data.getParcelableExtra(Intent.EXTRA_SHORTCUT_INTENT);
 		String name = data.getStringExtra(Intent.EXTRA_SHORTCUT_NAME);

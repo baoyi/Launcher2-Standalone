@@ -86,7 +86,7 @@ public class LauncherAppWidgetInfo extends ItemInfo {
     /**
      * Trigger an update callback to the widget to notify it that its size has changed.
      */
-    void notifyWidgetSizeChanged(Launcher launcher) {
+   public    void notifyWidgetSizeChanged(Launcher launcher) {
         AppWidgetResizeFrame.updateWidgetSizeRanges(hostView, launcher, spanX, spanY);
         mHasNotifiedInitialWidgetSizeChanged = true;
     }

@@ -82,7 +82,7 @@ public class LauncherProvider extends ContentProvider {
     static final String PARAMETER_NOTIFY = "notify";
     static final String DB_CREATED_BUT_DEFAULT_WORKSPACE_NOT_LOADED =
             "DB_CREATED_BUT_DEFAULT_WORKSPACE_NOT_LOADED";
-    static final String DEFAULT_WORKSPACE_RESOURCE_ID =
+    public static final String DEFAULT_WORKSPACE_RESOURCE_ID =
             "DEFAULT_WORKSPACE_RESOURCE_ID";
 
     private static final String ACTION_APPWIDGET_DEFAULT_WORKSPACE_CONFIGURE =
@@ -93,7 +93,7 @@ public class LauncherProvider extends ContentProvider {
      * {@link AppWidgetHost#deleteHost()} is called during database creation.
      * Use this to recall {@link AppWidgetHost#startListening()} if needed.
      */
-    static final Uri CONTENT_APPWIDGET_RESET_URI =
+    public static final Uri CONTENT_APPWIDGET_RESET_URI =
             Uri.parse("content://" + AUTHORITY + "/appWidgetReset");
 
     private DatabaseHelper mOpenHelper;

@@ -68,7 +68,7 @@ public class HolographicLinearLayout extends LinearLayout {
         }
     }
 
-    void invalidatePressedFocusedStates() {
+    public void invalidatePressedFocusedStates() {
         mHolographicHelper.invalidatePressedFocusedStates(mImageView);
         invalidate();
     }

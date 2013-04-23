@@ -198,7 +198,7 @@ public class Workspace extends SmoothPagedView
     // State variable that indicates whether the pages are small (ie when you're
     // in all apps or customize mode)
 
-    enum State { NORMAL, SPRING_LOADED, SMALL };
+    public  enum State { NORMAL, SPRING_LOADED, SMALL };
     private State mState = State.NORMAL;
     private boolean mIsSwitchingState = false;
 
@@ -500,7 +500,7 @@ public class Workspace extends SmoothPagedView
     /**
      * @return The open folder on the current screen, or null if there is none
      */
-    Folder getOpenFolder() {
+    public  Folder getOpenFolder() {
         DragLayer dragLayer = mLauncher.getDragLayer();
         int count = dragLayer.getChildCount();
         for (int i = 0; i < count; i++) {
@@ -514,7 +514,7 @@ public class Workspace extends SmoothPagedView
         return null;
     }
 
-    boolean isTouchActive() {
+    public boolean isTouchActive() {
         return mTouchState != TOUCH_STATE_REST;
     }
 
@@ -545,7 +545,7 @@ public class Workspace extends SmoothPagedView
      * @param spanY The number of cells spanned vertically by the child.
      * @param insert When true, the child is inserted at the beginning of the children list.
      */
-    void addInScreen(View child, long container, int screen, int x, int y, int spanX, int spanY,
+    public   void addInScreen(View child, long container, int screen, int x, int y, int spanX, int spanY,
             boolean insert) {
         if (container == LauncherSettings.Favorites.CONTAINER_DESKTOP) {
             if (screen < 0 || screen >= getChildCount()) {
@@ -706,7 +706,7 @@ public class Workspace extends SmoothPagedView
         return super.onInterceptTouchEvent(ev);
     }
 
-    protected void reinflateWidgetsIfNecessary() {
+    public void reinflateWidgetsIfNecessary() {
         final int clCount = getChildCount();
         for (int i = 0; i < clCount; i++) {
             CellLayout cl = (CellLayout) getChildAt(i);
@@ -968,7 +968,7 @@ public class Workspace extends SmoothPagedView
     }
 
     @Override
-    protected void updateCurrentPageScroll() {
+	public void updateCurrentPageScroll() {
         super.updateCurrentPageScroll();
         computeWallpaperScrollRatio(mCurrentPage);
     }
@@ -985,7 +985,7 @@ public class Workspace extends SmoothPagedView
         computeWallpaperScrollRatio(whichPage);
     }
 
-    protected void snapToPage(int whichPage, Runnable r) {
+    public void snapToPage(int whichPage, Runnable r) {
         if (mDelayedSnapToPageRunnable != null) {
             mDelayedSnapToPageRunnable.run();
         }
@@ -1523,7 +1523,7 @@ public class Workspace extends SmoothPagedView
     /*
      * ZInterpolator compounded with an ease-out.
      */
-    static class ZoomOutInterpolator implements TimeInterpolator {
+    public static class ZoomOutInterpolator implements TimeInterpolator {
         private final DecelerateInterpolator decelerate = new DecelerateInterpolator(0.75f);
         private final ZInterpolator zInterpolator = new ZInterpolator(0.13f);
 
@@ -1535,7 +1535,7 @@ public class Workspace extends SmoothPagedView
     /*
      * InvereZInterpolator compounded with an ease-out.
      */
-    static class ZoomInInterpolator implements TimeInterpolator {
+    public static class ZoomInInterpolator implements TimeInterpolator {
         private final InverseZInterpolator inverseZInterpolator = new InverseZInterpolator(0.35f);
         private final DecelerateInterpolator decelerate = new DecelerateInterpolator(3.0f);
 
@@ -1595,11 +1595,11 @@ public class Workspace extends SmoothPagedView
         mNewRotationYs = new float[childCount];
     }
 
-    Animator getChangeStateAnimation(final State state, boolean animated) {
+    public Animator getChangeStateAnimation(final State state, boolean animated) {
         return getChangeStateAnimation(state, animated, 0);
     }
 
-    Animator getChangeStateAnimation(final State state, boolean animated, int delay) {
+    public Animator getChangeStateAnimation(final State state, boolean animated, int delay) {
         if (mState == state) {
             return null;
         }
@@ -1905,7 +1905,7 @@ public class Workspace extends SmoothPagedView
         return b;
     }
 
-    void startDrag(CellLayout.CellInfo cellInfo) {
+    public void startDrag(CellLayout.CellInfo cellInfo) {
         View child = cellInfo.cell;
 
         // Make sure the drag was started by a long press as opposed to a long click.
@@ -1978,7 +1978,7 @@ public class Workspace extends SmoothPagedView
         showScrollingIndicator(false);
     }
 
-    void addApplicationShortcut(ShortcutInfo info, CellLayout target, long container, int screen,
+    public   void addApplicationShortcut(ShortcutInfo info, CellLayout target, long container, int screen,
             int cellX, int cellY, boolean insertAtFirst, int intersectX, int intersectY) {
         View view = mLauncher.createShortcut(R.layout.application, target, (ShortcutInfo) info);
 
@@ -2125,7 +2125,7 @@ public class Workspace extends SmoothPagedView
         return false;
     }
 
-    boolean createUserFolderIfNecessary(View newView, long container, CellLayout target,
+    public  boolean createUserFolderIfNecessary(View newView, long container, CellLayout target,
             int[] targetCell, float distance, boolean external, DragView dragView,
             Runnable postAnimationRunnable) {
         if (distance > mMaxDistanceForFolderCreation) return false;
@@ -2178,7 +2178,7 @@ public class Workspace extends SmoothPagedView
         return false;
     }
 
-    boolean addToExistingFolderIfNecessary(View newView, CellLayout target, int[] targetCell,
+    public  boolean addToExistingFolderIfNecessary(View newView, CellLayout target, int[] targetCell,
             float distance, DragObject d, boolean external) {
         if (distance > mMaxDistanceForFolderCreation) return false;
 
@@ -3386,7 +3386,7 @@ public class Workspace extends SmoothPagedView
                 pixelX, pixelY, spanX, spanY, recycle);
     }
 
-    void setup(DragController dragController) {
+    public void setup(DragController dragController) {
         mSpringLoadedDragController = new SpringLoadedDragController(mLauncher);
         mDragController = dragController;
 
@@ -3659,7 +3659,7 @@ public class Workspace extends SmoothPagedView
         return null;
     }
 
-    void clearDropTargets() {
+    public void clearDropTargets() {
         ArrayList<ShortcutAndWidgetContainer> childrenLayouts =
                 getAllShortcutAndWidgetContainers();
         for (ShortcutAndWidgetContainer layout: childrenLayouts) {
@@ -3673,7 +3673,7 @@ public class Workspace extends SmoothPagedView
         }
     }
 
-    void removeItems(final ArrayList<String> packages) {
+    public void removeItems(final ArrayList<String> packages) {
         final HashSet<String> packageNames = new HashSet<String>();
         packageNames.addAll(packages);
 
@@ -3795,7 +3795,7 @@ public class Workspace extends SmoothPagedView
         });
     }
 
-    void updateShortcuts(ArrayList<ApplicationInfo> apps) {
+    public void updateShortcuts(ArrayList<ApplicationInfo> apps) {
         ArrayList<ShortcutAndWidgetContainer> childrenLayouts = getAllShortcutAndWidgetContainers();
         for (ShortcutAndWidgetContainer layout: childrenLayouts) {
             int childCount = layout.getChildCount();
@@ -3827,7 +3827,7 @@ public class Workspace extends SmoothPagedView
         }
     }
 
-    void moveToDefaultScreen(boolean animate) {
+    public void moveToDefaultScreen(boolean animate) {
         if (!isSmall()) {
             if (animate) {
                 snapToPage(mDefaultPage);
