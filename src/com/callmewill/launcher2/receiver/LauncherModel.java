@@ -16,6 +16,20 @@
 
 package com.callmewill.launcher2.receiver;
 
+import java.lang.ref.WeakReference;
+import java.net.URISyntaxException;
+import java.text.Collator;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
+
+import com.callmewill.launcher2.R;
+import com.callmewill.launcher2.R.integer;
 import android.app.SearchManager;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProviderInfo;
@@ -50,11 +64,9 @@ import android.util.Log;
 import com.callmewill.launcher2.AllAppsList;
 import com.callmewill.launcher2.DeferredHandler;
 import com.callmewill.launcher2.InstallWidgetReceiver;
+import com.callmewill.launcher2.InstallWidgetReceiver.WidgetMimeTypeHandlerData;
 import com.callmewill.launcher2.Launcher;
 import com.callmewill.launcher2.LauncherApplication;
-import com.callmewill.launcher2.R;
-import com.callmewill.launcher2.InstallWidgetReceiver.WidgetMimeTypeHandlerData;
-import com.callmewill.launcher2.R.integer;
 import com.callmewill.launcher2.cache.IconCache;
 import com.callmewill.launcher2.drawable.FastBitmapDrawable;
 import com.callmewill.launcher2.entity.ApplicationInfo;
@@ -63,20 +75,8 @@ import com.callmewill.launcher2.entity.ItemInfo;
 import com.callmewill.launcher2.entity.LauncherAppWidgetInfo;
 import com.callmewill.launcher2.entity.ShortcutInfo;
 import com.callmewill.launcher2.provider.LauncherSettings;
-import com.callmewill.launcher2.provider.LauncherSettings.Favorites;
 import com.callmewill.launcher2.utils.Utilities;
-
-import java.lang.ref.WeakReference;
-import java.net.URISyntaxException;
-import java.text.Collator;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
+import com.callmewill.launcher2.widget.FolderIcon;
 
 /**
  * Maintains in-memory state of the Launcher. It is expected that there should
@@ -185,7 +185,7 @@ public class LauncherModel extends BroadcastReceiver {
 
 		public void bindItems(ArrayList<ItemInfo> shortcuts, int start, int end);
 
-		public void bindFolders(HashMap<Long, FolderInfo> folders);
+		public void bindFolders(HashMap<Long, FolderIcon> folders);
 
 		public void finishBindingItems();
 
