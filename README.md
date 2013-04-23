@@ -1,4 +1,5 @@
 Android-Launcher2-Standalone
+桌面分析工程
 ============================
 This is a standalone version of the stock android launcher for 4.1 above. All private APIs are removed so it runs as a normal app. This could be a starting point for anyone who likes to build a customized launcher.
 
