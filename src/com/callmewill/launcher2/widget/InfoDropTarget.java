@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.callmewill.launcher2;
+package com.callmewill.launcher2.widget;
 
 import android.content.ComponentName;
 import android.content.Context;
@@ -26,12 +26,15 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.callmewill.launcher2.DragSource;
+import com.callmewill.launcher2.DropTarget;
+import com.callmewill.launcher2.LauncherApplication;
 import com.callmewill.launcher2.R;
+import com.callmewill.launcher2.DropTarget.DragObject;
+import com.callmewill.launcher2.R.color;
 import com.callmewill.launcher2.entity.ApplicationInfo;
 import com.callmewill.launcher2.entity.PendingAddItemInfo;
 import com.callmewill.launcher2.entity.ShortcutInfo;
-import com.callmewill.launcher2.widget.AppsCustomizePagedView;
-import com.callmewill.launcher2.widget.ButtonDropTarget;
 
 public class InfoDropTarget extends ButtonDropTarget {
 

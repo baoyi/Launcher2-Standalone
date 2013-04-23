@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.callmewill.launcher2;
+package com.callmewill.launcher2.widget;
 
 import android.animation.TimeInterpolator;
 import android.animation.ValueAnimator;
@@ -34,6 +34,14 @@ import android.view.animation.AnimationUtils;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.LinearInterpolator;
 
+import com.callmewill.launcher2.DragSource;
+import com.callmewill.launcher2.DropTarget;
+import com.callmewill.launcher2.LauncherApplication;
+import com.callmewill.launcher2.R;
+import com.callmewill.launcher2.DropTarget.DragObject;
+import com.callmewill.launcher2.R.color;
+import com.callmewill.launcher2.R.drawable;
+import com.callmewill.launcher2.R.string;
 import com.callmewill.launcher2.entity.ApplicationInfo;
 import com.callmewill.launcher2.entity.FolderInfo;
 import com.callmewill.launcher2.entity.ItemInfo;
@@ -42,13 +50,6 @@ import com.callmewill.launcher2.entity.PendingAddItemInfo;
 import com.callmewill.launcher2.entity.ShortcutInfo;
 import com.callmewill.launcher2.provider.LauncherSettings;
 import com.callmewill.launcher2.receiver.LauncherModel;
-import com.callmewill.launcher2.widget.AppsCustomizePagedView;
-import com.callmewill.launcher2.widget.ButtonDropTarget;
-import com.callmewill.launcher2.widget.DragLayer;
-import com.callmewill.launcher2.widget.DragView;
-import com.callmewill.launcher2.widget.Folder;
-import com.callmewill.launcher2.widget.LauncherAppWidgetHost;
-import com.callmewill.launcher2.widget.Workspace;
 
 public class DeleteDropTarget extends ButtonDropTarget {
     private static int DELETE_ANIMATION_DURATION = 285;

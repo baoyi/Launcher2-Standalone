@@ -19,7 +19,7 @@
         style="@style/DropTargetButtonContainer"
         android:layout_weight="1">
         <!-- Delete target -->
-        <com.callmewill.launcher2.DeleteDropTarget
+        <com.callmewill.launcher2.widget.DeleteDropTarget
             style="@style/DropTargetButton"
             android:id="@+id/delete_target_text"
             android:text="@string/delete_zone_label_workspace"
@@ -30,7 +30,7 @@
         style="@style/DropTargetButtonContainer"
         android:layout_weight="1">
         <!-- Info target -->
-        <com.callmewill.launcher2.InfoDropTarget
+        <com.callmewill.launcher2.widget.InfoDropTarget
             style="@style/DropTargetButton"
             android:id="@+id/info_target_text"
             android:text="@string/info_target_label"

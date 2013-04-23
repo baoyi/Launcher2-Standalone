@@ -3905,7 +3905,7 @@ public final class Launcher extends Activity
     }
 }
 
- interface LauncherTransitionable {
+ public interface LauncherTransitionable {
     View getContent();
     void onLauncherTransitionPrepare(Launcher l, boolean animated, boolean toWorkspace);
     void onLauncherTransitionStart(Launcher l, boolean animated, boolean toWorkspace);

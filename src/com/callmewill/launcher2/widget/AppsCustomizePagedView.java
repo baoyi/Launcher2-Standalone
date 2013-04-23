@@ -60,7 +60,6 @@ import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.callmewill.launcher2.DeleteDropTarget;
 import com.callmewill.launcher2.DragController;
 import com.callmewill.launcher2.DragSource;
 import com.callmewill.launcher2.DropTarget;
