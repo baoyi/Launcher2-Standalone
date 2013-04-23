@@ -743,11 +743,11 @@ public class LauncherModel extends BroadcastReceiver {
 				| (localCellX & 0xFF) << 8 | (localCellY & 0xFF);
 	}
 
-	static int getCellCountX() {
+	public static int getCellCountX() {
 		return mCellCountX;
 	}
 
-	static int getCellCountY() {
+	public static int getCellCountY() {
 		return mCellCountY;
 	}
 
@@ -2856,7 +2856,7 @@ public class LauncherModel extends BroadcastReceiver {
 		private PackageManager mPackageManager;
 		private HashMap<Object, String> mLabelCache;
 
-		WidgetAndShortcutNameComparator(PackageManager pm) {
+		public WidgetAndShortcutNameComparator(PackageManager pm) {
 			mPackageManager = pm;
 			mLabelCache = new HashMap<Object, String>();
 			mCollator = Collator.getInstance();

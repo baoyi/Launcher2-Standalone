@@ -45,8 +45,8 @@ public class LauncherAppWidgetInfo extends ItemInfo {
     ComponentName providerName;
 
     // TODO: Are these necessary here?
-    int minWidth = -1;
-    int minHeight = -1;
+    public int minWidth = -1;
+    public int minHeight = -1;
 
     private boolean mHasNotifiedInitialWidgetSizeChanged;
 
@@ -56,7 +56,7 @@ public class LauncherAppWidgetInfo extends ItemInfo {
      */
     AppWidgetHostView hostView = null;
 
-    LauncherAppWidgetInfo(int appWidgetId, ComponentName providerName) {
+    public LauncherAppWidgetInfo(int appWidgetId, ComponentName providerName) {
         itemType = LauncherSettings.Favorites.ITEM_TYPE_APPWIDGET;
         this.appWidgetId = appWidgetId;
         this.providerName = providerName;
@@ -68,7 +68,7 @@ public class LauncherAppWidgetInfo extends ItemInfo {
     }
 
     @Override
-    void onAddToDatabase(ContentValues values) {
+   public void onAddToDatabase(ContentValues values) {
         super.onAddToDatabase(values);
         values.put(LauncherSettings.Favorites.APPWIDGET_ID, appWidgetId);
     }
@@ -77,7 +77,7 @@ public class LauncherAppWidgetInfo extends ItemInfo {
      * When we bind the widget, we should notify the widget that the size has changed if we have not
      * done so already (only really for default workspace widgets).
      */
-    void onBindAppWidget(Launcher launcher) {
+   public void onBindAppWidget(Launcher launcher) {
         if (!mHasNotifiedInitialWidgetSizeChanged) {
             notifyWidgetSizeChanged(launcher);
         }
@@ -97,7 +97,7 @@ public class LauncherAppWidgetInfo extends ItemInfo {
     }
 
     @Override
-    void unbind() {
+    public void unbind() {
         super.unbind();
         hostView = null;
     }

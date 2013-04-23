@@ -33,6 +33,6 @@ public class PendingAddItemInfo extends ItemInfo {
     /**
      * The component that will be created.
      */
-    ComponentName componentName;
+    public ComponentName componentName;
 }
 

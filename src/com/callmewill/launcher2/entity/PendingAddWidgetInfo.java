@@ -8,15 +8,15 @@ import android.os.Parcelable;
 import com.callmewill.launcher2.provider.LauncherSettings;
 
 public class PendingAddWidgetInfo extends PendingAddItemInfo {
-    int minWidth;
-    int minHeight;
+    public int minWidth;
+    public int minHeight;
     int minResizeWidth;
     int minResizeHeight;
-    int previewImage;
-    int icon;
-    AppWidgetProviderInfo info;
-    AppWidgetHostView boundWidget;
-    Bundle bindOptions = null;
+    public int previewImage;
+    public int icon;
+    public AppWidgetProviderInfo info;
+    public AppWidgetHostView boundWidget;
+    public Bundle bindOptions = null;
 
     // Any configuration data that we want to pass to a configuration activity when
     // starting up a widget
