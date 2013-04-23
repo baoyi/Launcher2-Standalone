@@ -478,7 +478,7 @@ public class LauncherModel extends BroadcastReceiver {
 	 * Move and/or resize item in the DB to a new <container, screen, cellX,
 	 * cellY, spanX, spanY>
 	 */
-	static void modifyItemInDatabase(Context context, final ItemInfo item,
+	public static void modifyItemInDatabase(Context context, final ItemInfo item,
 			final long container, final int screen, final int cellX,
 			final int cellY, final int spanX, final int spanY) {
 		String transaction = "DbDebug    Modify item (" + item.title
@@ -737,7 +737,7 @@ public class LauncherModel extends BroadcastReceiver {
 	/**
 	 * Creates a new unique child id, for a given cell span across all layouts.
 	 */
-	static int getCellLayoutChildId(long container, int screen, int localCellX,
+	public static int getCellLayoutChildId(long container, int screen, int localCellX,
 			int localCellY, int spanX, int spanY) {
 		return (((int) container & 0xFF) << 24) | (screen & 0xFF) << 16
 				| (localCellX & 0xFF) << 8 | (localCellY & 0xFF);
@@ -1068,7 +1068,7 @@ public class LauncherModel extends BroadcastReceiver {
 		return mAllAppsLoaded;
 	}
 
-	boolean isLoadingWorkspace() {
+	public boolean isLoadingWorkspace() {
 		synchronized (mLock) {
 			if (mLoaderTask != null) {
 				return mLoaderTask.isLoadingWorkspace();
@@ -2472,7 +2472,7 @@ public class LauncherModel extends BroadcastReceiver {
 	/**
 	 * Returns the set of workspace ShortcutInfos with the specified intent.
 	 */
-	static ArrayList<ItemInfo> getWorkspaceShortcutItemInfosWithIntent(
+	public static ArrayList<ItemInfo> getWorkspaceShortcutItemInfosWithIntent(
 			Intent intent) {
 		ArrayList<ItemInfo> items = new ArrayList<ItemInfo>();
 		synchronized (sBgLock) {

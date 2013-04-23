@@ -26,5 +26,5 @@ public abstract class LauncherAnimatorUpdateListener implements AnimatorUpdateLi
         onAnimationUpdate(a, b);
     }
 
-    abstract void onAnimationUpdate(float a, float b);
+    public abstract void onAnimationUpdate(float a, float b);
 }

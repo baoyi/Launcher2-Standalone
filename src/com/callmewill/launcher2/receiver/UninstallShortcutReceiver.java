@@ -75,7 +75,7 @@ public class UninstallShortcutReceiver extends BroadcastReceiver {
         mUseUninstallQueue = true;
     }
 
-    static void disableAndFlushUninstallQueue(Context context) {
+    public static void disableAndFlushUninstallQueue(Context context) {
         mUseUninstallQueue = false;
         Iterator<PendingUninstallShortcutInfo> iter = mUninstallQueue.iterator();
         while (iter.hasNext()) {

@@ -113,11 +113,11 @@ public class InstallShortcutReceiver extends BroadcastReceiver {
     public static void enableInstallQueue() {
         mUseInstallQueue = true;
     }
-    static void disableAndFlushInstallQueue(Context context) {
+    public static void disableAndFlushInstallQueue(Context context) {
         mUseInstallQueue = false;
         flushInstallQueue(context);
     }
-    static void flushInstallQueue(Context context) {
+    public static void flushInstallQueue(Context context) {
         Iterator<PendingInstallShortcutInfo> iter = mInstallQueue.iterator();
         while (iter.hasNext()) {
             processInstallShortcut(context, iter.next());

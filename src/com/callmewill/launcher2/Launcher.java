@@ -1737,7 +1737,7 @@ public final class Launcher extends Activity
      * @param cell The cell it should be added to, optional
      * @param position The location on the screen where it was dropped, optional
      */
-    void processShortcutFromDrop(ComponentName componentName, long container, int screen,
+    public void processShortcutFromDrop(ComponentName componentName, long container, int screen,
             int[] cell, int[] loc) {
         resetAddInfo();
         mPendingAddInfo.container = container;
@@ -1762,7 +1762,7 @@ public final class Launcher extends Activity
      * @param cell The cell it should be added to, optional
      * @param position The location on the screen where it was dropped, optional
      */
-    void addAppWidgetFromDrop(PendingAddWidgetInfo info, long container, int screen,
+    public void addAppWidgetFromDrop(PendingAddWidgetInfo info, long container, int screen,
             int[] cell, int[] span, int[] loc) {
         resetAddInfo();
         mPendingAddInfo.container = info.container = container;
@@ -1839,7 +1839,7 @@ public final class Launcher extends Activity
         startActivityForResult(intent, REQUEST_PICK_WALLPAPER);
     }
 
-    FolderIcon addFolder(CellLayout layout, long container, final int screen, int cellX,
+    public FolderIcon addFolder(CellLayout layout, long container, final int screen, int cellX,
             int cellY) {
         final FolderInfo folderInfo = new FolderInfo();
         folderInfo.title = getText(R.string.folder_name);
@@ -2351,7 +2351,7 @@ public final class Launcher extends Activity
         return true;
     }
 
-    boolean isHotseatLayout(View layout) {
+    public boolean isHotseatLayout(View layout) {
         return mHotseat != null && layout != null &&
                 (layout instanceof CellLayout) && (layout == mHotseat.getLayout());
     }
@@ -2865,7 +2865,7 @@ public final class Launcher extends Activity
         }
     }
 
-    void exitSpringLoadedDragModeDelayed(final boolean successfulDrop, boolean extendedDelay,
+    public void exitSpringLoadedDragModeDelayed(final boolean successfulDrop, boolean extendedDelay,
             final Runnable onCompleteRunnable) {
         if (mState != State.APPS_CUSTOMIZE_SPRING_LOADED) return;
 

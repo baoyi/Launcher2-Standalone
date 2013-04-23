@@ -207,13 +207,13 @@ public class HolographicOutlineHelper {
         applyExpensiveOutlineWithBlur(srcDst, srcDstCanvas, color, outlineColor, THICK);
     }
 
-    void applyMediumExpensiveOutlineWithBlur(Bitmap srcDst, Canvas srcDstCanvas, int color,
+    public void applyMediumExpensiveOutlineWithBlur(Bitmap srcDst, Canvas srcDstCanvas, int color,
             int outlineColor, boolean clipAlpha) {
         applyExpensiveOutlineWithBlur(srcDst, srcDstCanvas, color, outlineColor, clipAlpha,
                 MEDIUM);
     }
 
-    void applyMediumExpensiveOutlineWithBlur(Bitmap srcDst, Canvas srcDstCanvas, int color,
+    public void applyMediumExpensiveOutlineWithBlur(Bitmap srcDst, Canvas srcDstCanvas, int color,
             int outlineColor) {
         applyExpensiveOutlineWithBlur(srcDst, srcDstCanvas, color, outlineColor, MEDIUM);
     }

@@ -61,7 +61,7 @@ public class DragController {
     private static final int SCROLL_WAITING_IN_ZONE = 1;
 
     static final int SCROLL_NONE = -1;
-    static final int SCROLL_LEFT = 0;
+    public static final int SCROLL_LEFT = 0;
     static final int SCROLL_RIGHT = 1;
 
     private static final float MAX_FLING_DEGREES = 35f;

@@ -42,7 +42,7 @@ public class LauncherAppWidgetInfo extends ItemInfo {
      */
     public int appWidgetId = NO_ID;
 
-    ComponentName providerName;
+    public ComponentName providerName;
 
     // TODO: Are these necessary here?
     public int minWidth = -1;
@@ -54,7 +54,7 @@ public class LauncherAppWidgetInfo extends ItemInfo {
      * View that holds this widget after it's been created.  This view isn't created
      * until Launcher knows it's needed.
      */
-    AppWidgetHostView hostView = null;
+    public AppWidgetHostView hostView = null;
 
     public LauncherAppWidgetInfo(int appWidgetId, ComponentName providerName) {
         itemType = LauncherSettings.Favorites.ITEM_TYPE_APPWIDGET;
