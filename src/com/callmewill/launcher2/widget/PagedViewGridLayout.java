@@ -39,11 +39,11 @@ public class PagedViewGridLayout extends GridLayout implements Page {
         mCellCountY = cellCountY;
     }
 
-    int getCellCountX() {
+    public int getCellCountX() {
         return mCellCountX;
     }
 
-    int getCellCountY() {
+    public int getCellCountY() {
         return mCellCountY;
     }
 

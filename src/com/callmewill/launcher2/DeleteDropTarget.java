@@ -34,7 +34,6 @@ import android.view.animation.AnimationUtils;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.LinearInterpolator;
 
-import com.callmewill.launcher2.R;
 import com.callmewill.launcher2.entity.ApplicationInfo;
 import com.callmewill.launcher2.entity.FolderInfo;
 import com.callmewill.launcher2.entity.ItemInfo;

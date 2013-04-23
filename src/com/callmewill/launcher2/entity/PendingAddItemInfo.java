@@ -29,7 +29,7 @@ import android.os.Parcelable;
 /**
  * We pass this object with a drag from the customization tray
  */
-class PendingAddItemInfo extends ItemInfo {
+public class PendingAddItemInfo extends ItemInfo {
     /**
      * The component that will be created.
      */

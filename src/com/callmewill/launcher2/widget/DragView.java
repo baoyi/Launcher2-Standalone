@@ -284,12 +284,12 @@ public class DragView extends View {
      * @param touchX the x coordinate the user touched in DragLayer coordinates
      * @param touchY the y coordinate the user touched in DragLayer coordinates
      */
-    void move(int touchX, int touchY) {
+    public void move(int touchX, int touchY) {
         setTranslationX(touchX - mRegistrationX + (int) mOffsetX);
         setTranslationY(touchY - mRegistrationY + (int) mOffsetY);
     }
 
-    void remove() {
+    public void remove() {
         if (getParent() != null) {
             mDragLayer.removeView(DragView.this);
         }

@@ -29,7 +29,7 @@ import android.os.Build;
 /**
  * Represents a widget (either instantiated or about to be) in the Launcher.
  */
-class LauncherAppWidgetInfo extends ItemInfo {
+public class LauncherAppWidgetInfo extends ItemInfo {
 
     /**
      * Indicates that the widget hasn't been instantiated yet.
@@ -40,7 +40,7 @@ class LauncherAppWidgetInfo extends ItemInfo {
      * Identifier for this widget when talking with
      * {@link android.appwidget.AppWidgetManager} for updates.
      */
-    int appWidgetId = NO_ID;
+    public int appWidgetId = NO_ID;
 
     ComponentName providerName;
 

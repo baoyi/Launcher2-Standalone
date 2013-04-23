@@ -974,7 +974,7 @@ public class Workspace extends SmoothPagedView
     }
 
     @Override
-    protected void snapToPage(int whichPage) {
+    public void snapToPage(int whichPage) {
         super.snapToPage(whichPage);
         computeWallpaperScrollRatio(whichPage);
     }

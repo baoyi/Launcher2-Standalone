@@ -603,11 +603,11 @@ public class CellLayout extends ViewGroup {
         mInterceptTouchListener = listener;
     }
 
-    int getCountX() {
+    public int getCountX() {
         return mCountX;
     }
 
-    int getCountY() {
+    public int getCountY() {
         return mCountY;
     }
 
@@ -3010,12 +3010,14 @@ out:            for (int i = x; i < x + spanX - 1 && x < xCount; i++) {
 
         // X coordinate of the view in the layout.
         @ViewDebug.ExportedProperty
+		public
         int x;
         // Y coordinate of the view in the layout.
         @ViewDebug.ExportedProperty
+		public
         int y;
 
-        boolean dropped;
+        public boolean dropped;
 
         public LayoutParams(Context c, AttributeSet attrs) {
             super(c, attrs);

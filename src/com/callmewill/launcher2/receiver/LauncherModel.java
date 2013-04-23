@@ -768,7 +768,7 @@ public class LauncherModel extends BroadcastReceiver {
 	 * @param context
 	 * @param item
 	 */
-	static void deleteItemFromDatabase(Context context, final ItemInfo item) {
+	public static void deleteItemFromDatabase(Context context, final ItemInfo item) {
 		final ContentResolver cr = context.getContentResolver();
 		final Uri uriToDelete = LauncherSettings.Favorites.getContentUri(
 				item.id, false);
@@ -822,7 +822,7 @@ public class LauncherModel extends BroadcastReceiver {
 	/**
 	 * Remove the contents of the specified folder from the database
 	 */
-	static void deleteFolderContentsFromDatabase(Context context,
+	public static void deleteFolderContentsFromDatabase(Context context,
 			final FolderInfo info) {
 		final ContentResolver cr = context.getContentResolver();
 

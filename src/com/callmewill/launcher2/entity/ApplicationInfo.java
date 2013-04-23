@@ -40,7 +40,7 @@ public class ApplicationInfo extends ItemInfo {
 	/**
 	 * The intent used to start the application.
 	 */
-	Intent intent;
+	public Intent intent;
 
 	/**
 	 * A bitmap version of the application icon.
@@ -54,10 +54,10 @@ public class ApplicationInfo extends ItemInfo {
 
 	public ComponentName componentName;
 
-	static final int DOWNLOADED_FLAG = 1;
+	public static final int DOWNLOADED_FLAG = 1;
 	static final int UPDATED_SYSTEM_APP_FLAG = 2;
 
-	int flags = 0;
+	public int flags = 0;
 
 	ApplicationInfo() {
 		itemType = LauncherSettings.BaseLauncherColumns.ITEM_TYPE_SHORTCUT;

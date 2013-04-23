@@ -121,7 +121,7 @@ public class Folder extends LinearLayout implements DragSource, View.OnClickList
     private boolean mDeleteFolderOnDropCompleted = false;
     private boolean mSuppressFolderDeletion = false;
     private boolean mItemAddedBackToSelfViaIcon = false;
-    FolderEditText mFolderName;
+    public FolderEditText mFolderName;
     private float mFolderIconPivotX;
     private float mFolderIconPivotY;
 
