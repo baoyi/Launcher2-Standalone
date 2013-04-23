@@ -34,7 +34,7 @@ import com.callmewill.launcher2.provider.LauncherSettings.BaseLauncherColumns;
 /**
  * Represents an app in AllAppsView.
  */
-class ApplicationInfo extends ItemInfo {
+public class ApplicationInfo extends ItemInfo {
     private static final String TAG = "Launcher2.ApplicationInfo";
 
     /**
@@ -52,7 +52,7 @@ class ApplicationInfo extends ItemInfo {
      */
     long firstInstallTime;
 
-    ComponentName componentName;
+    public  ComponentName componentName;
 
     static final int DOWNLOADED_FLAG = 1;
     static final int UPDATED_SYSTEM_APP_FLAG = 2;

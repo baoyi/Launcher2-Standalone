@@ -24,6 +24,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.util.Log;
 
+import com.callmewill.launcher2.provider.LauncherSettings;
 import com.callmewill.launcher2.receiver.LauncherModel;
 
 /**
@@ -97,7 +98,7 @@ public class ItemInfo {
     /**
      * Title of the item
      */
-    CharSequence title;
+    public   CharSequence title;
 
     /**
      * The position of the item in a drag-and-drop operation.

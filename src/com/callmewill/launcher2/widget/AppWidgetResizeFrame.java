@@ -340,7 +340,7 @@ public class AppWidgetResizeFrame extends FrameLayout {
         mWidgetView.requestLayout();
     }
 
-    static void updateWidgetSizeRanges(AppWidgetHostView widgetView, Launcher launcher,
+  public   static void updateWidgetSizeRanges(AppWidgetHostView widgetView, Launcher launcher,
             int spanX, int spanY) {
 
         getWidgetSizeRanges(launcher, spanX, spanY, mTmpRect);

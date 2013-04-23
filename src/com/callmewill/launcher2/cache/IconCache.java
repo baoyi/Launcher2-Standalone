@@ -16,6 +16,8 @@
 
 package com.callmewill.launcher2.cache;
 
+import java.util.HashMap;
+
 import android.app.ActivityManager;
 import android.content.ComponentName;
 import android.content.Context;
@@ -28,12 +30,9 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
 
-import java.util.HashMap;
-
 import com.callmewill.launcher2.LauncherApplication;
 import com.callmewill.launcher2.entity.ApplicationInfo;
 import com.callmewill.launcher2.receiver.LauncherModel;
-import com.callmewill.launcher2.utils.Utilities;
 
 /**
  * Cache of application icons.  Icons can be made from any thread.
