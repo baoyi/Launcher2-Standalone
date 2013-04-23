@@ -32,12 +32,12 @@ import com.callmewill.launcher2.receiver.LauncherModel;
  */
 public class ItemInfo {
     
-    static final int NO_ID = -1;
+    public static final int NO_ID = -1;
     
     /**
      * The id in the settings database for this item
      */
-    long id = NO_ID;
+    public long id = NO_ID;
     
     /**
      * One of {@link LauncherSettings.Favorites#ITEM_TYPE_APPLICATION},
@@ -53,47 +53,47 @@ public class ItemInfo {
      * will be {@link #NO_ID} (since it is not stored in the settings DB). For user folders
      * it will be the id of the folder.
      */
-    long container = NO_ID;
+    public long container = NO_ID;
     
     /**
      * Iindicates the screen in which the shortcut appears.
      */
-    int screen = -1;
+    public int screen = -1;
     
     /**
      * Indicates the X position of the associated cell.
      */
-    int cellX = -1;
+    public int cellX = -1;
 
     /**
      * Indicates the Y position of the associated cell.
      */
-    int cellY = -1;
+    public int cellY = -1;
 
     /**
      * Indicates the X cell span.
      */
-    int spanX = 1;
+    public int spanX = 1;
 
     /**
      * Indicates the Y cell span.
      */
-    int spanY = 1;
+    public int spanY = 1;
 
     /**
      * Indicates the minimum X cell span.
      */
-    int minSpanX = 1;
+    public int minSpanX = 1;
 
     /**
      * Indicates the minimum Y cell span.
      */
-    int minSpanY = 1;
+    public int minSpanY = 1;
 
     /**
      * Indicates that this item needs to be updated in the db
      */
-    boolean requiresDbUpdate = false;
+    public boolean requiresDbUpdate = false;
 
     /**
      * Title of the item
@@ -103,9 +103,9 @@ public class ItemInfo {
     /**
      * The position of the item in a drag-and-drop operation.
      */
-    int[] dropPos = null;
+    public int[] dropPos = null;
 
-    ItemInfo() {
+    public ItemInfo() {
     }
 
     ItemInfo(ItemInfo info) {
@@ -123,7 +123,7 @@ public class ItemInfo {
 
     /** Returns the package name that the intent will resolve to, or an empty string if
      *  none exists. */
-    static String getPackageName(Intent intent) {
+    public static String getPackageName(Intent intent) {
         if (intent != null) {
             String packageName = intent.getPackage();
             if (packageName == null && intent.getComponent() != null) {
@@ -141,7 +141,7 @@ public class ItemInfo {
      * 
      * @param values
      */
-    void onAddToDatabase(ContentValues values) { 
+    public void onAddToDatabase(ContentValues values) { 
         values.put(LauncherSettings.BaseLauncherColumns.ITEM_TYPE, itemType);
         values.put(LauncherSettings.Favorites.CONTAINER, container);
         values.put(LauncherSettings.Favorites.SCREEN, screen);
@@ -151,7 +151,7 @@ public class ItemInfo {
         values.put(LauncherSettings.Favorites.SPANY, spanY);
     }
 
-    void updateValuesWithCoordinates(ContentValues values, int cellX, int cellY) {
+    public void updateValuesWithCoordinates(ContentValues values, int cellX, int cellY) {
         values.put(LauncherSettings.Favorites.CELLX, cellX);
         values.put(LauncherSettings.Favorites.CELLY, cellY);
     }
@@ -185,7 +185,7 @@ public class ItemInfo {
      * ItemInfo objects persist across rotation and can hence leak by holding stale references
      * to the old view hierarchy / activity.
      */
-    void unbind() {
+    public void unbind() {
     }
 
     @Override

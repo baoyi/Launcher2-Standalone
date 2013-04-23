@@ -167,7 +167,7 @@ public class ShortcutAndWidgetContainer extends ViewGroup {
     }
 
     @Override
-    protected void setChildrenDrawingCacheEnabled(boolean enabled) {
+	public void setChildrenDrawingCacheEnabled(boolean enabled) {
         final int count = getChildCount();
         for (int i = 0; i < count; i++) {
             final View view = getChildAt(i);
@@ -180,7 +180,7 @@ public class ShortcutAndWidgetContainer extends ViewGroup {
     }
 
     @Override
-    protected void setChildrenDrawnWithCacheEnabled(boolean enabled) {
+	public void setChildrenDrawnWithCacheEnabled(boolean enabled) {
         super.setChildrenDrawnWithCacheEnabled(enabled);
     }
 }

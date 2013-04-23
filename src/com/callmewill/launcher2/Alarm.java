@@ -79,6 +79,4 @@ public class Alarm implements Runnable{
     }
 }
 
-interface OnAlarmListener {
-    public void onAlarm(Alarm alarm);
-}
+

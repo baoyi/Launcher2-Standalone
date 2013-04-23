@@ -124,7 +124,7 @@ public class DragController {
     /**
      * Interface to receive notifications when a drag starts or stops
      */
-    protected static interface DragListener {
+    public interface DragListener {
         
         /**
          * A drag has begun
@@ -376,7 +376,7 @@ public class DragController {
     /**
      * This only gets called as a result of drag view cleanup being deferred in endDrag();
      */
-    void onDeferredEndDrag(DragView dragView) {
+    public void onDeferredEndDrag(DragView dragView) {
         dragView.remove();
 
         // If we skipped calling onDragEnd() before, do it now
@@ -385,7 +385,7 @@ public class DragController {
         }
     }
 
-    void onDeferredEndFling(DropTarget.DragObject d) {
+    public void onDeferredEndFling(DropTarget.DragObject d) {
         d.dragSource.onFlingToDeleteCompleted();
     }
 

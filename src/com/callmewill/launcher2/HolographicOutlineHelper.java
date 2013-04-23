@@ -58,7 +58,7 @@ public class HolographicOutlineHelper {
         sMediumInnerBlurMaskFilter = new BlurMaskFilter(scale * 2.0f, BlurMaskFilter.Blur.NORMAL);
     }
 
-    HolographicOutlineHelper() {
+    public HolographicOutlineHelper() {
         mHolographicPaint.setFilterBitmap(true);
         mHolographicPaint.setAntiAlias(true);
         mBlurPaint.setFilterBitmap(true);
@@ -197,7 +197,7 @@ public class HolographicOutlineHelper {
         glowShape.recycle();
     }
 
-    void applyExtraThickExpensiveOutlineWithBlur(Bitmap srcDst, Canvas srcDstCanvas, int color,
+    public void applyExtraThickExpensiveOutlineWithBlur(Bitmap srcDst, Canvas srcDstCanvas, int color,
             int outlineColor) {
         applyExpensiveOutlineWithBlur(srcDst, srcDstCanvas, color, outlineColor, EXTRA_THICK);
     }
