@@ -743,11 +743,11 @@ public class LauncherModel extends BroadcastReceiver {
 				| (localCellX & 0xFF) << 8 | (localCellY & 0xFF);
 	}
 
-	static int getCellCountX() {
+	public static int getCellCountX() {
 		return mCellCountX;
 	}
 
-	static int getCellCountY() {
+	public static int getCellCountY() {
 		return mCellCountY;
 	}
 

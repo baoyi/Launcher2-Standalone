@@ -591,7 +591,7 @@ public final class Launcher extends Activity
         return mDragLayer;
     }
 
-    boolean isDraggingEnabled() {
+    public boolean isDraggingEnabled() {
         // We prevent dragging when we are loading the workspace as it is possible to pick up a view
         // that is subsequently removed from the workspace in startBinding().
         return !mModel.isLoadingWorkspace();
@@ -2377,7 +2377,7 @@ public final class Launcher extends Activity
         }
     }
 
-    Workspace getWorkspace() {
+    public Workspace getWorkspace() {
         return mWorkspace;
     }
 

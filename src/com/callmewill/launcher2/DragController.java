@@ -124,7 +124,7 @@ public class DragController {
     /**
      * Interface to receive notifications when a drag starts or stops
      */
-    interface DragListener {
+    protected static interface DragListener {
         
         /**
          * A drag has begun

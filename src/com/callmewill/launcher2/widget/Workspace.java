@@ -68,7 +68,7 @@ import com.callmewill.launcher2.LauncherViewPropertyAnimator;
 import com.callmewill.launcher2.OnAlarmListener;
 import com.callmewill.launcher2.R;
 import com.callmewill.launcher2.SpringLoadedDragController;
-import com.callmewill.launcher2.DragController.DragListener;
+import com.callmewill.launcher2.DragController;
 import com.callmewill.launcher2.DropTarget.DragEnforcer;
 import com.callmewill.launcher2.DropTarget.DragObject;
 import com.callmewill.launcher2.R.bool;

@@ -43,14 +43,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
-/**
- * A keyboard listener we set on all the workspace icons.
- */
-class IconKeyEventListener implements View.OnKeyListener {
-    public boolean onKey(View v, int keyCode, KeyEvent event) {
-        return FocusHelper.handleIconKeyEvent(v, keyCode, event);
-    }
-}
 
 /**
  * A keyboard listener we set on all the workspace icons.
@@ -71,15 +63,6 @@ class HotseatIconKeyEventListener implements View.OnKeyListener {
     }
 }
 
-/**
- * A keyboard listener we set on the last tab button in AppsCustomize to jump to then
- * market icon and vice versa.
- */
-class AppsCustomizeTabKeyEventListener implements View.OnKeyListener {
-    public boolean onKey(View v, int keyCode, KeyEvent event) {
-        return FocusHelper.handleAppsCustomizeTabKeyEvent(v, keyCode, event);
-    }
-}
 
 public class FocusHelper {
     /**
@@ -289,7 +272,7 @@ public class FocusHelper {
     /**
      * Handles key events in a PageViewCellLayout containing PagedViewIcons.
      */
-    static boolean handleAppsCustomizeKeyEvent(View v, int keyCode, KeyEvent e) {
+    public static boolean handleAppsCustomizeKeyEvent(View v, int keyCode, KeyEvent e) {
         ViewGroup parentLayout;
         ViewGroup itemContainer;
         int countX;
