@@ -19,7 +19,7 @@ package com.callmewill.launcher2;
 import android.animation.ValueAnimator;
 import android.animation.ValueAnimator.AnimatorUpdateListener;
 
-abstract class LauncherAnimatorUpdateListener implements AnimatorUpdateListener {
+public abstract class LauncherAnimatorUpdateListener implements AnimatorUpdateListener {
     public void onAnimationUpdate(ValueAnimator animation) {
         final float b = (Float) animation.getAnimatedValue();
         final float a = 1f - b;

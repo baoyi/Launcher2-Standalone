@@ -110,7 +110,7 @@ public class InstallShortcutReceiver extends BroadcastReceiver {
         }
     }
 
-    static void enableInstallQueue() {
+    public static void enableInstallQueue() {
         mUseInstallQueue = true;
     }
     static void disableAndFlushInstallQueue(Context context) {
