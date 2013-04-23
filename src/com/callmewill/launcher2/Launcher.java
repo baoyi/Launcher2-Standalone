@@ -365,6 +365,7 @@ public final class Launcher extends Activity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+    	//严格模式
         if (DEBUG_STRICT_MODE) {
             StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
                     .detectDiskReads()

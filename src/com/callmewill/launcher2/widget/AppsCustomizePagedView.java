@@ -641,6 +641,10 @@ public class AppsCustomizePagedView extends PagedViewWithDraggableItems implemen
         // Disable dragging by pulling an app down for now.
     }
 
+    /**
+     * 开始拖动程序图标
+     * @param v
+     */
     private void beginDraggingApplication(View v) {
         mLauncher.getWorkspace().onDragStartedWithItem(v);
         mLauncher.getWorkspace().beginDragShared(v, this);
@@ -870,6 +874,9 @@ public class AppsCustomizePagedView extends PagedViewWithDraggableItems implemen
         return true;
     }
 
+    /**
+     * 开始拖动
+     */
     @Override
     protected boolean beginDragging(final View v) {
         if (!super.beginDragging(v)) return false;

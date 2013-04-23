@@ -82,6 +82,7 @@ import java.util.Set;
  * Maintains in-memory state of the Launcher. It is expected that there should
  * be only one LauncherModel object held in a static. Also provide APIs for
  * updating the database state for the Launcher.
+ * 将启动器保持在内存中,因此应该只有一个LauncherModel静态对象,还提供了用于更新启动器数据库的api
  */
 public class LauncherModel extends BroadcastReceiver {
 	static final boolean DEBUG_LOADERS = false;
@@ -2797,11 +2798,19 @@ public class LauncherModel extends BroadcastReceiver {
 		};
 	}
 
+	/**
+	 * 通过ResolveInfo获得ComponentName
+	 * @param info
+	 * @return
+	 */
 	public static ComponentName getComponentNameFromResolveInfo(ResolveInfo info) {
+		//如果有activityInfo
 		if (info.activityInfo != null) {
 			return new ComponentName(info.activityInfo.packageName,
 					info.activityInfo.name);
-		} else {
+		}
+		//否则看serviceInfo
+		else {
 			return new ComponentName(info.serviceInfo.packageName,
 					info.serviceInfo.name);
 		}
