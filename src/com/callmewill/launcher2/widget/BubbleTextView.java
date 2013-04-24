@@ -38,6 +38,7 @@ import android.view.MotionEvent;
 import android.widget.TextView;
 
 /**
+ * 这个类就是快捷图标
  * TextView that draws a bubble behind the text. We cannot use a LineBackgroundSpan
  * because we want to make the bubble taller than the text and TextView's clip is
  * too aggressive.

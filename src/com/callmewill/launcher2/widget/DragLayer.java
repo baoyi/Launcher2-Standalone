@@ -304,15 +304,15 @@ public class DragLayer extends FrameLayout implements ViewGroup.OnHierarchyChang
     public float getDescendantCoordRelativeToSelf(View descendant, int[] coord) {
         float scale = 1.0f;
         float[] pt = {coord[0], coord[1]};
-        descendant.getMatrix().mapPoints(pt);
+        descendant.getMatrix().mapPoints(pt);//计算原坐标
         scale *= descendant.getScaleX();
         pt[0] += descendant.getLeft();
         pt[1] += descendant.getTop();
         ViewParent viewParent = descendant.getParent();
         while (viewParent instanceof View && viewParent != this) {
             final View view = (View)viewParent;
-            view.getMatrix().mapPoints(pt);
-            scale *= view.getScaleX();
+            view.getMatrix().mapPoints(pt);//计算缩放后的坐标
+            scale *= view.getScaleX();//计算缩放后的比例
             pt[0] += view.getLeft() - view.getScrollX();
             pt[1] += view.getTop() - view.getScrollY();
             viewParent = view.getParent();

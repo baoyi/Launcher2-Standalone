@@ -1555,10 +1555,18 @@ public class Workspace extends SmoothPagedView
     * appearance).
     *
     */
+    /**
+     * 每当在Launcher中拖动的时候，
+     * 我们调用这些方法(onDragStartedWithItemSpans/onDragStartedWithSize)
+     * 不管是否进入workspace
+     * 这些方法表示着相应页面的拖动？（此句翻译不确定）
+     * These methods mark the appropriate pages as accepting drops (which alters their visual appearance).
+     */
     public void onDragStartedWithItem(View v) {
         final Canvas canvas = new Canvas();
 
         // The outline is used to visualize where the item will land if dropped
+        //这些轮廓会显示在所在控件的下方
         mDragOutline = createDragOutline(v, canvas, DRAG_BITMAP_PADDING);
     }
 
@@ -1799,7 +1807,11 @@ public class Workspace extends SmoothPagedView
      * @param padding the horizontal and vertical padding to use when drawing
      */
     private void drawDragView(View v, Canvas destCanvas, int padding, boolean pruneToDrawable) {
+    	/*
+    	 * 在此Launcher中 所显示的图标应该都是TextView 
+    	 */
         final Rect clipRect = mTempRect;
+        //返回View的可见界限
         v.getDrawingRect(clipRect);
 
         boolean textVisible = false;
@@ -1814,15 +1826,15 @@ public class Workspace extends SmoothPagedView
             if (v instanceof FolderIcon) {
                 // For FolderIcons the text can bleed into the icon area, and so we need to
                 // hide the text completely (which can't be achieved by clipping).
-                if (((FolderIcon) v).getTextVisible()) {//如果是文件夹图标
-                    ((FolderIcon) v).setTextVisible(false);
+                if (((FolderIcon) v).getTextVisible()) {//如果是文件夹
+                    ((FolderIcon) v).setTextVisible(false);//隐藏快捷方式图标
                     textVisible = true;
                 }
-            } else if (v instanceof BubbleTextView) {
+            } else if (v instanceof BubbleTextView) {//如果是快捷方式
                 final BubbleTextView tv = (BubbleTextView) v;
                 clipRect.bottom = tv.getExtendedPaddingTop() - (int) BubbleTextView.PADDING_V +
                         tv.getLayout().getLineTop(0);
-            } else if (v instanceof TextView) {
+            } else if (v instanceof TextView) {//如果是图标
                 final TextView tv = (TextView) v;
                 clipRect.bottom = tv.getExtendedPaddingTop() - tv.getCompoundDrawablePadding() +
                         tv.getLayout().getLineTop(0);
@@ -1832,6 +1844,7 @@ public class Workspace extends SmoothPagedView
             v.draw(destCanvas);
 
             // Restore text visibility of FolderIcon if necessary
+            //如果有必要还原快捷方式
             if (textVisible) {
                 ((FolderIcon) v).setTextVisible(true);
             }
@@ -1840,6 +1853,7 @@ public class Workspace extends SmoothPagedView
     }
 
     /**
+     * 返回一个拖动时显示的位图，传递给调用者
      * Returns a new bitmap to show when the given View is being dragged around.
      * Responsibility for the bitmap is transferred to the caller.
      */
@@ -1847,10 +1861,12 @@ public class Workspace extends SmoothPagedView
         Bitmap b;
 
         if (v instanceof TextView) {
+        	//获得TextView 上方的图标
             Drawable d = ((TextView) v).getCompoundDrawables()[1];
             b = Bitmap.createBitmap(d.getIntrinsicWidth() + padding,
                     d.getIntrinsicHeight() + padding, Bitmap.Config.ARGB_8888);
         } else {
+        	//如果是个图标
             b = Bitmap.createBitmap(
                     v.getWidth() + padding, v.getHeight() + padding, Bitmap.Config.ARGB_8888);
         }
@@ -1868,11 +1884,13 @@ public class Workspace extends SmoothPagedView
      * 为调用者创建一个新的轮廓位图。如可视化的放置位置
      */
     private Bitmap createDragOutline(View v, Canvas canvas, int padding) {
+    	//设置线的颜色
         final int outlineColor = getResources().getColor(android.R.color.holo_blue_light);
+        //创建外框
         final Bitmap b = Bitmap.createBitmap(
                 v.getWidth() + padding, v.getHeight() + padding, Bitmap.Config.ARGB_8888);
-
         canvas.setBitmap(b);
+        //绘制View至画布
         drawDragView(v, canvas, padding, true);
         mOutlineHelper.applyMediumExpensiveOutlineWithBlur(b, canvas, outlineColor, outlineColor);
         canvas.setBitmap(null);
@@ -1934,11 +1952,13 @@ public class Workspace extends SmoothPagedView
         Resources r = getResources();
 
         // The drag bitmap follows the touch point around on the screen
+        //这个拖动的位图 跟随着触摸点
         final Bitmap b = createDragBitmap(child, new Canvas(), DRAG_BITMAP_PADDING);
 
         final int bmpWidth = b.getWidth();
         final int bmpHeight = b.getHeight();
-
+        
+        //计算缩放比例
         float scale = mLauncher.getDragLayer().getLocationInDragLayer(child, mTempXY);
         int dragLayerX =
                 Math.round(mTempXY[0] - (bmpWidth - scale * child.getWidth()) / 2);
@@ -1948,8 +1968,9 @@ public class Workspace extends SmoothPagedView
 
         Point dragVisualizeOffset = null;
         Rect dragRect = null;
+        //如果是快捷方式和图标
         if (child instanceof BubbleTextView || child instanceof PagedViewIcon) {
-            int iconSize = r.getDimensionPixelSize(R.dimen.app_icon_size);
+            int iconSize = r.getDimensionPixelSize(R.dimen.app_icon_size);//获得icon大小
             int iconPaddingTop = r.getDimensionPixelSize(R.dimen.app_icon_padding_top);
             int top = child.getPaddingTop();
             int left = (bmpWidth - iconSize) / 2;
@@ -1958,15 +1979,17 @@ public class Workspace extends SmoothPagedView
             dragLayerY += top;
             // Note: The drag region is used to calculate drag layer offsets, but the
             // dragVisualizeOffset in addition to the dragRect (the size) to position the outline.
+            //这个拖动区域是用来计算拖动层偏移的,但dragVisualizeOffset在dragRect（这个大小）轮廓之外.
             dragVisualizeOffset = new Point(-DRAG_BITMAP_PADDING / 2,
                     iconPaddingTop - DRAG_BITMAP_PADDING / 2);
             dragRect = new Rect(left, top, right, bottom);
         } else if (child instanceof FolderIcon) {
-            int previewSize = r.getDimensionPixelSize(R.dimen.folder_preview_size);
+            int previewSize = r.getDimensionPixelSize(R.dimen.folder_preview_size);//文件夹中一个图片显示的宽度
             dragRect = new Rect(0, 0, child.getWidth(), previewSize);
         }
 
         // Clear the pressed state if necessary
+        //如果是快捷方式 清除按下时的状态
         if (child instanceof BubbleTextView) {
             BubbleTextView icon = (BubbleTextView) child;
             icon.clearPressedOrFocusedBackground();

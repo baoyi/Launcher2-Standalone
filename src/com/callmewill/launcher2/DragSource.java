@@ -22,7 +22,8 @@ import com.callmewill.launcher2.DropTarget.DragObject;
 
 /**
  * Interface defining an object that can originate a drag.
- *
+ * 这个接口定义对象可以被拖动
+ * 实现的有：AppsCustomizePagedView,Folder,Workspace
  */
 public interface DragSource {
     /**
