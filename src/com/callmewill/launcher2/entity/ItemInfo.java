@@ -44,6 +44,7 @@ public class ItemInfo {
      * {@link LauncherSettings.Favorites#ITEM_TYPE_SHORTCUT},
      * {@link LauncherSettings.Favorites#ITEM_TYPE_FOLDER}, or
      * {@link LauncherSettings.Favorites#ITEM_TYPE_APPWIDGET}.
+     * （item的类型，有widget，search，application等）
      */
     public int itemType;
     
@@ -57,16 +58,19 @@ public class ItemInfo {
     
     /**
      * Iindicates the screen in which the shortcut appears.
+     * （在workspace的第几屏，从0开始）
      */
     public int screen = -1;
     
     /**
      * Indicates the X position of the associated cell.
+     * (在横向位置上的位置，从0开始)
      */
     public int cellX = -1;
 
     /**
      * Indicates the Y position of the associated cell.
+     * （在纵向位置上的位置，从0开始）
      */
     public int cellY = -1;
 
