@@ -41,6 +41,7 @@ import java.util.ArrayList;
 
 /**
  * Class for initiating a drag within a view or across multiple views.
+ * 启动拖动功能，在一个视图或多个视图中
  */
 public class DragController {
     private static final String TAG = "Launcher.DragController";
@@ -197,13 +198,18 @@ public class DragController {
      * Starts a drag.
      *
      * @param b The bitmap to display as the drag image.  It will be re-scaled to the
-     *          enlarged size.
+     *          enlarged size.(这个位图来显示拖动的图片。这将重新缩放尺寸）
      * @param dragLayerX The x position in the DragLayer of the left-top of the bitmap.
+     * 			(在DragLayer中位图左上角x的位置）
      * @param dragLayerY The y position in the DragLayer of the left-top of the bitmap.
+     * 			(在DragLayer中位图左上角y的位置)
      * @param source An object representing where the drag originated
+     * 			(表示发起拖动的源对象，如：AppsCustomizePagedView,Folder,Workspace)
      * @param dragInfo The data associated with the object that is being dragged
+     * 			(与该对象相关的拖动数据)
      * @param dragAction The drag action: either {@link #DRAG_ACTION_MOVE} or
      *        {@link #DRAG_ACTION_COPY}
+     *        (拖动动作：要么是DragController.DRAG_ACTION_MOVE要么是DragController.DRAG_ACTION_COPY)
      * @param dragRegion Coordinates within the bitmap b for the position of item being dragged.
      *          Makes dragging feel more precise, e.g. you can clip out a transparent border
      */
