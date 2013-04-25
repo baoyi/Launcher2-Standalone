@@ -53,7 +53,11 @@ public abstract class PagedViewWithDraggableItems extends PagedView
         super(context, attrs, defStyle);
         mLauncher = (Launcher) context;
     }
-
+   /**
+    * 子类重写该方法
+    * @param v
+    * @return
+    */
     protected boolean beginDragging(View v) {
         boolean wasDragging = mIsDragging;
         mIsDragging = true;
@@ -99,7 +103,9 @@ public abstract class PagedViewWithDraggableItems extends PagedView
         mIsDragEnabled = true;
         return false;
     }
-
+   /**
+    * 长按开始拖动  
+    */
     @Override
     public boolean onLongClick(View v) {
         // Return early if this is not initiated from a touch

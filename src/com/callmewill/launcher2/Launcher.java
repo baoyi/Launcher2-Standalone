@@ -1913,7 +1913,9 @@ public final class Launcher extends Activity
 
         return super.dispatchKeyEvent(event);
     }
-
+    /**
+     * 当用户按下返回键的时候的操作
+     */
     @Override
     public void onBackPressed() {
         if (isAllAppsVisible()) {
@@ -1947,6 +1949,7 @@ public final class Launcher extends Activity
      *
      * @param v The view representing the clicked shortcut.
      */
+    @Override
     public void onClick(View v) {
         // Make sure that rogue clicks don't get through while allapps is launching, or after the
         // view has detached (it's possible for this to happen if the view is removed mid touch).
@@ -2272,6 +2275,7 @@ public final class Launcher extends Activity
      * is played.
      *
      * @param folderInfo The FolderInfo describing the folder to open.
+     * 打开自定义文件夹
      */
     public void openFolder(FolderIcon folderIcon) {
         Folder folder = folderIcon.getFolder();
@@ -2291,7 +2295,9 @@ public final class Launcher extends Activity
         folder.animateOpen();
         growAndFadeOutFolderIcon(folderIcon);
     }
-
+     /**
+      * 关闭文件夹
+      */
     public void closeFolder() {
         Folder folder = mWorkspace.getOpenFolder();
         if (folder != null) {

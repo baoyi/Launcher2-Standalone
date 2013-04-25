@@ -562,7 +562,7 @@ public class FolderIcon extends LinearLayout implements FolderListener {
             d = v.getCompoundDrawables()[1];
             computePreviewDrawingParams(d);
         }
-
+         //绘制文件夹图标
         int nItemsInPreview = Math.min(items.size(), NUM_ITEMS_IN_PREVIEW);
         if (!mAnimating) {
             for (int i = nItemsInPreview - 1; i >= 0; i--) {

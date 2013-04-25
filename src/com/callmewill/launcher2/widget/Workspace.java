@@ -3553,6 +3553,9 @@ public class Workspace extends SmoothPagedView
         }
     }
 
+    /**
+     * 控件从一个屏幕滚到另外一个屏幕
+     */
     @Override
     public boolean onEnterScrollArea(int x, int y, int direction) {
         // Ignore the scroll area if we are dragging over the hot seat
