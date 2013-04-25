@@ -212,6 +212,7 @@ public class DragController {
      *        (拖动动作：要么是DragController.DRAG_ACTION_MOVE要么是DragController.DRAG_ACTION_COPY)
      * @param dragRegion Coordinates within the bitmap b for the position of item being dragged.
      *          Makes dragging feel more precise, e.g. you can clip out a transparent border
+     * @param dragOffset 应该是偏移点
      */
     public void startDrag(Bitmap b, int dragLayerX, int dragLayerY,
             DragSource source, Object dragInfo, int dragAction, Point dragOffset, Rect dragRegion,
@@ -219,7 +220,7 @@ public class DragController {
         if (PROFILE_DRAWING_DURING_DRAG) {
             android.os.Debug.startMethodTracing("Launcher");
         }
-
+//        Log.i("ddv", "x"+dragOffset.x+":::::"+dragOffset.y);
         // Hide soft keyboard, if visible
         if (mInputMethodManager == null) {
             mInputMethodManager = (InputMethodManager)
@@ -237,8 +238,12 @@ public class DragController {
         final int dragRegionLeft = dragRegion == null ? 0 : dragRegion.left;
         final int dragRegionTop = dragRegion == null ? 0 : dragRegion.top;
 
+        //设置mDragging=true，表示拖拽已经开始  
+        //在DragLayer的onInterceptTouchEvent()中根据这个值判断是否拦截MotionEvent  
+        
         mDragging = true;
-
+        //实例化DragObject，表示拖拽的对象  
+        //封装了拖拽对象的信息  
         mDragObject = new DropTarget.DragObject();
 
         mDragObject.dragComplete = false;
@@ -258,7 +263,7 @@ public class DragController {
         if (dragRegion != null) {
             dragView.setDragRegion(new Rect(dragRegion));
         }
-
+        //将拖拽的图标显示在DragLayer中  
         dragView.show(mMotionDownX, mMotionDownY);
         handleMoveEvent(mMotionDownX, mMotionDownY);
     }
