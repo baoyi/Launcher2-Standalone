@@ -394,6 +394,9 @@ public class Workspace extends SmoothPagedView
 
     // estimate the size of a widget with spans hSpan, vSpan. return MAX_VALUE for each
     // dimension if unsuccessful
+    /**
+     * 估计这个空间的大小，是否在纬度之内
+     */
     public int[] estimateItemSize(int hSpan, int vSpan,
             ItemInfo itemInfo, boolean springLoaded) {
         int[] size = new int[2];
@@ -1964,6 +1967,8 @@ public class Workspace extends SmoothPagedView
         final int bmpHeight = b.getHeight();
         
         //计算缩放比例
+        //我们将在DragLayer中绘制“拖拽后”的图标，通过DragLayer.getLoactionInDragLayer()  
+        //获取在DragLayer中的坐标，并存放在mTempXY中。 
         float scale = mLauncher.getDragLayer().getLocationInDragLayer(child, mTempXY);
         int dragLayerX =
                 Math.round(mTempXY[0] - (bmpWidth - scale * child.getWidth()) / 2);
@@ -1974,6 +1979,7 @@ public class Workspace extends SmoothPagedView
         Point dragVisualizeOffset = null;
         Rect dragRect = null;
         //如果是快捷方式和图标
+        //定位图标的位置与大小 
         if (child instanceof BubbleTextView || child instanceof PagedViewIcon) {
             int iconSize = r.getDimensionPixelSize(R.dimen.app_icon_size);//获得icon大小
             int iconPaddingTop = r.getDimensionPixelSize(R.dimen.app_icon_padding_top);
@@ -1984,7 +1990,7 @@ public class Workspace extends SmoothPagedView
             dragLayerY += top;
             // Note: The drag region is used to calculate drag layer offsets, but the
             // dragVisualizeOffset in addition to the dragRect (the size) to position the outline.
-            //这个拖动区域是用来计算拖动层偏移的,但dragVisualizeOffset在dragRect（这个大小）轮廓之外.
+            // 这个拖动区域是用来计算拖动层偏移的,但dragVisualizeOffset在dragRect（这个大小）轮廓之外.
             dragVisualizeOffset = new Point(-DRAG_BITMAP_PADDING / 2,
                     iconPaddingTop - DRAG_BITMAP_PADDING / 2);
             dragRect = new Rect(left, top, right, bottom);
@@ -2008,7 +2014,7 @@ public class Workspace extends SmoothPagedView
         showScrollingIndicator(false);
     }
 
-    public   void addApplicationShortcut(ShortcutInfo info, CellLayout target, long container, int screen,
+    public void addApplicationShortcut(ShortcutInfo info, CellLayout target, long container, int screen,
             int cellX, int cellY, boolean insertAtFirst, int intersectX, int intersectY) {
         View view = mLauncher.createShortcut(R.layout.application, target, (ShortcutInfo) info);
 

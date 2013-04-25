@@ -792,34 +792,46 @@ public class AppsCustomizePagedView extends PagedViewWithDraggableItems implemen
         }
     }
 
+    /**
+     * 开始拖动控件
+     * @param v
+     * @return
+     */
     private boolean beginDraggingWidget(View v) {
         mDraggingWidget = true;
         // Get the widget preview as the drag representation
+        //得到用来拖动的Widget预览
         ImageView image = (ImageView) v.findViewById(R.id.widget_preview);
         PendingAddItemInfo createItemInfo = (PendingAddItemInfo) v.getTag();
 
         // If the ImageView doesn't have a drawable yet, the widget preview hasn't been loaded and
         // we abort the drag.
+        //如果ImageView没有Drawdable 则小控件的视图并没有被被装载，终止移动
         if (image.getDrawable() == null) {
             mDraggingWidget = false;
             return false;
         }
 
         // Compose the drag image
+        //绘制拖动图像
         Bitmap preview;
         Bitmap outline;
         float scale = 1f;
         if (createItemInfo instanceof PendingAddWidgetInfo) {
             // This can happen in some weird cases involving multi-touch. We can't start dragging
             // the widget if this is null, so we break out.
+        	//这可能会发生一些关于多点触控的奇怪问题，我们不能开始拖动小工具，如果这是空的，所以我们退出.
             if (mCreateWidgetInfo == null) {
                 return false;
             }
 
             PendingAddWidgetInfo createWidgetInfo = mCreateWidgetInfo;
             createItemInfo = createWidgetInfo;
+            /** 横向占用格数 */
             int spanX = createItemInfo.spanX;
+            //纵向占用格数
             int spanY = createItemInfo.spanY;
+            
             int[] size = mLauncher.getWorkspace().estimateItemSize(spanX, spanY,
                     createWidgetInfo, true);
 
@@ -1324,6 +1336,17 @@ public class AppsCustomizePagedView extends PagedViewWithDraggableItems implemen
         return preview;
     }
 
+    /**
+     * 得到拖动预览图
+     * @param provider
+     * @param previewImage
+     * @param iconId
+     * @param cellHSpan
+     * @param cellVSpan
+     * @param maxWidth
+     * @param maxHeight
+     * @return
+     */
     private Bitmap getWidgetPreview(ComponentName provider, int previewImage,
             int iconId, int cellHSpan, int cellVSpan, int maxWidth,
             int maxHeight) {
