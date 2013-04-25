@@ -31,6 +31,7 @@ import android.graphics.Bitmap;
 
 /**
  * Simple cache mechanism for PagedView outlines.
+ * 暂时工程为用到，可以删除。
  */
 public class PagedViewIconCache {
     public static class Key {
