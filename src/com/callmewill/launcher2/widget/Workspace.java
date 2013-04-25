@@ -394,6 +394,9 @@ public class Workspace extends SmoothPagedView
 
     // estimate the size of a widget with spans hSpan, vSpan. return MAX_VALUE for each
     // dimension if unsuccessful
+    /**
+     * 估计这个空间的大小，是否在纬度之内
+     */
     public int[] estimateItemSize(int hSpan, int vSpan,
             ItemInfo itemInfo, boolean springLoaded) {
         int[] size = new int[2];

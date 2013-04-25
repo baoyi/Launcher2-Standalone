@@ -252,7 +252,7 @@ public class DragController {
         mDragObject.dragSource = source;
         mDragObject.dragInfo = dragInfo;
 
-        mVibrator.vibrate(VIBRATE_DURATION);
+        mVibrator.vibrate(VIBRATE_DURATION);//震动
 
         final DragView dragView = mDragObject.dragView = new DragView(mLauncher, b, registrationX,
                 registrationY, 0, 0, b.getWidth(), b.getHeight(), initialDragViewScale);
