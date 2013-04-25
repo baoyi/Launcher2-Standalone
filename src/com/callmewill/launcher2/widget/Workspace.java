@@ -1568,6 +1568,11 @@ public class Workspace extends SmoothPagedView
         // The outline is used to visualize where the item will land if dropped
         //这些轮廓会显示在所在控件的下方
         mDragOutline = createDragOutline(v, canvas, DRAG_BITMAP_PADDING);
+        Canvas canvas2=new Canvas(mDragOutline);
+        canvas2.save();
+        canvas2.rotate(45f, (float)(mDragOutline.getWidth()/2.0), (float)( mDragOutline.getHeight()/2.0));
+        canvas2.restore();
+        
     }
 
     public void onDragStartedWithItem(PendingAddItemInfo info, Bitmap b, boolean clipAlpha) {
@@ -1885,7 +1890,7 @@ public class Workspace extends SmoothPagedView
      */
     private Bitmap createDragOutline(View v, Canvas canvas, int padding) {
     	//设置线的颜色
-        final int outlineColor = getResources().getColor(android.R.color.holo_blue_light);
+        final int outlineColor = getResources().getColor(android.R.color.black);
         //创建外框
         final Bitmap b = Bitmap.createBitmap(
                 v.getWidth() + padding, v.getHeight() + padding, Bitmap.Config.ARGB_8888);

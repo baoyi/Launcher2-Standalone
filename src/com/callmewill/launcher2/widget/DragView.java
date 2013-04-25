@@ -175,7 +175,7 @@ public class DragView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         @SuppressWarnings("all") // suppress dead code warning
-        final boolean debug = false;
+        final boolean debug = true;
         if (debug) {
             Paint p = new Paint();
             p.setStyle(Paint.Style.FILL);
@@ -189,7 +189,10 @@ public class DragView extends View {
             int alpha = crossFade ? (int) (255 * (1 - mCrossFadeProgress)) : 255;
             mPaint.setAlpha(alpha);
         }
+        canvas.save();
+        //canvas.rotate(90);
         canvas.drawBitmap(mBitmap, 0.0f, 0.0f, mPaint);
+        canvas.restore();
         if (crossFade) {
             mPaint.setAlpha((int) (255 * mCrossFadeProgress));
             canvas.save();

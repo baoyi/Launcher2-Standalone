@@ -2062,6 +2062,7 @@ public class CellLayout extends ViewGroup {
                 solution.dragViewSpanY, mTmpOccupied, true);
     }
 
+    
     private void animateItemsToSolution(ItemConfiguration solution, View dragView, boolean
             commitDragView) {
 
@@ -2363,6 +2364,9 @@ public class CellLayout extends ViewGroup {
         return !mIntersectingViews.isEmpty();
     }
 
+    /**
+     * 重置图标的位置
+     */
     void revertTempState() {
         if (!isItemPlacementDirty() || DESTRUCTIVE_REORDER) return;
         final int count = mShortcutsAndWidgets.getChildCount();
