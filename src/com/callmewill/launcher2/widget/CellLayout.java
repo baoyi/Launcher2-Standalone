@@ -120,17 +120,21 @@ public class CellLayout extends ViewGroup {
     private int mForegroundPadding;
 
     // If we're actively dragging something over this screen, mIsDragOverlapping is true
+    //如果我们主动的在这个屏幕上拖动东西， mIsDragOverlapping=true
     private boolean mIsDragOverlapping = false;
     private final Point mDragCenter = new Point();
 
     // These arrays are used to implement the drag visualization on x-large screens.
+    //这些数组用于实现在x-large屏幕上拖动的实现。
     // They are used as circular arrays, indexed by mDragOutlineCurrent.
+    // 它们被用于圆形阵列，按mDragOutlineCurrent索引
     private Rect[] mDragOutlines = new Rect[4];
     private float[] mDragOutlineAlphas = new float[mDragOutlines.length];
     private InterruptibleInOutAnimator[] mDragOutlineAnims =
             new InterruptibleInOutAnimator[mDragOutlines.length];
 
     // Used as an index into the above 3 arrays; indicates which is the most current value.
+    // 用于上面3个数组的索引，这是当前值
     private int mDragOutlineCurrent = 0;
     private final Paint mDragOutlinePaint = new Paint();
 
@@ -144,6 +148,7 @@ public class CellLayout extends ViewGroup {
     private boolean mItemPlacementDirty = false;
 
     // When a drag operation is in progress, holds the nearest cell to the touch point
+    // 当拖动操作进行时，触摸点保存最近的格子
     private final int[] mDragCell = new int[2];
 
     private boolean mDragging = false;
@@ -193,18 +198,23 @@ public class CellLayout extends ViewGroup {
 
         // A ViewGroup usually does not draw, but CellLayout needs to draw a rectangle to show
         // the user where a dragged item will land when dropped.
-        setWillNotDraw(false);
+        
+        setWillNotDraw(false);//如果这个视图没有做任何对自己的绘制，设置这个标志以允许进一步优化。
         mLauncher = (Launcher) context;
 
+        //从配置文件中获得参数
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.CellLayout, defStyle, 0);
-
+        
+        //获得格子宽高
         mCellWidth = a.getDimensionPixelSize(R.styleable.CellLayout_cellWidth, 10);
         mCellHeight = a.getDimensionPixelSize(R.styleable.CellLayout_cellHeight, 10);
         mWidthGap = mOriginalWidthGap = a.getDimensionPixelSize(R.styleable.CellLayout_widthGap, 0);
         mHeightGap = mOriginalHeightGap = a.getDimensionPixelSize(R.styleable.CellLayout_heightGap, 0);
         mMaxGap = a.getDimensionPixelSize(R.styleable.CellLayout_maxGap, 0);
+        //得到格子的宽高数量
         mCountX = LauncherModel.getCellCountX();
         mCountY = LauncherModel.getCellCountY();
+        
         mOccupied = new boolean[mCountX][mCountY];
         mTmpOccupied = new boolean[mCountX][mCountY];
         mPreviousReorderDirection[0] = INVALID_DIRECTION;
@@ -212,11 +222,13 @@ public class CellLayout extends ViewGroup {
 
         a.recycle();
 
+        //关闭绘制缓存
         setAlwaysDrawnWithCacheEnabled(false);
 
         final Resources res = getResources();
+        //获得热键比例
         mHotseatScale = (res.getInteger(R.integer.hotseat_item_scale_percentage) / 100f);
-
+        
         mNormalBackground = res.getDrawable(R.drawable.homescreen_blue_normal_holo);
         mActiveGlowBackground = res.getDrawable(R.drawable.homescreen_blue_strong_holo);
 
@@ -232,10 +244,10 @@ public class CellLayout extends ViewGroup {
         mActiveGlowBackground.setFilterBitmap(true);
 
         // Initialize the data structures used for the drag visualization.
-
+        //初始化加速器(DecelerateInterpolator 动画开始时比较快，然后逐渐减速。)
         mEaseOutInterpolator = new DecelerateInterpolator(2.5f); // Quint ease out
 
-
+        
         mDragCell[0] = mDragCell[1] = -1;
         for (int i = 0; i < mDragOutlines.length; i++) {
             mDragOutlines[i] = new Rect(-1, -1, -1, -1);
@@ -245,6 +257,9 @@ public class CellLayout extends ViewGroup {
         // where the item will land. The outlines gradually fade out, leaving a trail
         // behind the drag path.
         // Set up all the animations that are used to implement this fading.
+        // 当主屏幕拖动周围事物时，我们显示一个绿色的轮廓在该项目将落下的地方。
+        // 轮廓渐渐淡出,留下一个拖动路径.
+        // 设置所有的动画,来实现这个褪色
         final int duration = res.getInteger(R.integer.config_dragOutlineFadeTime);
         final float fromAlphaValue = 0;
         final float toAlphaValue = (float)res.getInteger(R.integer.config_dragOutlineMaxAlpha);
@@ -262,9 +277,13 @@ public class CellLayout extends ViewGroup {
 
                     // If an animation is started and then stopped very quickly, we can still
                     // get spurious updates we've cleared the tag. Guard against this.
+                    /*
+                     * 如果动画启动后又突然停止，我们仍可以的到一个虚假的更新。
+                     * 我们已经清除标记，防范
+                     */
                     if (outline == null) {
                         @SuppressWarnings("all") // suppress dead code warning
-                        final boolean debug = false;
+                        final boolean debug = true;
                         if (debug) {
                             Object val = animation.getAnimatedValue();
                             Log.d(TAG, "anim " + thisIndex + " update: " + val +
@@ -3110,13 +3129,17 @@ out:            for (int i = x; i < x + spanX - 1 && x < xCount; i++) {
     // 2. When long clicking on an empty cell in a CellLayout, we save information about the
     //    cellX and cellY coordinates and which page was clicked. We then set this as a tag on
     //    the CellLayout that was long clicked
+    /** 这个类存储信息有两个目的：
+     * 1当拖动拖动item时（mDragInfo在Workspace），
+     * 我们保存屏幕上这个View中的 cellX & cellY, spanX, spanY, and the screen
+     *  */
     public static final class CellInfo {
-        public View cell;
-        int cellX = -1;
-        int cellY = -1;
-        int spanX;
-        int spanY;
-        int screen;
+        public View cell;//当前这个item对应的View
+        int cellX = -1;//该item水平方向上的起始单元格
+        int cellY = -1;//该item垂直方向上的起始单元格
+        int spanX;//该item水平方向上占据的单元格数目
+        int spanY;//该item垂直方向上占据的单元格数目
+        int screen; //所在的屏幕
         long container;
 
         @Override

@@ -846,6 +846,7 @@ public class AppsCustomizePagedView extends PagedViewWithDraggableItems implemen
             // Determine the image view drawable scale relative to the preview
             float[] mv = new float[9];
             Matrix m = new Matrix();
+            //setRectToRect 设置矩阵的缩放和平移，映射到目标矩形。如果成功返回true
             m.setRectToRect(
                     new RectF(0f, 0f, (float) preview.getWidth(), (float) preview.getHeight()),
                     new RectF(0f, 0f, (float) previewDrawable.getIntrinsicWidth(),

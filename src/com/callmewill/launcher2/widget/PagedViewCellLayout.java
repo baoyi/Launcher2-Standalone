@@ -33,6 +33,7 @@ import com.callmewill.launcher2.receiver.LauncherModel;
  * An abstraction of the original CellLayout which supports laying out items
  * which span multiple cells into a grid-like layout.  Also supports dimming
  * to give a preview of its contents.
+ * 
  */
 public class PagedViewCellLayout extends ViewGroup implements Page {
     static final String TAG = "PagedViewCellLayout";

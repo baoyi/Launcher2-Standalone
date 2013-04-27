@@ -371,6 +371,7 @@ public class Workspace extends SmoothPagedView
         mCameraDistance = res.getInteger(R.integer.config_cameraDistance);
 
         // if the value is manually specified, use that instead
+        //TODO 设置了格子数量
         cellCountX = a.getInt(R.styleable.Workspace_cellCountX, cellCountX);
         cellCountY = a.getInt(R.styleable.Workspace_cellCountY, cellCountY);
         mDefaultPage = a.getInt(R.styleable.Workspace_defaultScreen, 1);
