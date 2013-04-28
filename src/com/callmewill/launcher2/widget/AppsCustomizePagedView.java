@@ -1124,7 +1124,11 @@ public class AppsCustomizePagedView extends PagedViewWithDraggableItems implemen
         layout.measure(widthSpec, heightSpec);
         setVisibilityOnChildren(layout, View.VISIBLE);
     }
-
+   /**
+    * 同步应用程序
+    * @param page
+    * @param immediate
+    */
     public void syncAppsPageItems(int page, boolean immediate) {
         // ensure that we have the right number of items on the pages
         int numCells = mCellCountX * mCellCountY;
@@ -1639,6 +1643,7 @@ public class AppsCustomizePagedView extends PagedViewWithDraggableItems implemen
         cancelAllTasks();
 
         Context context = getContext();
+
         for (int j = 0; j < mNumWidgetPages; ++j) {
             PagedViewGridLayout layout = new PagedViewGridLayout(context, mWidgetCountX,
                     mWidgetCountY);
@@ -1646,12 +1651,14 @@ public class AppsCustomizePagedView extends PagedViewWithDraggableItems implemen
             addView(layout, new PagedView.LayoutParams(LayoutParams.MATCH_PARENT,
                     LayoutParams.MATCH_PARENT));
         }
-
+        
         for (int i = 0; i < mNumAppsPages; ++i) {
             PagedViewCellLayout layout = new PagedViewCellLayout(context);
             setupPage(layout);
             addView(layout);
         }
+        
+      
     }
 
     @Override
