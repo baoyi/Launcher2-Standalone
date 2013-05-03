@@ -1034,6 +1034,7 @@ public class CellLayout extends ViewGroup {
         }
 
         int count = getChildCount();
+        //计算每个子空间所需要的空间
         for (int i = 0; i < count; i++) {
             View child = getChildAt(i);
             int childWidthMeasureSpec = MeasureSpec.makeMeasureSpec(newWidth - getPaddingLeft() -

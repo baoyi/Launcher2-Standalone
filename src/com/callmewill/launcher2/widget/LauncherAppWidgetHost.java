@@ -27,6 +27,7 @@ import android.content.Context;
  * Specific {@link AppWidgetHost} that creates our {@link LauncherAppWidgetHostView}
  * which correctly captures all long-press events. This ensures that users can
  * always pick up and move widgets.
+ * 正确捕获所有长按时间。这将确保用户随时可以拿起移动控件
  */
 public class LauncherAppWidgetHost extends AppWidgetHost {
 
