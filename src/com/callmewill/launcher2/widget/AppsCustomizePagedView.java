@@ -16,6 +16,12 @@
 
 package com.callmewill.launcher2.widget;
 
+import java.lang.ref.WeakReference;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
+
 import android.animation.AnimatorSet;
 import android.animation.ValueAnimator;
 import android.appwidget.AppWidgetHostView;
@@ -51,7 +57,6 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateInterpolator;
@@ -62,20 +67,12 @@ import android.widget.Toast;
 
 import com.callmewill.launcher2.DragController;
 import com.callmewill.launcher2.DragSource;
-import com.callmewill.launcher2.DropTarget;
+import com.callmewill.launcher2.DropTarget.DragObject;
 import com.callmewill.launcher2.FocusHelper;
 import com.callmewill.launcher2.Launcher;
 import com.callmewill.launcher2.LauncherApplication;
 import com.callmewill.launcher2.LauncherTransitionable;
 import com.callmewill.launcher2.R;
-import com.callmewill.launcher2.DropTarget.DragObject;
-import com.callmewill.launcher2.R.dimen;
-import com.callmewill.launcher2.R.drawable;
-import com.callmewill.launcher2.R.id;
-import com.callmewill.launcher2.R.integer;
-import com.callmewill.launcher2.R.layout;
-import com.callmewill.launcher2.R.string;
-import com.callmewill.launcher2.R.styleable;
 import com.callmewill.launcher2.cache.IconCache;
 import com.callmewill.launcher2.drawable.FastBitmapDrawable;
 import com.callmewill.launcher2.entity.ApplicationInfo;
@@ -84,20 +81,8 @@ import com.callmewill.launcher2.entity.PendingAddItemInfo;
 import com.callmewill.launcher2.entity.PendingAddShortcutInfo;
 import com.callmewill.launcher2.entity.PendingAddWidgetInfo;
 import com.callmewill.launcher2.provider.LauncherSettings;
-import com.callmewill.launcher2.provider.LauncherSettings.Favorites;
 import com.callmewill.launcher2.receiver.LauncherModel;
-import com.callmewill.launcher2.receiver.LauncherModel.WidgetAndShortcutNameComparator;
 import com.callmewill.launcher2.utils.LauncherAnimUtils;
-import com.callmewill.launcher2.widget.PagedViewCellLayout.LayoutParams;
-import com.callmewill.launcher2.widget.PagedViewIcon.PressedCallback;
-import com.callmewill.launcher2.widget.PagedViewWidget.ShortPressListener;
-import com.callmewill.launcher2.widget.Workspace.ZInterpolator;
-
-import java.lang.ref.WeakReference;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
 
 /**
  * A simple callback interface which also provides the results of the task.
@@ -1684,12 +1669,68 @@ public class AppsCustomizePagedView extends PagedViewWithDraggableItems implemen
         return getChildCount() - index - 1;
     }
 
-    // In apps customize, we have a scrolling effect which emulates pulling cards off of a stack.
+    // 滚动效果In apps customize, we have a scrolling effect which emulates pulling cards off of a stack.
     @Override
     protected void screenScrolled(int screenCenter) {
         super.screenScrolled(screenCenter);
 
+        screenScrolledCube(screenCenter,true);
+    }
+    private void screenScrolledCube(int screenScroll, boolean in) {
         for (int i = 0; i < getChildCount(); i++) {
+            View v = getPageAt(i);
+            if (v != null) {
+                float scrollProgress = getScrollProgress(screenScroll, v, i);
+                float rotation = (in ? 90.0f : -90.0f) * scrollProgress;
+                float alpha = 1 - Math.abs(scrollProgress);
+
+                if (in) {
+                    v.setCameraDistance(mDensity * CAMERA_DISTANCE);
+                }
+
+                v.setPivotX(scrollProgress < 0 ? 0 : v.getMeasuredWidth());
+                v.setPivotY(v.getMeasuredHeight() * 0.5f);
+                v.setRotationY(rotation);
+                v.setAlpha(alpha);
+            }
+        }
+    }
+    private void screenScrolledStack(int screenScroll) {
+        for (int i = 0; i < getChildCount(); i++) {
+            View v = getPageAt(i);
+            if (v != null) {
+                float scrollProgress = getScrollProgress(screenScroll, v, i);
+                float interpolatedProgress =
+                        mZInterpolator.getInterpolation(Math.abs(Math.min(scrollProgress, 0)));
+                float scale = (1 - interpolatedProgress) + interpolatedProgress * 0.76f;
+                float translationX = Math.min(0, scrollProgress) * v.getMeasuredWidth();
+                float alpha;
+
+                if (!LauncherApplication.isScreenLarge() || scrollProgress < 0) {
+                    alpha = scrollProgress < 0 ? mAlphaInterpolator.getInterpolation(
+                        1 - Math.abs(scrollProgress)) : 1.0f;
+                } else {
+                    // On large screens we need to fade the page as it nears its leftmost position
+                    alpha = mLeftScreenAlphaInterpolator.getInterpolation(1 - scrollProgress);
+                }
+
+                v.setTranslationX(translationX);
+                v.setScaleX(scale);
+                v.setScaleY(scale);
+                v.setAlpha(alpha);
+
+                // If the view has 0 alpha, we set it to be invisible so as to prevent
+                // it from accepting touches
+                if (alpha <= 0.5f) {//copied ViewConfiguration.ALPHA_THRESHOLD=0.5f
+                    v.setVisibility(INVISIBLE);
+                } else if (v.getVisibility() != VISIBLE) {
+                    v.setVisibility(VISIBLE);
+                }
+            }
+        }
+    }
+	private void aaa(int screenCenter) {
+		for (int i = 0; i < getChildCount(); i++) {
             View v = getPageAt(i);
             if (v != null) {
                 float scrollProgress = getScrollProgress(screenCenter, v, i);
@@ -1752,7 +1793,7 @@ public class AppsCustomizePagedView extends PagedViewWithDraggableItems implemen
                 }
             }
         }
-    }
+	}
 
     protected void overScroll(float amount) {
         acceleratedOverScroll(amount);
