@@ -1909,6 +1909,7 @@ public class Workspace extends SmoothPagedView
     /**
      * Returns a new bitmap to be used as the object outline, e.g. to visualize the drop location.
      * Responsibility for the bitmap is transferred to the caller.
+     * 返回一个新的位图用来作为目标的轮廓，如可视化的放置位置
      */
     private Bitmap createDragOutline(Bitmap orig, Canvas canvas, int padding, int w, int h,
             boolean clipAlpha) {

@@ -870,10 +870,12 @@ public class AppsCustomizePagedView extends PagedViewWithDraggableItems implemen
         }
 
         // Don't clip alpha values for the drag outline if we're using the default widget preview
+        //如果我们使用的是默认的部件预览，不要裁剪拖动的alpha值
         boolean clipAlpha = !(createItemInfo instanceof PendingAddWidgetInfo &&
                 (((PendingAddWidgetInfo) createItemInfo).previewImage == 0));
 
         // Save the preview for the outline generation, then dim the preview
+        //保存预览图生成的轮廓，然后暗淡预览
         outline = Bitmap.createScaledBitmap(preview, preview.getWidth(), preview.getHeight(),
                 false);
 

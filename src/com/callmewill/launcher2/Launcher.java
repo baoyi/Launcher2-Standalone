@@ -3701,6 +3701,10 @@ public final class Launcher extends Activity
                 getResources().getBoolean(R.bool.allow_rotation);
         return enableRotation;
     }
+    
+    /**
+     * 锁定屏幕方向
+     */
     public void lockScreenOrientation() {
         if (isRotationEnabled()) {
             setRequestedOrientation(mapConfigurationOriActivityInfoOri(getResources()
