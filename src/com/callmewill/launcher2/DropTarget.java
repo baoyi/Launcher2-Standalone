@@ -53,7 +53,7 @@ public interface DropTarget {
         /** The data associated with the object being dragged */
         public Object dragInfo = null;
 
-        /** Where the drag originated */
+        /** Where the drag originated 发起拖动源 */
         public DragSource dragSource = null;
 
         /** Post drag animation runnable */
@@ -115,6 +115,7 @@ public interface DropTarget {
 
     /**
      * Handle an object being dropped on the DropTarget
+     * 落下拖动目标
      * 
      * @param source DragSource where the drag started
      * @param x X coordinate of the drop location

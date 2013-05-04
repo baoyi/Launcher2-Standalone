@@ -2246,6 +2246,7 @@ public class Workspace extends SmoothPagedView
         CellLayout dropTargetLayout = mDropToLayout;
 
         // We want the point to be mapped to the dragTarget.
+        // 我们想要让点映射到拖动目标上
         if (dropTargetLayout != null) {
             if (mLauncher.isHotseatLayout(dropTargetLayout)) {
                 mapPointFromSelfToHotseatLayout(mLauncher.getHotseat(), mDragViewVisualCenter);
@@ -2790,6 +2791,12 @@ public class Workspace extends SmoothPagedView
     // used to visualize drop locations and determine where to drop an item. The idea is that
     // the visual center represents the user's interpretation of where the item is, and hence
     // is the appropriate point to use when determining drop location.
+    
+    /*
+     * 这是用于计算的dragView的视觉中心。这一点上，然后使用下拉位置可视化，
+     * 并确定其中下降的项目。视觉中心的想法是，代表用户的产品的解释，
+     * 因此是确定放置位置时使用适当的点。
+     */
     private float[] getDragViewVisualCenter(int x, int y, int xOffset, int yOffset,
             DragView dragView, float[] recycle) {
         float res[];
@@ -3077,8 +3084,12 @@ public class Workspace extends SmoothPagedView
      * It may have come from Launcher (e.g. from all apps or customize), or it may have
      * come from another app altogether.
      *
+     * 拖动并非来源于一个屏幕的工作区。他可能来自Launcher，或者它可能来自另外一个应用程序
+     *
      * NOTE: This can also be called when we are outside of a drag event, when we want
      * to add an item to one of the workspace screens.
+     * 
+     * 注意：这也可以调用在当我们拖动事件之外，当我们想要将项目添加到工作区的屏幕中。
      */
     private void onDropExternal(final int[] touchXY, final Object dragInfo,
             final CellLayout cellLayout, boolean insertAtFirst, DragObject d) {
