@@ -831,6 +831,7 @@ public class AppsCustomizePagedView extends PagedViewWithDraggableItems implemen
             // Determine the image view drawable scale relative to the preview
             float[] mv = new float[9];
             Matrix m = new Matrix();
+            //setRectToRect 设置矩阵的缩放和平移，映射到目标矩形。如果成功返回true
             m.setRectToRect(
                     new RectF(0f, 0f, (float) preview.getWidth(), (float) preview.getHeight()),
                     new RectF(0f, 0f, (float) previewDrawable.getIntrinsicWidth(),
@@ -854,10 +855,12 @@ public class AppsCustomizePagedView extends PagedViewWithDraggableItems implemen
         }
 
         // Don't clip alpha values for the drag outline if we're using the default widget preview
+        //如果我们使用的是默认的部件预览，不要裁剪拖动的alpha值
         boolean clipAlpha = !(createItemInfo instanceof PendingAddWidgetInfo &&
                 (((PendingAddWidgetInfo) createItemInfo).previewImage == 0));
 
         // Save the preview for the outline generation, then dim the preview
+        //保存预览图生成的轮廓，然后暗淡预览
         outline = Bitmap.createScaledBitmap(preview, preview.getWidth(), preview.getHeight(),
                 false);
 

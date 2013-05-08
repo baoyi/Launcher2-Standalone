@@ -358,6 +358,7 @@ public class Workspace extends SmoothPagedView
         mCameraDistance = res.getInteger(R.integer.config_cameraDistance);
 
         // if the value is manually specified, use that instead
+        //TODO 设置了格子数量
         cellCountX = a.getInt(R.styleable.Workspace_cellCountX, cellCountX);
         cellCountY = a.getInt(R.styleable.Workspace_cellCountY, cellCountY);
         mDefaultPage = a.getInt(R.styleable.Workspace_defaultScreen, 1);
@@ -1926,6 +1927,7 @@ public class Workspace extends SmoothPagedView
     /**
      * Returns a new bitmap to be used as the object outline, e.g. to visualize the drop location.
      * Responsibility for the bitmap is transferred to the caller.
+     * 返回一个新的位图用来作为目标的轮廓，如可视化的放置位置
      */
     private Bitmap createDragOutline(Bitmap orig, Canvas canvas, int padding, int w, int h,
             boolean clipAlpha) {

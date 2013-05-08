@@ -23,6 +23,9 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.ValueAnimator;
 
 /**
+ * 一个便于双向动画的类。例如淡入淡出动画，用定期的ValueAnimator，如果你调用反向显示'out'动画，
+ * 你会得到一个'in'动画一帧一帧的镜像，即设定的数值完全相反。使用这个类，无论是'in'和'out'的动画,
+ * 插入器在同一个方向
  * A convenience class for two-way animations, e.g. a fadeIn/fadeOut animation.
  * With a regular ValueAnimator, if you call reverse to show the 'out' animation, you'll get
  * a frame-by-frame mirror of the 'in' animation -- i.e., the interpolated values will

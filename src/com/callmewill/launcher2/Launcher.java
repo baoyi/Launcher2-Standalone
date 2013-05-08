@@ -1711,6 +1711,13 @@ public final class Launcher extends Activity
         mPendingAddInfo.dropPos = null;
     }
 
+    /**
+     * 添加控件
+     * @param appWidgetId
+     * @param info
+     * @param boundWidget
+     * @param appWidgetInfo
+     */
     void addAppWidgetImpl(final int appWidgetId, ItemInfo info, AppWidgetHostView boundWidget,
             AppWidgetProviderInfo appWidgetInfo) {
         if (appWidgetInfo.configure != null) {
@@ -1756,7 +1763,7 @@ public final class Launcher extends Activity
     }
 
     /**
-     * Process a widget drop.
+     * Process a widget drop.处理一个控件的落下
      *
      * @param info The PendingAppWidgetInfo of the widget being added.
      * @param screen The screen where it should be added
@@ -1789,6 +1796,7 @@ public final class Launcher extends Activity
         } else {
             // In this case, we either need to start an activity to get permission to bind
             // the widget, or we need to start an activity to configure the widget, or both.
+        	//在这种情况下，我们需要启动一个activity获得绑定控件的权限，或者需要启动activity来配置控件，或者两者都需要
             appWidgetId = getAppWidgetHost().allocateAppWidgetId();
             Bundle options = info.bindOptions;
 
@@ -2894,6 +2902,9 @@ public final class Launcher extends Activity
                 EXIT_SPRINGLOADED_MODE_SHORT_TIMEOUT));
     }
 
+    /**
+     * 添加控件时取消设置控件后还原到App列表
+     */
     public void exitSpringLoadedDragMode() {
         if (mState == State.APPS_CUSTOMIZE_SPRING_LOADED) {
             final boolean animated = true;
@@ -3701,6 +3712,10 @@ public final class Launcher extends Activity
                 getResources().getBoolean(R.bool.allow_rotation);
         return enableRotation;
     }
+    
+    /**
+     * 锁定屏幕方向
+     */
     public void lockScreenOrientation() {
         if (isRotationEnabled()) {
             setRequestedOrientation(mapConfigurationOriActivityInfoOri(getResources()

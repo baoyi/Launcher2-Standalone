@@ -756,6 +756,7 @@ public class LauncherModel extends BroadcastReceiver {
 	 * Updates the model orientation helper to take into account the current
 	 * layout dimensions when performing local/canonical coordinate
 	 * transformations.
+	 * 设置格子页面布局方格数量
 	 */
 	public static void updateWorkspaceLayoutCells(int shortAxisCellCount,
 			int longAxisCellCount) {
