@@ -16,6 +16,12 @@
 
 package com.callmewill.launcher2.widget;
 
+import java.net.URISyntaxException;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
+
 import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
@@ -39,7 +45,6 @@ import android.graphics.PointF;
 import android.graphics.Rect;
 import android.graphics.Region.Op;
 import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.os.IBinder;
 import android.os.Parcelable;
 import android.util.AttributeSet;
@@ -68,17 +73,6 @@ import com.callmewill.launcher2.LauncherViewPropertyAnimator;
 import com.callmewill.launcher2.OnAlarmListener;
 import com.callmewill.launcher2.R;
 import com.callmewill.launcher2.SpringLoadedDragController;
-import com.callmewill.launcher2.DragController;
-import com.callmewill.launcher2.DropTarget.DragEnforcer;
-import com.callmewill.launcher2.DropTarget.DragObject;
-import com.callmewill.launcher2.R.bool;
-import com.callmewill.launcher2.R.dimen;
-import com.callmewill.launcher2.R.drawable;
-import com.callmewill.launcher2.R.id;
-import com.callmewill.launcher2.R.integer;
-import com.callmewill.launcher2.R.layout;
-import com.callmewill.launcher2.R.string;
-import com.callmewill.launcher2.R.styleable;
 import com.callmewill.launcher2.cache.IconCache;
 import com.callmewill.launcher2.entity.ApplicationInfo;
 import com.callmewill.launcher2.entity.FolderInfo;
@@ -94,14 +88,7 @@ import com.callmewill.launcher2.receiver.InstallShortcutReceiver;
 import com.callmewill.launcher2.receiver.LauncherModel;
 import com.callmewill.launcher2.receiver.UninstallShortcutReceiver;
 import com.callmewill.launcher2.utils.LauncherAnimUtils;
-import com.callmewill.launcher2.utils.ShortcutAndWidgetContainer;
 import com.callmewill.launcher2.widget.FolderIcon.FolderRingAnimator;
-
-import java.net.URISyntaxException;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Set;
 
 /**
  * The workspace is a wide area with a wallpaper and a finite number of pages.
@@ -1268,6 +1255,27 @@ public class Workspace extends SmoothPagedView
             child.setBackgroundAlphaMultiplier(a);
         }
     }
+    private void screenScrolledCube(int screenScroll, boolean in) {
+        for (int i = 0; i < getChildCount(); i++) {
+            CellLayout cl = (CellLayout) getPageAt(i);
+            if (cl != null) {
+                float scrollProgress = getScrollProgress(screenScroll, cl, i);
+                float rotation = (in ? 90.0f : -90.0f) * scrollProgress;
+                float alpha = 1 - Math.abs(scrollProgress);
+
+                if (in) {
+                    cl.setCameraDistance(mDensity * CAMERA_DISTANCE);
+                }
+
+                cl.setPivotX(scrollProgress < 0 ? 0 : cl.getMeasuredWidth());
+                cl.setPivotY(cl.getMeasuredHeight() * 0.5f);
+                cl.setRotationY(rotation);
+                cl.setAlpha(alpha);
+                cl.invalidate();
+            }
+        }
+    }
+    private static float CAMERA_DISTANCE = 6500;
 
     @Override
     protected void screenScrolled(int screenCenter) {
@@ -1277,12 +1285,16 @@ public class Workspace extends SmoothPagedView
         enableHwLayersOnVisiblePages();
 
         if (mOverScrollX < 0 || mOverScrollX > mMaxScrollX) {
+        	/**
+        	 * 到第一页或者最后一页旋转。
+        	 */
             int index = mOverScrollX < 0 ? 0 : getChildCount() - 1;
             CellLayout cl = (CellLayout) getChildAt(index);
             float scrollProgress = getScrollProgress(screenCenter, cl, index);
             cl.setOverScrollAmount(Math.abs(scrollProgress), index == 0);
             float rotation = - WORKSPACE_OVERSCROLL_ROTATION * scrollProgress;
             cl.setRotationY(rotation);
+            cl.setRotationX(30);
             setFadeForOverScroll(Math.abs(scrollProgress));
             if (!mOverscrollTransformsSet) {
                 mOverscrollTransformsSet = true;
@@ -1292,14 +1304,15 @@ public class Workspace extends SmoothPagedView
                 cl.setOverscrollTransformsDirty(true);
             }
         } else {
-            if (mOverscrollFade != 0) {
-                setFadeForOverScroll(0);
-            }
-            if (mOverscrollTransformsSet) {
-                mOverscrollTransformsSet = false;
-                ((CellLayout) getChildAt(0)).resetOverscrollTransforms();
-                ((CellLayout) getChildAt(getChildCount() - 1)).resetOverscrollTransforms();
-            }
+//            if (mOverscrollFade != 0) {
+//                setFadeForOverScroll(0);
+//            }
+//            if (mOverscrollTransformsSet) {
+//                mOverscrollTransformsSet = false;
+//                ((CellLayout) getChildAt(0)).resetOverscrollTransforms();
+//                ((CellLayout) getChildAt(getChildCount() - 1)).resetOverscrollTransforms();
+//            }
+        	screenScrolledCube(screenCenter, true);
         }
     }
 
@@ -1578,7 +1591,12 @@ public class Workspace extends SmoothPagedView
         canvas2.restore();
         
     }
-
+    /**
+     * 拖动小控件
+     * @param info
+     * @param b
+     * @param clipAlpha
+     */
     public void onDragStartedWithItem(PendingAddItemInfo info, Bitmap b, boolean clipAlpha) {
         final Canvas canvas = new Canvas();
 

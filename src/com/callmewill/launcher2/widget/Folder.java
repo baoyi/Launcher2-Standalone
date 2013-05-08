@@ -69,7 +69,6 @@ import com.callmewill.launcher2.provider.LauncherSettings;
 import com.callmewill.launcher2.provider.LauncherSettings.Favorites;
 import com.callmewill.launcher2.receiver.LauncherModel;
 import com.callmewill.launcher2.utils.LauncherAnimUtils;
-import com.callmewill.launcher2.utils.ShortcutAndWidgetContainer;
 
 import java.util.ArrayList;
 import java.util.Collections;

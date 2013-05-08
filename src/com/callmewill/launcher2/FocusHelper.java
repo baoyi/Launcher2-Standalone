@@ -25,7 +25,6 @@ import android.widget.TabHost;
 import android.widget.TabWidget;
 
 import com.callmewill.launcher2.R;
-import com.callmewill.launcher2.utils.ShortcutAndWidgetContainer;
 import com.callmewill.launcher2.widget.AccessibleTabView;
 import com.callmewill.launcher2.widget.BubbleTextView;
 import com.callmewill.launcher2.widget.CellLayout;
@@ -37,6 +36,7 @@ import com.callmewill.launcher2.widget.PagedViewCellLayout;
 import com.callmewill.launcher2.widget.PagedViewCellLayoutChildren;
 import com.callmewill.launcher2.widget.PagedViewGridLayout;
 import com.callmewill.launcher2.widget.PagedViewWidget;
+import com.callmewill.launcher2.widget.ShortcutAndWidgetContainer;
 import com.callmewill.launcher2.widget.Workspace;
 
 import java.util.ArrayList;
