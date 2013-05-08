@@ -23,7 +23,6 @@ import com.callmewill.launcher2.drawable.FastBitmapDrawable;
 import com.callmewill.launcher2.entity.ItemInfo;
 import com.callmewill.launcher2.entity.ShortcutInfo;
 import com.callmewill.launcher2.receiver.LauncherModel;
-import com.callmewill.launcher2.utils.ShortcutAndWidgetContainer;
 
 import android.content.Context;
 import android.content.res.Resources;

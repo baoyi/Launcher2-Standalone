@@ -38,7 +38,11 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
-
+/**
+ * 快捷键添加
+ * @author Administrator
+ *
+ */
 public class InstallShortcutReceiver extends BroadcastReceiver {
     public static final String ACTION_INSTALL_SHORTCUT =
             "com.android.launcher.action.INSTALL_SHORTCUT";
@@ -140,6 +144,9 @@ public class InstallShortcutReceiver extends BroadcastReceiver {
         boolean found = false;
         synchronized (app) {
             final ArrayList<ItemInfo> items = LauncherModel.getItemsInLocalCoordinates(context);
+            /**
+             * 查询该快捷键是否存在
+             */
             final boolean exists = LauncherModel.shortcutExists(context, name, intent);
 
             // Try adding to the workspace screens incrementally, starting at the default or center

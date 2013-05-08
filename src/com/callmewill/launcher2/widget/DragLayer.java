@@ -47,7 +47,6 @@ import com.callmewill.launcher2.R.drawable;
 import com.callmewill.launcher2.R.integer;
 import com.callmewill.launcher2.R.string;
 import com.callmewill.launcher2.entity.ItemInfo;
-import com.callmewill.launcher2.utils.ShortcutAndWidgetContainer;
 
 import java.util.ArrayList;
 

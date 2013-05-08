@@ -63,7 +63,6 @@ import com.callmewill.launcher2.entity.LauncherAppWidgetInfo;
 import com.callmewill.launcher2.entity.PendingAddWidgetInfo;
 import com.callmewill.launcher2.receiver.LauncherModel;
 import com.callmewill.launcher2.utils.LauncherAnimUtils;
-import com.callmewill.launcher2.utils.ShortcutAndWidgetContainer;
 import com.callmewill.launcher2.widget.FolderIcon.FolderRingAnimator;
 
 import java.util.ArrayList;

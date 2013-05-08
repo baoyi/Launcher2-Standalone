@@ -14,9 +14,8 @@
  * limitations under the License.
  */
 
-package com.callmewill.launcher2.utils;
+package com.callmewill.launcher2.widget;
 
-import com.callmewill.launcher2.widget.CellLayout;
 
 import android.app.WallpaperManager;
 import android.content.Context;
