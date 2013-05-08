@@ -169,7 +169,7 @@ public class DragLayer extends FrameLayout implements ViewGroup.OnHierarchyChang
             }
         }
         clearAllResizeFrames();
-        return mDragController.onInterceptTouchEvent(ev);
+       return mDragController.onInterceptTouchEvent(ev);
     }
 
     @Override

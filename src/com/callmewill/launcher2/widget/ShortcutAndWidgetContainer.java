@@ -16,170 +16,193 @@
 
 package com.callmewill.launcher2.widget;
 
-
 import android.app.WallpaperManager;
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.accessibility.AccessibilityEvent;
+import android.view.accessibility.AccessibilityManager;
 
 public class ShortcutAndWidgetContainer extends ViewGroup {
-    static final String TAG = "CellLayoutChildren";
+	static final String TAG = "CellLayoutChildren";
 
-    // These are temporary variables to prevent having to allocate a new object just to
-    // return an (x, y) value from helper functions. Do NOT use them to maintain other state.
-    private final int[] mTmpCellXY = new int[2];
+	// These are temporary variables to prevent having to allocate a new object
+	// just to
+	// return an (x, y) value from helper functions. Do NOT use them to maintain
+	// other state.
+	private final int[] mTmpCellXY = new int[2];
 
-    private final WallpaperManager mWallpaperManager;
+	private final WallpaperManager mWallpaperManager;
 
-    private int mCellWidth;
-    private int mCellHeight;
+	private int mCellWidth;
+	private int mCellHeight;
 
-    private int mWidthGap;
-    private int mHeightGap;
+	private int mWidthGap;
+	private int mHeightGap;
 
-    public ShortcutAndWidgetContainer(Context context) {
-        super(context);
-        mWallpaperManager = WallpaperManager.getInstance(context);
-    }
+	public ShortcutAndWidgetContainer(Context context) {
+		super(context);
+		mWallpaperManager = WallpaperManager.getInstance(context);
 
-    public void setCellDimensions(int cellWidth, int cellHeight, int widthGap, int heightGap ) {
-        mCellWidth = cellWidth;
-        mCellHeight = cellHeight;
-        mWidthGap = widthGap;
-        mHeightGap = heightGap;
-    }
+		AccessibilityManager accessibilityManager = (AccessibilityManager) getContext()
+				.getSystemService(Context.ACCESSIBILITY_SERVICE);
+		if (accessibilityManager.isEnabled()) {
+			AccessibilityEvent ev = AccessibilityEvent
+					.obtain(AccessibilityEvent.TYPE_VIEW_SCROLLED);
+			ev.getText().add("ShortcutAndWidgetContainer");
+			sendAccessibilityEventUnchecked(ev);
+		}
 
-    public View getChildAt(int x, int y) {
-        final int count = getChildCount();
-        for (int i = 0; i < count; i++) {
-            View child = getChildAt(i);
-            CellLayout.LayoutParams lp = (CellLayout.LayoutParams) child.getLayoutParams();
+	}
 
-            if ((lp.cellX <= x) && (x < lp.cellX + lp.cellHSpan) &&
-                    (lp.cellY <= y) && (y < lp.cellY + lp.cellVSpan)) {
-                return child;
-            }
-        }
-        return null;
-    }
+	public void setCellDimensions(int cellWidth, int cellHeight, int widthGap,
+			int heightGap) {
+		mCellWidth = cellWidth;
+		mCellHeight = cellHeight;
+		mWidthGap = widthGap;
+		mHeightGap = heightGap;
+	}
 
-    @Override
-    protected void dispatchDraw(Canvas canvas) {
-        @SuppressWarnings("all") // suppress dead code warning
-        final boolean debug = false;
-        if (debug) {
-            // Debug drawing for hit space
-            Paint p = new Paint();
-            p.setColor(0x6600FF00);
-            for (int i = getChildCount() - 1; i >= 0; i--) {
-                final View child = getChildAt(i);
-                final CellLayout.LayoutParams lp = (CellLayout.LayoutParams) child.getLayoutParams();
+	public View getChildAt(int x, int y) {
+		final int count = getChildCount();
+		for (int i = 0; i < count; i++) {
+			View child = getChildAt(i);
+			CellLayout.LayoutParams lp = (CellLayout.LayoutParams) child
+					.getLayoutParams();
 
-                canvas.drawRect(lp.x, lp.y, lp.x + lp.width, lp.y + lp.height, p);
-            }
-        }
-        super.dispatchDraw(canvas);
-    }
+			if ((lp.cellX <= x) && (x < lp.cellX + lp.cellHSpan)
+					&& (lp.cellY <= y) && (y < lp.cellY + lp.cellVSpan)) {
+				return child;
+			}
+		}
+		return null;
+	}
 
-    @Override
-    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        int count = getChildCount();
-        for (int i = 0; i < count; i++) {
-            View child = getChildAt(i);
-            measureChild(child);
-        }
-        int widthSpecSize = MeasureSpec.getSize(widthMeasureSpec);
-        int heightSpecSize =  MeasureSpec.getSize(heightMeasureSpec);
-        setMeasuredDimension(widthSpecSize, heightSpecSize);
-    }
+	@Override
+	protected void dispatchDraw(Canvas canvas) {
+		@SuppressWarnings("all")
+		// suppress dead code warning
+		final boolean debug = false;
+		if (debug) {
+			// Debug drawing for hit space
+			Paint p = new Paint();
+			p.setColor(0x6600FF00);
+			for (int i = getChildCount() - 1; i >= 0; i--) {
+				final View child = getChildAt(i);
+				final CellLayout.LayoutParams lp = (CellLayout.LayoutParams) child
+						.getLayoutParams();
 
-    public void setupLp(CellLayout.LayoutParams lp) {
-        lp.setup(mCellWidth, mCellHeight, mWidthGap, mHeightGap);
-    }
+				canvas.drawRect(lp.x, lp.y, lp.x + lp.width, lp.y + lp.height,
+						p);
+			}
+		}
+		super.dispatchDraw(canvas);
+	}
 
-    public void measureChild(View child) {
-        final int cellWidth = mCellWidth;
-        final int cellHeight = mCellHeight;
-        CellLayout.LayoutParams lp = (CellLayout.LayoutParams) child.getLayoutParams();
+	@Override
+	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+		int count = getChildCount();
+		for (int i = 0; i < count; i++) {
+			View child = getChildAt(i);
+			measureChild(child);
+		}
+		int widthSpecSize = MeasureSpec.getSize(widthMeasureSpec);
+		int heightSpecSize = MeasureSpec.getSize(heightMeasureSpec);
+		setMeasuredDimension(widthSpecSize, heightSpecSize);
+	}
 
-        lp.setup(cellWidth, cellHeight, mWidthGap, mHeightGap);
-        int childWidthMeasureSpec = MeasureSpec.makeMeasureSpec(lp.width, MeasureSpec.EXACTLY);
-        int childheightMeasureSpec = MeasureSpec.makeMeasureSpec(lp.height,
-                MeasureSpec.EXACTLY);
-        child.measure(childWidthMeasureSpec, childheightMeasureSpec);
-    }
+	public void setupLp(CellLayout.LayoutParams lp) {
+		lp.setup(mCellWidth, mCellHeight, mWidthGap, mHeightGap);
+	}
 
-    @Override
-    protected void onLayout(boolean changed, int l, int t, int r, int b) {
-        int count = getChildCount();
-        for (int i = 0; i < count; i++) {
-            final View child = getChildAt(i);
-            if (child.getVisibility() != GONE) {
-                CellLayout.LayoutParams lp = (CellLayout.LayoutParams) child.getLayoutParams();
+	public void measureChild(View child) {
+		final int cellWidth = mCellWidth;
+		final int cellHeight = mCellHeight;
+		CellLayout.LayoutParams lp = (CellLayout.LayoutParams) child
+				.getLayoutParams();
 
-                int childLeft = lp.x;
-                int childTop = lp.y;
-                child.layout(childLeft, childTop, childLeft + lp.width, childTop + lp.height);
+		lp.setup(cellWidth, cellHeight, mWidthGap, mHeightGap);
+		int childWidthMeasureSpec = MeasureSpec.makeMeasureSpec(lp.width,
+				MeasureSpec.EXACTLY);
+		int childheightMeasureSpec = MeasureSpec.makeMeasureSpec(lp.height,
+				MeasureSpec.EXACTLY);
+		child.measure(childWidthMeasureSpec, childheightMeasureSpec);
+	}
 
-                if (lp.dropped) {
-                    lp.dropped = false;
+	@Override
+	protected void onLayout(boolean changed, int l, int t, int r, int b) {
+		int count = getChildCount();
+		for (int i = 0; i < count; i++) {
+			final View child = getChildAt(i);
+			if (child.getVisibility() != GONE) {
+				CellLayout.LayoutParams lp = (CellLayout.LayoutParams) child
+						.getLayoutParams();
 
-                    final int[] cellXY = mTmpCellXY;
-                    getLocationOnScreen(cellXY);
-                    mWallpaperManager.sendWallpaperCommand(getWindowToken(),
-                            WallpaperManager.COMMAND_DROP,
-                            cellXY[0] + childLeft + lp.width / 2,
-                            cellXY[1] + childTop + lp.height / 2, 0, null);
-                }
-            }
-        }
-    }
+				int childLeft = lp.x;
+				int childTop = lp.y;
+				child.layout(childLeft, childTop, childLeft + lp.width,
+						childTop + lp.height);
 
-    @Override
-    public boolean shouldDelayChildPressedState() {
-        return false;
-    }
+				if (lp.dropped) {
+					lp.dropped = false;
 
-    @Override
-    public void requestChildFocus(View child, View focused) {
-        super.requestChildFocus(child, focused);
-        if (child != null) {
-            Rect r = new Rect();
-            child.getDrawingRect(r);
-            requestRectangleOnScreen(r);
-        }
-    }
+					final int[] cellXY = mTmpCellXY;
+					getLocationOnScreen(cellXY);
+					mWallpaperManager.sendWallpaperCommand(getWindowToken(),
+							WallpaperManager.COMMAND_DROP, cellXY[0]
+									+ childLeft + lp.width / 2, cellXY[1]
+									+ childTop + lp.height / 2, 0, null);
+				}
+			}
+		}
+	}
 
-    @Override
-    public void cancelLongPress() {
-        super.cancelLongPress();
+	@Override
+	public boolean shouldDelayChildPressedState() {
+		return false;
+	}
 
-        // Cancel long press for all children
-        final int count = getChildCount();
-        for (int i = 0; i < count; i++) {
-            final View child = getChildAt(i);
-            child.cancelLongPress();
-        }
-    }
+	@Override
+	public void requestChildFocus(View child, View focused) {
+		super.requestChildFocus(child, focused);
+		if (child != null) {
+			Rect r = new Rect();
+			child.getDrawingRect(r);
+			requestRectangleOnScreen(r);
+		}
+	}
 
-    @Override
+	@Override
+	public void cancelLongPress() {
+		super.cancelLongPress();
+
+		// Cancel long press for all children
+		final int count = getChildCount();
+		for (int i = 0; i < count; i++) {
+			final View child = getChildAt(i);
+			child.cancelLongPress();
+		}
+	}
+
+	@Override
 	public void setChildrenDrawingCacheEnabled(boolean enabled) {
-        final int count = getChildCount();
-        for (int i = 0; i < count; i++) {
-            final View view = getChildAt(i);
-            view.setDrawingCacheEnabled(enabled);
-            // Update the drawing caches
-            if (!view.isHardwareAccelerated() && enabled) {
-                view.buildDrawingCache(true);
-            }
-        }
-    }
+		final int count = getChildCount();
+		for (int i = 0; i < count; i++) {
+			final View view = getChildAt(i);
+			view.setDrawingCacheEnabled(enabled);
+			// Update the drawing caches
+			if (!view.isHardwareAccelerated() && enabled) {
+				view.buildDrawingCache(true);
+			}
+		}
+	}
 
-    @Override
+	@Override
 	public void setChildrenDrawnWithCacheEnabled(boolean enabled) {
-        super.setChildrenDrawnWithCacheEnabled(enabled);
-    }
+		super.setChildrenDrawnWithCacheEnabled(enabled);
+	}
 }
