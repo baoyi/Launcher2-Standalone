@@ -220,7 +220,7 @@ public class AppWidgetResizeFrame extends FrameLayout {
             lp.height = mBaselineHeight + mDeltaY;
         }
 
-        resizeWidgetIfNeeded(onDismiss);
+        //resizeWidgetIfNeeded(onDismiss);
         requestLayout();
     }
 

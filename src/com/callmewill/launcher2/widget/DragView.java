@@ -28,6 +28,7 @@ import android.graphics.PorterDuffColorFilter;
 import android.graphics.Rect;
 import android.view.View;
 import android.view.animation.DecelerateInterpolator;
+import android.widget.ImageView;
 
 import com.callmewill.launcher2.Launcher;
 import com.callmewill.launcher2.R;
