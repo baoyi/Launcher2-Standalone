@@ -1141,7 +1141,7 @@ public final class Launcher extends Activity
                 info.minResizeHeight);
     }
 
-    /**
+    /** 添加小组件到桌面
      * Add a widget to the workspace.
      *
      * @param appWidgetId The app widget id
@@ -1205,7 +1205,9 @@ public final class Launcher extends Activity
         launcherInfo.spanY = spanXY[1];
         launcherInfo.minSpanX = mPendingAddInfo.minSpanX;
         launcherInfo.minSpanY = mPendingAddInfo.minSpanY;
-
+        /**
+         * 添加到数据
+         */
         LauncherModel.addItemToDatabase(this, launcherInfo,
                 container, screen, cellXY[0], cellXY[1], false);
 

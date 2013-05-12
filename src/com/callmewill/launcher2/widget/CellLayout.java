@@ -2252,7 +2252,20 @@ public class CellLayout extends ViewGroup {
 			}
 		}
 	}
-
+    /**
+     * 桌面小组件之间交换
+     * @param pixelX
+     * @param pixelY
+     * @param minSpanX
+     * @param minSpanY
+     * @param spanX
+     * @param spanY
+     * @param direction
+     * @param dragView
+     * @param decX
+     * @param solution
+     * @return
+     */
 	ItemConfiguration simpleSwap(int pixelX, int pixelY, int minSpanX,
 			int minSpanY, int spanX, int spanY, int[] direction, View dragView,
 			boolean decX, ItemConfiguration solution) {
