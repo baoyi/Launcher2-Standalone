@@ -82,7 +82,7 @@ public class CellLayout extends ViewGroup {
      */
     private int mCountX;
     /**
-     * 各自高度数量
+     * 格子高度数量
      */
     private int mCountY;
 
@@ -873,6 +873,7 @@ public class CellLayout extends ViewGroup {
     }
 
     /**
+     * 给定的单元格的坐标，返回的点，它表示的单元格的中心。
      * Given a cell coordinate, return the point that represents the center of the cell
      *
      * @param cellX X coordinate of the cell
@@ -885,6 +886,7 @@ public class CellLayout extends ViewGroup {
     }
 
     /**
+     * 给定的单元格的坐标和跨度，返回的点它表示这个区域的中心
      * Given a cell coordinate and span return the point that represents the center of the regio
      *
      * @param cellX X coordinate of the cell
@@ -1450,7 +1452,7 @@ public class CellLayout extends ViewGroup {
                             if (occupied[x + i][y + j]) {
                             	Log.i("ddv","occupied[x + i][y + j]:"+occupied[x + i][y + j]);
                             	Log.i("ddv","[x + i]"+(x + i)+"[y + j]:"+(y + j));
-                            	//如果此格被占用则返回x轴的循环将x+1
+                            	//如果此格被占用则返回到x轴的循环
                                 continue inner;
                             }
                         }
@@ -1495,12 +1497,18 @@ public class CellLayout extends ViewGroup {
                     hitMaxY = ySize >= spanY;
                 }
                 final int[] cellXY = mTmpXY;
-                cellToCenterPoint(x, y, cellXY);
+                cellToCenterPoint(x, y, cellXY);//此方法执行之后mTmpXY数据为选择区域的中心点
 
                 // We verify that the current rect is not a sub-rect of any of our previous
                 // candidates. In this case, the current rect is disqualified in favour of the
                 // containing rect.
+                /*
+                 * 我们验证当前矩形，它不是我们以前任意的子矩形。
+                 * 在这种情况下，当前的矩形会被取消为推荐的格子
+                 */
+                //从堆中取出一个矩形
                 Rect currentRect = mTempRectStack.pop();
+                //设置此矩形的参数
                 currentRect.set(x, y, x + xSize, y + ySize);
                 boolean contained = false;
                 for (Rect r : validRegions) {
