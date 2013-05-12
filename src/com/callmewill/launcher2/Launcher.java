@@ -1143,7 +1143,8 @@ public final class Launcher extends Activity
 
     /** 添加小组件到桌面
      * Add a widget to the workspace.
-     *
+     * 添加小部件到工作空间
+     * 
      * @param appWidgetId The app widget id
      * @param cellInfo The position on screen where to create the widget.
      */
@@ -1726,15 +1727,18 @@ public final class Launcher extends Activity
             mPendingAddWidgetInfo = appWidgetInfo;
 
             // Launch over to configure widget, if needed
+            //启动配置部件，如果需要的话
             Intent intent = new Intent(AppWidgetManager.ACTION_APPWIDGET_CONFIGURE);
             intent.setComponent(appWidgetInfo.configure);
             intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
             startActivityForResultSafely(intent, REQUEST_CREATE_APPWIDGET);
         } else {
             // Otherwise just add it
+        	// 否则只需添加它
             completeAddAppWidget(appWidgetId, info.container, info.screen, boundWidget,
                     appWidgetInfo);
             // Exit spring loaded mode if necessary after adding the widget
+            // 退出弹簧加载后，如有必要添加小部件
             exitSpringLoadedDragModeDelayed(true, false, null);
         }
     }
@@ -2820,6 +2824,11 @@ public final class Launcher extends Activity
         showWorkspace(animated, null);
     }
 
+    /**
+     * 
+     * @param animated
+     * @param onCompleteRunnable
+     */
     void showWorkspace(boolean animated, Runnable onCompleteRunnable) {
         if (mState != State.WORKSPACE) {
             boolean wasInSpringLoadedMode = (mState == State.APPS_CUSTOMIZE_SPRING_LOADED);
