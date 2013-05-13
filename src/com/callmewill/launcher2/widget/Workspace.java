@@ -2953,12 +2953,13 @@ public class Workspace extends SmoothPagedView
                     && !mReorderAlarm.alarmPending() && (mLastReorderX != mTargetCell[0] ||
                     mLastReorderY != mTargetCell[1])) {
 
+            	//启动一个定时器去处理挤来挤去的功能
                 // Otherwise, if we aren't adding to or creating a folder and there's no pending
                 // reorder, then we schedule a reorder
                 ReorderAlarmListener listener = new ReorderAlarmListener(mDragViewVisualCenter,
                         minSpanX, minSpanY, item.spanX, item.spanY, d.dragView, child);
                 mReorderAlarm.setOnAlarmListener(listener);
-                mReorderAlarm.setAlarm(REORDER_TIMEOUT);
+               mReorderAlarm.setAlarm(REORDER_TIMEOUT);
             }
 
             if (mDragMode == DRAG_MODE_CREATE_FOLDER || mDragMode == DRAG_MODE_ADD_TO_FOLDER ||

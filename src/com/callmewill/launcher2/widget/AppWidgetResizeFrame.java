@@ -18,7 +18,11 @@ import com.callmewill.launcher2.R;
 import com.callmewill.launcher2.R.drawable;
 import com.callmewill.launcher2.R.id;
 import com.callmewill.launcher2.utils.LauncherAnimUtils;
-
+/**
+ * 重新调整小控件的大小
+ * @author Administrator
+ *
+ */
 public class AppWidgetResizeFrame extends FrameLayout {
     private LauncherAppWidgetHostView mWidgetView;
     private CellLayout mCellLayout;
