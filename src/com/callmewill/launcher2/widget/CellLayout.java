@@ -1401,6 +1401,7 @@ public class CellLayout extends ViewGroup {
      * @param result Array in which to place the result, or null (in which case a new array will
      *        be allocated)
      *        将结果放置在数组中。如果为null 这种情况下讲分配一个新的数组
+     * @param resultSpan 将结果跨度放进数组中
      * @return The X, Y cell of a vacant area that can contain this object,
      *         nearest the requested location.
      *         这个返回的XY 是空闲的格子。他是可以包含此对象的区域。最接近所请求的位置。
@@ -1458,6 +1459,7 @@ public class CellLayout extends ViewGroup {
                             }
                         }
                     }
+                    //将空间最小宽高赋给xSize，ySize
                     xSize = minSpanX;
                     ySize = minSpanY;
 
@@ -2558,6 +2560,11 @@ public class CellLayout extends ViewGroup {
         return mItemPlacementDirty;
     }
 
+    /**
+     * 类中有HashMap<View, CellAndSpan> map。用来存放View对应的格子和跨度信息
+     * @author Administrator
+     *
+     */
     private class ItemConfiguration {
         HashMap<View, CellAndSpan> map = new HashMap<View, CellAndSpan>();
         boolean isSolution = false;
@@ -2568,6 +2575,11 @@ public class CellLayout extends ViewGroup {
         }
     }
 
+    /**
+     * 用来存放位置和跨度
+     * @author Administrator
+     *
+     */
     private class CellAndSpan {
         int x, y;
         int spanX, spanY;
