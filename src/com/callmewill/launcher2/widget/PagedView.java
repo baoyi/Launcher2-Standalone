@@ -2038,7 +2038,7 @@ public abstract class PagedView extends ViewGroup implements
 				mScrollIndicatorAnimator.start();
 			}
 		}
-	}
+ 	}
 
 	/**
 	 * To be overridden by subclasses to determine whether the scroll indicator

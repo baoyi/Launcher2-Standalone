@@ -1294,7 +1294,6 @@ public class Workspace extends SmoothPagedView
             cl.setOverScrollAmount(Math.abs(scrollProgress), index == 0);
             float rotation = - WORKSPACE_OVERSCROLL_ROTATION * scrollProgress;
             cl.setRotationY(rotation);
-            cl.setRotationX(30);
             setFadeForOverScroll(Math.abs(scrollProgress));
             if (!mOverscrollTransformsSet) {
                 mOverscrollTransformsSet = true;
@@ -1312,7 +1311,7 @@ public class Workspace extends SmoothPagedView
 //                ((CellLayout) getChildAt(0)).resetOverscrollTransforms();
 //                ((CellLayout) getChildAt(getChildCount() - 1)).resetOverscrollTransforms();
 //            }
-        	screenScrolledCube(screenCenter, true);
+        	ada(screenCenter);
         }
     }
 
@@ -3942,5 +3941,68 @@ public class Workspace extends SmoothPagedView
         if (qsbDivider != null) qsbDivider.setAlpha(reducedFade);
         if (dockDivider != null) dockDivider.setAlpha(reducedFade);
         scrollIndicator.setAlpha(1 - fade);
+    }
+    
+    
+    private void ada(int screenScroll) {
+        for (int i = 0; i < getChildCount(); i++) {
+            CellLayout cl = (CellLayout) getPageAt(i);
+            if (cl != null) {
+            	  float scrollProgress = getScrollProgress(screenScroll, cl, i);
+                  float rotation = (true ? WORKSPACE_ROTATION : -WORKSPACE_ROTATION) * scrollProgress;
+
+                  cl.setPivotY((scrollProgress + 1) * cl.getMeasuredWidth() * 0.5f);
+                  cl.setPivotX(cl.getMeasuredHeight() * 0.5f);
+                  cl.setRotationX(rotation);
+            }
+        }
+    }
+    private void screenScrolledAccordion(int screenScroll) {
+        for (int i = 0; i < getChildCount(); i++) {
+            CellLayout cl = (CellLayout) getPageAt(i);
+            if (cl != null) {
+                float scrollProgress = getScrollProgress(screenScroll, cl, i);
+                float scaleX = 1.0f - Math.abs(scrollProgress);
+
+                cl.setPivotX(scrollProgress < 0 ? 0 : cl.getMeasuredWidth());
+                cl.setScaleX(scaleX);
+                if (scaleX == 0.0f) {
+                    cl.setVisibility(INVISIBLE);
+                } else if (cl.getVisibility() != VISIBLE) {
+                    cl.setVisibility(VISIBLE);
+                }
+                if (mFadeInAdjacentScreens && !isSmall()) {
+                    setCellLayoutFadeAdjacent(cl, scrollProgress);
+                }
+            }
+        }
+    }
+    private void setCellLayoutFadeAdjacent(CellLayout child, float scrollProgress) {
+        float alpha = 1 - Math.abs(scrollProgress);
+        child.getShortcutsAndWidgets().setAlpha(alpha);
+        if (!mIsDragOccuring) {
+           child.setBackgroundAlphaMultiplier(
+           backgroundAlphaInterpolator(Math.abs(scrollProgress)));
+        } else {
+           child.setBackgroundAlphaMultiplier(1f);
+        }
+    }
+    private static final float WORKSPACE_ROTATION = 12.5f;
+
+    private void screenScrolledCylinder(int screenScroll, boolean in) {
+        for (int i = 0; i < getChildCount(); i++) {
+            CellLayout cl = (CellLayout) getPageAt(i);
+            if (cl != null) {
+                float scrollProgress = getScrollProgress(screenScroll, cl, i);
+                float rotation = (in ? WORKSPACE_ROTATION : -WORKSPACE_ROTATION) * scrollProgress;
+
+                cl.setPivotX((scrollProgress + 1) * cl.getMeasuredWidth() * 0.5f);
+                cl.setPivotY(cl.getMeasuredHeight() * 0.5f);
+                cl.setRotationY(rotation);
+                if (mFadeInAdjacentScreens && !isSmall()) {
+                    setCellLayoutFadeAdjacent(cl, scrollProgress);
+                }
+            }
+        }
     }
 }

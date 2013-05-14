@@ -17,7 +17,11 @@
 package com.callmewill.launcher2;
 
 import android.os.Handler;
-
+/**
+ * 定时器
+ * @author Administrator
+ *
+ */
 public class Alarm implements Runnable{
     // if we reach this time and the alarm hasn't been cancelled, call the listener
     private long mAlarmTriggerTime;
