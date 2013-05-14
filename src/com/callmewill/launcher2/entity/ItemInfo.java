@@ -29,6 +29,7 @@ import com.callmewill.launcher2.receiver.LauncherModel;
 
 /**
  * Represents an item in the launcher.
+ * 代表在Launcher的项目（可用于DragInfo）
  */
 public class ItemInfo {
     
