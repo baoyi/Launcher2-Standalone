@@ -93,6 +93,7 @@ public class LauncherProvider extends ContentProvider {
      * {@link AppWidgetHost#deleteHost()} is called during database creation.
      * Use this to recall {@link AppWidgetHost#startListening()} if needed.
      */
+    
     public static final Uri CONTENT_APPWIDGET_RESET_URI =
             Uri.parse("content://" + AUTHORITY + "/appWidgetReset");
 
@@ -105,6 +106,9 @@ public class LauncherProvider extends ContentProvider {
         return true;
     }
 
+    /**
+     * 根据Uri来判断操作的是集合还是单挑
+     */
     @Override
     public String getType(Uri uri) {
         SqlArguments args = new SqlArguments(uri, null, null);
@@ -126,7 +130,7 @@ public class LauncherProvider extends ContentProvider {
         SQLiteDatabase db = mOpenHelper.getWritableDatabase();
         Cursor result = qb.query(db, projection, args.where, args.args, null, null, sortOrder);
         result.setNotificationUri(getContext().getContentResolver(), uri);
-
+        
         return result;
     }
 
@@ -259,6 +263,7 @@ public class LauncherProvider extends ContentProvider {
 
             // In the case where neither onCreate nor onUpgrade gets called, we read the maxId from
             // the DB here
+          
             if (mMaxId == -1) {
                 mMaxId = initializeMaxId(getWritableDatabase());
             }
@@ -990,6 +995,7 @@ public class LauncherProvider extends ContentProvider {
         /**
          * Gets an appwidget provider from the given package. If the package contains more than
          * one appwidget provider, an arbitrary one is returned.
+         * 获取应用程序部件提供商从给定的包。如果package包含一个以上的应用程序部件提供商，返回任意一个。
          */
         private ComponentName getProviderInPackage(String packageName) {
             AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(mContext);
