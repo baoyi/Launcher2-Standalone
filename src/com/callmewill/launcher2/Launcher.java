@@ -2346,7 +2346,9 @@ public final class Launcher extends Activity
         if (!(v instanceof CellLayout)) {
             v = (View) v.getParent().getParent();
         }
-
+        
+        
+        
         resetAddInfo();
         CellLayout.CellInfo longClickCellInfo = (CellLayout.CellInfo) v.getTag();
         // This happens when long clicking an item with the dpad/trackball
@@ -2378,6 +2380,7 @@ public final class Launcher extends Activity
                 	}
 //                	showItem(itemUnderLongClick);
                     mWorkspace.startDrag(longClickCellInfo);
+//                    showItem(itemUnderLongClick);
                 }
             }
         }

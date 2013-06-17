@@ -1964,10 +1964,8 @@ public class Workspace extends SmoothPagedView
         child.setVisibility(INVISIBLE);
         CellLayout layout = (CellLayout) child.getParent().getParent();
         layout.prepareChildForDrag(child);
-        
         //TODO ShowItem
-        mLauncher.showItem(child);
-        
+//        mLauncher.showItem(child);
         
         child.clearFocus();
         child.setPressed(false);
