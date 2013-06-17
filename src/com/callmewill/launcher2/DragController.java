@@ -306,7 +306,6 @@ public class DragController {
 		final DragView dragView = mDragObject.dragView = new DragView(
 				mLauncher, b, registrationX, registrationY, 0, 0, b.getWidth(),
 				b.getHeight(), initialDragViewScale);
-		mLauncher.showItem(dragView);
 		if (dragOffset != null) {
 			dragView.setDragVisualizeOffset(new Point(dragOffset));
 		}
@@ -316,6 +315,7 @@ public class DragController {
 		// 将拖拽的图标显示在DragLayer中
 		dragView.show(mMotionDownX, mMotionDownY);
 		handleMoveEvent(mMotionDownX, mMotionDownY);
+		mLauncher.showItem(dragView);
 	}
 
 	/**
