@@ -2377,24 +2377,26 @@ public final class Launcher extends Activity
         return true;
     }
     QuickActionWindow qa;
-    public void showItem(View v){
+    public void showItem(DragObject v){
+    	DragView dragView= v.dragView;
     	if(mState!=State.WORKSPACE)return;
     	int[] xy=new int[2];
-    	v.getLocationInWindow(xy);
-    	Rect rect = new Rect(xy[0]+50, xy[1], xy[0]+v.getWidth(), xy[1]+v.getHeight());
-    	 qa = new QuickActionWindow(this, v, rect);
-    	v.setTag(R.id.TAG_PREVIEW, qa);
+    	dragView.getLocationInWindow(xy);
+    	Rect rect = new Rect(xy[0]+50, xy[1], xy[0]+dragView.getWidth(), xy[1]+dragView.getHeight());
+    	 qa = new QuickActionWindow(this, dragView, rect);
+    	 dragView.setTag(R.id.TAG_PREVIEW, qa);
     	qa.addItem(getResources().getDrawable(android.R.drawable.ic_menu_delete), "删除", new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
 				 final LauncherModel model = getModel();
 				 if(lastLongClickView instanceof FolderIcon){
-					 
 				 }
 				 if(lastLongClickView instanceof BubbleTextView){
+					 
 				 }
 				 if(lastLongClickView instanceof LauncherAppWidgetHostView){
+					 
 				 }
 				qa.dismiss();
 			}});

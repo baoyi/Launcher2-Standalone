@@ -314,7 +314,7 @@ public class DragController {
 		// 将拖拽的图标显示在DragLayer中
 		dragView.show(mMotionDownX, mMotionDownY);
 		handleMoveEvent(mMotionDownX, mMotionDownY);
-		mLauncher.showItem(dragView);
+		mLauncher.showItem(mDragObject);
 		mTagPopup = dragView.getTag(R.id.TAG_PREVIEW);
 	}
 
