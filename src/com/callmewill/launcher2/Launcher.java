@@ -2377,27 +2377,45 @@ public final class Launcher extends Activity
         return true;
     }
     QuickActionWindow qa;
-    public void showItem(DragObject v){
-    	DragView dragView= v.dragView;
+    public void showItem(final DragObject dragObject){
+    	DragView dragView= dragObject.dragView;
     	if(mState!=State.WORKSPACE)return;
     	int[] xy=new int[2];
     	dragView.getLocationInWindow(xy);
     	Rect rect = new Rect(xy[0]+50, xy[1], xy[0]+dragView.getWidth(), xy[1]+dragView.getHeight());
     	 qa = new QuickActionWindow(this, dragView, rect);
     	 dragView.setTag(R.id.TAG_PREVIEW, qa);
+    	 final ItemInfo item = (ItemInfo) dragObject.dragInfo;
     	qa.addItem(getResources().getDrawable(android.R.drawable.ic_menu_delete), "删除", new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
 				 final LauncherModel model = getModel();
 				 if(lastLongClickView instanceof FolderIcon){
+					 FolderInfo folderInfo = (FolderInfo) item;
+			            removeFolder(folderInfo);
+			            LauncherModel.deleteFolderContentsFromDatabase(Launcher.this, folderInfo);
 				 }
 				 if(lastLongClickView instanceof BubbleTextView){
-					 
+					  LauncherModel.deleteItemFromDatabase(Launcher.this, item);
 				 }
 				 if(lastLongClickView instanceof LauncherAppWidgetHostView){
-					 
-				 }
+			            // Remove the widget from the workspace
+			            removeAppWidget((LauncherAppWidgetInfo) item);
+			            LauncherModel.deleteItemFromDatabase(Launcher.this, item);
+
+			            final LauncherAppWidgetInfo launcherAppWidgetInfo = (LauncherAppWidgetInfo) item;
+			            final LauncherAppWidgetHost appWidgetHost = Launcher.this.getAppWidgetHost();
+			            if (appWidgetHost != null) {
+			                // Deleting an app widget ID is a void call but writes to disk before returning
+			                // to the caller...
+			                new Thread("deleteAppWidgetId") {
+			                    public void run() {
+			                        appWidgetHost.deleteAppWidgetId(launcherAppWidgetInfo.appWidgetId);
+			                    }
+			                }.start();
+			            }
+			        }
 				qa.dismiss();
 			}});
     	if(lastLongClickView instanceof FolderIcon){
