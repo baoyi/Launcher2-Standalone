@@ -182,7 +182,7 @@ public class DragController {
 	private float mLastMotionX;
 	private float mLastMotionY;
 
-	private static final int SCROLL_ZONE = 20;
+	private static final int SCROLL_ZONE = 50;
 
 	// TODO ssss
 	/**
@@ -208,8 +208,6 @@ public class DragController {
 			Object dragInfo, int dragAction, Rect dragRegion,
 			float initialDragViewScale) {
 
-		mTagPopup = v.getTag(R.id.TAG_PREVIEW);
-
 		int[] loc = mCoordinatesTemp;
 		mLauncher.getDragLayer().getLocationInDragLayer(v, loc);
 		int dragLayerX = loc[0]
@@ -228,8 +226,6 @@ public class DragController {
 			v.setVisibility(View.GONE);
 		}
 
-		mOriginalX = mLastMotionX;
-		mOriginalY = mLastMotionY;
 	}
 
 	/**
@@ -312,10 +308,14 @@ public class DragController {
 		if (dragRegion != null) {
 			dragView.setDragRegion(new Rect(dragRegion));
 		}
+
+		mOriginalX = mLastMotionX;
+		mOriginalY = mLastMotionY;
 		// 将拖拽的图标显示在DragLayer中
 		dragView.show(mMotionDownX, mMotionDownY);
 		handleMoveEvent(mMotionDownX, mMotionDownY);
 		mLauncher.showItem(dragView);
+		mTagPopup = dragView.getTag(R.id.TAG_PREVIEW);
 	}
 
 	/**

@@ -2337,7 +2337,7 @@ public final class Launcher extends Activity
         }
         folder.animateClosed();
     }
-
+    private View lastLongClickView;
     public boolean onLongClick(View v) {
         if (!isDraggingEnabled()) return false;
         if (isWorkspaceLocked()) return false;
@@ -2368,19 +2368,9 @@ public final class Launcher extends Activity
                 startWallpaper();
             } else {
                 if (!(itemUnderLongClick instanceof Folder)) {
+                	lastLongClickView=itemUnderLongClick;
                     // User long pressed on an item
-                	if(itemUnderLongClick instanceof FolderIcon){
-                		Toast.makeText(this, "FolderIcon", 0).show();
-                	}
-                	if(itemUnderLongClick instanceof BubbleTextView){
-                		Toast.makeText(this, "BubbleTextView", 0).show();
-                	}
-                	if(itemUnderLongClick instanceof LauncherAppWidgetHostView){
-                		Toast.makeText(this, "LauncherAppWidgetHostView", 0).show();
-                	}
-//                	showItem(itemUnderLongClick);
                     mWorkspace.startDrag(longClickCellInfo);
-//                    showItem(itemUnderLongClick);
                 }
             }
         }
@@ -2388,17 +2378,35 @@ public final class Launcher extends Activity
     }
     QuickActionWindow qa;
     public void showItem(View v){
+    	if(mState!=State.WORKSPACE)return;
     	int[] xy=new int[2];
     	v.getLocationInWindow(xy);
-    	Rect rect = new Rect(xy[0], xy[1], xy[0]+v.getWidth(), xy[1]+v.getHeight());
+    	Rect rect = new Rect(xy[0]+50, xy[1], xy[0]+v.getWidth(), xy[1]+v.getHeight());
     	 qa = new QuickActionWindow(this, v, rect);
     	v.setTag(R.id.TAG_PREVIEW, qa);
     	qa.addItem(getResources().getDrawable(android.R.drawable.ic_menu_delete), "删除", new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
+				 final LauncherModel model = getModel();
+				 if(lastLongClickView instanceof FolderIcon){
+					 
+				 }
+				 if(lastLongClickView instanceof BubbleTextView){
+				 }
+				 if(lastLongClickView instanceof LauncherAppWidgetHostView){
+				 }
 				qa.dismiss();
 			}});
+    	if(lastLongClickView instanceof FolderIcon){
+    		Toast.makeText(this, "FolderIcon", 0).show();
+    	}
+    	if(lastLongClickView instanceof BubbleTextView){
+    		Toast.makeText(this, "BubbleTextView", 0).show();
+    	}
+    	if(lastLongClickView instanceof LauncherAppWidgetHostView){
+    		Toast.makeText(this, "LauncherAppWidgetHostView", 0).show();
+    	}
     	qa.show();
     }
     
