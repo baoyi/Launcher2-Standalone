@@ -17,6 +17,22 @@
 
 package com.callmewill.launcher2;
 
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.FileDescriptor;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.animation.Animator;
@@ -77,6 +93,7 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.Surface;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.View.OnLongClickListener;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
@@ -92,7 +109,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.callmewill.launcher2.R;
 import com.callmewill.launcher2.DropTarget.DragObject;
 import com.callmewill.launcher2.cache.IconCache;
 import com.callmewill.launcher2.entity.ApplicationInfo;
@@ -119,25 +135,11 @@ import com.callmewill.launcher2.widget.HolographicImageView;
 import com.callmewill.launcher2.widget.HolographicLinearLayout;
 import com.callmewill.launcher2.widget.Hotseat;
 import com.callmewill.launcher2.widget.LauncherAppWidgetHost;
+import com.callmewill.launcher2.widget.LauncherAppWidgetHostView;
 import com.callmewill.launcher2.widget.SearchDropTargetBar;
 import com.callmewill.launcher2.widget.SmoothPagedView;
 import com.callmewill.launcher2.widget.Workspace;
-
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.FileDescriptor;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import com.devoteam.quickaction.QuickActionWindow;
 
 /**
  * Default launcher application.
@@ -2365,13 +2367,44 @@ public final class Launcher extends Activity
             } else {
                 if (!(itemUnderLongClick instanceof Folder)) {
                     // User long pressed on an item
+                	if(itemUnderLongClick instanceof FolderIcon){
+                		Toast.makeText(this, "FolderIcon", 0).show();
+                	}
+                	if(itemUnderLongClick instanceof BubbleTextView){
+                		Toast.makeText(this, "BubbleTextView", 0).show();
+                	}
+                	if(itemUnderLongClick instanceof LauncherAppWidgetHostView){
+                		Toast.makeText(this, "LauncherAppWidgetHostView", 0).show();
+                	}
+//                	showItem(itemUnderLongClick);
                     mWorkspace.startDrag(longClickCellInfo);
                 }
             }
         }
         return true;
     }
+    QuickActionWindow qa;
+    public void showItem(View v){
+    	int[] xy=new int[2];
+    	v.getLocationInWindow(xy);
+    	Rect rect = new Rect(xy[0], xy[1], xy[0]+v.getWidth(), xy[1]+v.getHeight());
+    	 qa = new QuickActionWindow(this, v, rect);
+    	v.setTag(R.id.TAG_PREVIEW, qa);
+    	qa.addItem(getResources().getDrawable(android.R.drawable.ic_menu_delete), "删除", new OnClickListener() {
 
+			@Override
+			public void onClick(View v) {
+				qa.dismiss();
+			}});
+    	qa.show();
+    }
+    
+    public void closeQuickAction(){
+    	if(qa!=null&&qa.isShowing()){
+    		qa.dismiss();
+    	}
+    }
+    
     public boolean isHotseatLayout(View layout) {
         return mHotseat != null && layout != null &&
                 (layout instanceof CellLayout) && (layout == mHotseat.getLayout());
