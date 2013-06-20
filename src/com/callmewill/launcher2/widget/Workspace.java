@@ -3898,7 +3898,7 @@ public class Workspace extends SmoothPagedView
             }
         }
     }
-
+    
     public void moveToDefaultScreen(boolean animate) {
         if (!isSmall()) {
             if (animate) {
@@ -4007,4 +4007,8 @@ public class Workspace extends SmoothPagedView
             }
         }
     }
+
+	public void updateShortcutFromApplicationInfo(CellLayout celllayout, View lastLongClickView, ShortcutInfo info) {
+		addApplicationShortcut(info, celllayout, info.container, info.screen, info.cellX, info.cellY, mLauncher.isWorkspaceLocked(), info.cellX, info.cellY);
+	}
 }

@@ -16,6 +16,8 @@
 
 package com.callmewill.launcher2;
 
+import static android.util.Log.w;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.FileDescriptor;
@@ -55,11 +57,13 @@ import android.content.ComponentName;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.Intent.ShortcutIconResource;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
+import android.content.pm.ResolveInfo;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.database.ContentObserver;
@@ -74,6 +78,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
+import android.os.Parcelable;
 import android.os.StrictMode;
 import android.os.SystemClock;
 import android.provider.Settings;
@@ -110,6 +115,7 @@ import android.widget.Toast;
 
 import com.callmewill.launcher2.DropTarget.DragObject;
 import com.callmewill.launcher2.cache.IconCache;
+import com.callmewill.launcher2.drawable.FastBitmapDrawable;
 import com.callmewill.launcher2.entity.ApplicationInfo;
 import com.callmewill.launcher2.entity.FolderInfo;
 import com.callmewill.launcher2.entity.ItemInfo;
@@ -122,6 +128,7 @@ import com.callmewill.launcher2.provider.LauncherSettings;
 import com.callmewill.launcher2.receiver.InstallShortcutReceiver;
 import com.callmewill.launcher2.receiver.LauncherModel;
 import com.callmewill.launcher2.utils.LauncherAnimUtils;
+import com.callmewill.launcher2.utils.Utilities;
 import com.callmewill.launcher2.widget.AppsCustomizePagedView;
 import com.callmewill.launcher2.widget.AppsCustomizeTabHost;
 import com.callmewill.launcher2.widget.BubbleTextView;
@@ -674,6 +681,13 @@ public final class Launcher extends Activity implements View.OnClickListener,
 	@Override
 	protected void onActivityResult(final int requestCode,
 			final int resultCode, final Intent data) {
+		if(requestCode==REQUEST_EDIT_SHIRTCUT){
+			if(resultCode==RESULT_OK){
+				completeEditShirtcut(data);
+			}
+			return;
+		}
+		
 		if (requestCode == REQUEST_BIND_APPWIDGET) {
 			int appWidgetId = data != null ? data.getIntExtra(
 					AppWidgetManager.EXTRA_APPWIDGET_ID, -1) : -1;
@@ -733,6 +747,58 @@ public final class Launcher extends Activity implements View.OnClickListener,
 				delayExitSpringLoadedMode, null);
 	}
 
+	private void completeEditShirtcut(Intent data) {
+		if (!data.hasExtra(CustomShirtcutActivity.EXTRA_APPLICATIONINFO))
+			return;
+		long appInfoId = data.getLongExtra(CustomShirtcutActivity.EXTRA_APPLICATIONINFO, 0);
+		ShortcutInfo info = new LauncherProvider().getItemInfoById(appInfoId, this);
+		if (info != null) {
+			Bitmap bitmap = data.getParcelableExtra(Intent.EXTRA_SHORTCUT_ICON);
+
+	        Drawable icon = null;
+	        boolean customIcon = false;
+	        ShortcutIconResource iconResource = null;
+
+	        if (bitmap != null) {
+	            icon = new FastBitmapDrawable(Utilities.createBitmapThumbnail(bitmap, this));
+	            customIcon = true;
+	        } else {
+	            Parcelable extra = data.getParcelableExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE);
+	            if (extra != null && extra instanceof ShortcutIconResource) {
+	                try {
+	                    iconResource = (ShortcutIconResource) extra;
+	                    final PackageManager packageManager = getPackageManager();
+	                    Resources resources = packageManager.getResourcesForApplication(
+	                            iconResource.packageName);
+	                    final int id = resources.getIdentifier(iconResource.resourceName, null, null);
+	                    icon = resources.getDrawable(id);
+	                } catch (Exception e) {
+	                    w(TAG, "Could not load shortcut icon: " + extra);
+	                }
+	            }
+	        }
+
+	        if (icon != null) {
+		        info.setIcon(bitmap);
+		        info.customIcon = customIcon;
+		        info.iconResource = iconResource;
+	        }
+            info.itemType = LauncherSettings.Favorites.ITEM_TYPE_SHORTCUT;
+			info.title = data.getStringExtra(Intent.EXTRA_SHORTCUT_NAME);
+			info.intent = data.getParcelableExtra(Intent.EXTRA_SHORTCUT_INTENT);
+			LauncherModel.updateItemInDatabase(this, info);
+			CellLayout celllayout=null;
+			if(lastLongClickView!=null){
+				celllayout=getWorkspace().getParentCellLayoutForView(lastLongClickView);
+				celllayout.removeView(lastLongClickView);
+			}
+			//TODO workspace更新未完成
+			mWorkspace.updateShortcutFromApplicationInfo(celllayout,lastLongClickView,info);
+			mWorkspaceLoading=false;
+			mWaitingForResult=false;
+		}
+	}
+	
 	private void completeTwoStageWidgetDrop(final int resultCode,
 			final int appWidgetId) {
 		CellLayout cellLayout = (CellLayout) mWorkspace
@@ -2652,9 +2718,10 @@ public final class Launcher extends Activity implements View.OnClickListener,
 
 	QuickActionWindow qa;
 
+	//TODO 显示item
 	public void showItem(final DragObject dragObject){
+		if(mState!=State.WORKSPACE)return;
     	DragView dragView= dragObject.dragView;
-    	if(mState!=State.WORKSPACE)return;
     	int[] xy=new int[2];
     	dragView.getLocationInWindow(xy);
     	Rect rect = new Rect(xy[0]+50, xy[1], xy[0]+dragView.getWidth(), xy[1]+dragView.getHeight());
@@ -2674,22 +2741,70 @@ public final class Launcher extends Activity implements View.OnClickListener,
 				qa.dismiss();
 			}});
     	if(lastLongClickView instanceof FolderIcon){
-    		Toast.makeText(this, "FolderIcon", 0).show();
+    		Toast.makeText(this, "FolderIcon", Toast.LENGTH_SHORT).show();
+    		
     	}
     	if(lastLongClickView instanceof BubbleTextView){
-    		Toast.makeText(this, "BubbleTextView", 0).show();
+    		final ShortcutInfo appInfo=(ShortcutInfo) item;
+    		qa.addItem(getResources().getDrawable(android.R.drawable.ic_menu_manage), "卸载", new OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					String UninstallPkg=null;
+					
+                    if(item instanceof ShortcutInfo){
+                        try{
+                            if(appInfo.getPackageName() != null)
+                                UninstallPkg = appInfo.getPackageName();
+                            else
+                            {
+                                PackageManager mgr = Launcher.this.getPackageManager();
+                                ResolveInfo res = mgr.resolveActivity(appInfo.intent, 0);
+                                UninstallPkg = res.activityInfo.packageName;
+                            }
+                            // Dont uninstall ADW ;-)
+                            if (this.getClass().getPackage().getName().equals(UninstallPkg))
+                                UninstallPkg = null;
+                        }catch (Exception e) {
+                            Log.w("ddv", "Could not load shortcut icon: " + item);
+                            UninstallPkg=null;
+                        }
+                    }else if(item instanceof LauncherAppWidgetInfo){
+                        LauncherAppWidgetInfo appwidget=(LauncherAppWidgetInfo) item;
+                        final AppWidgetProviderInfo aw=AppWidgetManager.getInstance(Launcher.this).getAppWidgetInfo(appwidget.appWidgetId);
+                        if(aw!=null)UninstallPkg=aw.provider.getPackageName();
+                    }
+                    if(UninstallPkg!=null){
+                        Intent uninstallIntent = new Intent(Intent.ACTION_DELETE, Uri.parse("package:"+UninstallPkg));
+                        Launcher.this.startActivity(uninstallIntent);
+                    }
+                    qa.dismiss();
+				}
+			});
+    		Toast.makeText(this, "BubbleTextView", Toast.LENGTH_SHORT).show();
+    		qa.addItem(getResources().getDrawable(android.R.drawable.ic_menu_edit), "编辑", new OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					Toast.makeText(Launcher.this, appInfo.id+"", Toast.LENGTH_SHORT).show();
+					editShirtcut(appInfo);
+					qa.dismiss();
+				}
+			});
     	}
     	if(lastLongClickView instanceof LauncherAppWidgetHostView){
     		Toast.makeText(this, "LauncherAppWidgetHostView", 0).show();
     	}
     	qa.show();
     }
-
-	public void closeQuickAction() {
-		if (qa != null && qa.isShowing()) {
-			qa.dismiss();
-		}
+	
+    private static final int REQUEST_EDIT_SHIRTCUT = 12;
+    
+	void editShirtcut(ShortcutInfo info) {
+		Intent edit = new Intent(Intent.ACTION_EDIT);
+		edit.setClass(this, CustomShirtcutActivity.class);
+		edit.putExtra(CustomShirtcutActivity.EXTRA_APPLICATIONINFO, info.id);
+		startActivityForResult(edit, REQUEST_EDIT_SHIRTCUT);
 	}
+
 
 	public boolean isHotseatLayout(View layout) {
 		return mHotseat != null && layout != null

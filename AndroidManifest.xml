@@ -153,6 +153,9 @@
             android:name="com.callmewill.launcher2.MainActivity"
             android:label="@string/title_activity_main" >
         </activity>
+        <activity android:name="CustomShirtcutActivity"
+            android:theme="@android:style/Theme.Dialog"
+            ></activity>
         
     </application>
 

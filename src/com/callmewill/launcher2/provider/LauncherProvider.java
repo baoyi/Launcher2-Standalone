@@ -28,6 +28,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.Intent.ShortcutIconResource;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
@@ -43,6 +44,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.provider.Settings;
 import android.text.TextUtils;
 import android.util.AttributeSet;
@@ -57,6 +59,7 @@ import com.callmewill.launcher2.R.string;
 import com.callmewill.launcher2.R.styleable;
 import com.callmewill.launcher2.R.xml;
 import com.callmewill.launcher2.entity.ItemInfo;
+import com.callmewill.launcher2.entity.ShortcutInfo;
 import com.callmewill.launcher2.provider.LauncherSettings.Favorites;
 import com.callmewill.launcher2.utils.Utilities;
 
@@ -106,8 +109,53 @@ public class LauncherProvider extends ContentProvider {
         return true;
     }
 
+    public  ShortcutInfo getItemInfoById(long id,Context context){
+    	ShortcutInfo info=null;
+    	if(mOpenHelper==null){
+    		mOpenHelper = new DatabaseHelper(context);
+    	}
+    	SQLiteDatabase db=mOpenHelper.getReadableDatabase();
+    	String sql="select * from favorites where _id=?";
+    	Cursor cursor=db.rawQuery(sql, new String[]{""+id});
+    	if(cursor.moveToNext()){
+    		info=new ShortcutInfo();
+    		info.id=cursor.getInt(cursor.getColumnIndex(Favorites._ID));
+    		info.title=cursor.getString(cursor.getColumnIndex(Favorites.TITLE));
+    		String i=cursor.getString(cursor.getColumnIndex(Favorites.INTENT));
+    		try {
+				info.intent=Intent.parseUri(i, 0);
+			} catch (URISyntaxException e) {
+				e.printStackTrace();
+			}
+    		info.container=cursor.getInt(cursor.getColumnIndex(Favorites.CONTAINER));
+    		info.screen=cursor.getInt(cursor.getColumnIndex(Favorites.SCREEN));
+    		info.cellX=cursor.getInt(cursor.getColumnIndex(Favorites.CELLX));
+    		info.cellY=cursor.getInt(cursor.getColumnIndex(Favorites.CELLY));
+    		info.spanX=cursor.getInt(cursor.getColumnIndex(Favorites.SPANX));
+    		info.spanY=cursor.getInt(cursor.getColumnIndex(Favorites.SPANY));
+    		info.itemType=cursor.getInt(cursor.getColumnIndex(Favorites.ITEM_TYPE));
+    		if(info.intent!=null){
+    			ShortcutIconResource iconResource = null;
+    			Parcelable extra = info.intent.getParcelableExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE);
+    			if (extra != null && extra instanceof ShortcutIconResource) {
+    				try {
+    					iconResource = (ShortcutIconResource) extra;
+    				} catch (Exception e) {
+    					Log.w(TAG, "Could not load shortcut icon: " + extra);
+    				}
+    			}
+    			info.iconResource=iconResource;
+    		}
+    		Bitmap b=getIconFromCursor(cursor,cursor
+					.getColumnIndexOrThrow(LauncherSettings.Favorites.ICON),getContext());
+    		info.setIcon(b);
+    	}
+    	cursor.close();
+    	db.close();
+    	return info;
+    }
     /**
-     * 根据Uri来判断操作的是集合还是单挑
+     * 根据Uri来判断操作的是集合还是单条
      */
     @Override
     public String getType(Uri uri) {
@@ -242,7 +290,7 @@ public class LauncherProvider extends ContentProvider {
         }
     }
 
-    private static class DatabaseHelper extends SQLiteOpenHelper {
+    public static class DatabaseHelper extends SQLiteOpenHelper {
         private static final String TAG_FAVORITES = "favorites";
         private static final String TAG_FAVORITE = "favorite";
         private static final String TAG_CLOCK = "clock";
@@ -1156,8 +1204,30 @@ public class LauncherProvider extends ContentProvider {
             }
             return id;
         }
-    }
 
+    }
+    
+    static Bitmap getIconFromCursor(Cursor c, int iconIndex, Context context) {
+		@SuppressWarnings("all")
+		// suppress dead code warning
+		final boolean debug = false;
+		if (debug) {
+			Log.d(TAG,
+					"getIconFromCursor app="
+							+ c.getString(c
+									.getColumnIndexOrThrow(LauncherSettings.Favorites.TITLE)));
+		}
+		byte[] data = c.getBlob(iconIndex);
+		try {
+			return Utilities.createIconBitmap(
+					BitmapFactory.decodeByteArray(data, 0, data.length),
+					context);
+		} catch (Exception e) {
+			return null;
+		}
+	}
+   
+    
     /**
      * Build a query string that will match any row where the column matches
      * anything in the values list.

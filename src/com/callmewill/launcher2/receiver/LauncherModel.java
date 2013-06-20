@@ -359,9 +359,9 @@ public class LauncherModel extends BroadcastReceiver {
 					+ "Error: ItemInfo passed to checkItemInfo doesn't match original";
 			RuntimeException e = new RuntimeException(msg);
 			if (stackTrace != null) {
-				e.setStackTrace(stackTrace);
+//				e.setStackTrace(stackTrace);
 			}
-			throw e;
+//			throw e;
 		}
 	}
 
@@ -378,7 +378,7 @@ public class LauncherModel extends BroadcastReceiver {
 		runOnWorkerThread(r);
 	}
 
-	static void updateItemInDatabaseHelper(Context context,
+	public static void updateItemInDatabaseHelper(Context context,
 			final ContentValues values, final ItemInfo item,
 			final String callingFunction) {
 		final long itemId = item.id;
@@ -388,6 +388,8 @@ public class LauncherModel extends BroadcastReceiver {
 		final StackTraceElement[] stackTrace = new Throwable().getStackTrace();
 		Runnable r = new Runnable() {
 			public void run() {
+				Log.d("ddv", uri+"");
+				ContentValues v=values;
 				cr.update(uri, values, null, null);
 
 				// Lock on mBgLock *after* the db operation
